@@ -110,6 +110,7 @@ def accept_guess(guess_index):
 
 
 def run():
+    
     print("========================GAME START========================\n")
 
     while(string_win_condition != "Lose" or string_win_condition != "Win"):
