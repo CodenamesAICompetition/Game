@@ -1,16 +1,20 @@
 import game
 import codemaster
 
-class guesser:
+class human_guesser:
+
+    def __init__():
+        pass
+
     def get_clue(clue):
 
         print(clue)
 
 
-    def get_board(board_list):
+    def get_board():
 
-       #game.display_board()
-       pass
+       game.display_board()
+
 
     def give_answer(words):
 

@@ -1,17 +1,20 @@
 import game
 import codemaster
 
-class guesser:
+class bot_guesser:
 
+    def __init__():
+        pass
+    
     def get_clue(clue):
 
         print(clue)
 
 
-    def get_board():
+    def get_board(board_list):
 
-       game.display_board()
-
+       #game.display_board()
+       pass
 
     def give_answer(words):
 

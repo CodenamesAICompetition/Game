@@ -1,11 +1,26 @@
 import random
-import codemaster
-import guesser
 import array
+import sys
+
+from players import *
 
 # https://codeshare.io/aJgPVZ
 # must use python3 when running on terminal
+
+
 def main():
+
+    if sys.argv[1] == "human":
+        codemaster = human_codemaster()
+
+    else:
+        codemaster = bot_codemaster()
+
+    if sys.argv[2] == "human":
+        guesser = human_guesser()
+
+    else:
+        guesser = bot_guesser()
 
     # open the text file for random selection - readonly
     f = open("CNWordList.txt", "r")
@@ -27,6 +42,7 @@ def main():
 
         # initialize back as a list
         words = list(words)
+
 
 def random_map_generation():
 
@@ -115,7 +131,7 @@ def run():
 
     while(string_win_condition != "Lose" or string_win_condition != "Win"):
 
-        words_in_play = game.list_words()
+        words_in_play = list_words()
 
         codemaster.get_board()
         clue, num = codemaster.give_clue()
@@ -134,9 +150,9 @@ def run():
 
             guess_answer_index = words_in_play.index(guess_answer.upper())
 
-            string_win_condition = game.accept_guess(guess_answer_index)
+            string_win_condition = accept_guess(guess_answer_index)
 
-            game.display_board()
+            display_board()
 
 
             # add score tracker here
@@ -155,13 +171,14 @@ def run():
                 break
 
 
-
 if __name__ == "__main__":
 
     main()
     random_map_generation()
+
     global string_win_condition
     string_win_condition = "Hit_Red"
+
     run()
 
 

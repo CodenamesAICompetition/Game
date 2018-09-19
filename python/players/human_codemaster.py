@@ -1,20 +1,19 @@
 import game
 
-class codemaster:
+class human_codemaster:
+
 	def __init__():
 		pass
 
 	def get_board(board_list):
 
-	    #game.display_board()
-	    #game.display_map()
-	    pass
+	    game.display_board()
+	    
 
 	def get_map(map_list):
 
-	    #game.display_board()
-	    #game.display_map()
-	    pass
+		game.display_map()
+
 
 	def give_clue():
 
