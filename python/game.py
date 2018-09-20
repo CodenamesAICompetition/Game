@@ -50,8 +50,6 @@ class Game:
         random.shuffle(self.map)
 
 
-        
-        
 
     def display_board(self):
 
@@ -126,29 +124,38 @@ class Game:
             self.words[guess_index] = "*Civilian*"
             return "Still Going"
 
-
+          
     def cls(self):
-        print('\n'*20)
-
-
+      
+        print('\n'*7)
+        
+        
     def run(self):
+      
         string_win_condition = "Hit_Red"
         print("========================GAME START========================\n")
 
       
         while(string_win_condition != "Lose" or string_win_condition != "Win"):
+          
             self.cls()
             words_in_play = self.list_words()
             self.codemaster.get_board(words_in_play)
+            
             self.display_board()
             self.display_map()
+            
             clue, num = self.codemaster.give_clue()
             num = int(num)
+            number = num
             clue = str(clue)
+            
             self.cls()
             self.display_board()
             self.guesser.get_clue(clue,num)
+            
             string_win_condition = "Hit_Red"
+            
             while(string_win_condition == "Hit_Red" and num >= 0):
 
                 num -= 1
@@ -162,18 +169,22 @@ class Game:
 
 
                 if string_win_condition == "Hit_Red":
-                    self.cls();
-                    self.display_board();
-                    string_win_condition = "Hit_Red"
                     
-                if string_win_condition == "Still Going":
+                    self.cls()
+                    self.display_board()
+                    print("The clue is : ",clue," ",number,sep="")
+                    
+                elif string_win_condition == "Still Going":
                     break
 
                 elif string_win_condition == "Lose":
-                    print("You Lose")
+                    self.display_board()
+                    print("You Lost")
                     exit()
+                    
 
                 elif string_win_condition == "Win":
+                    self.display_board()
                     print("You Won")
                     exit()
 
