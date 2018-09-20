@@ -22,6 +22,7 @@ class human_codemaster(codemaster):
                 type(clue_input)
                 clue = clue_input.split()
                 return clue
+                
 class bot_codemaster(codemaster):
         def __init__():
             pass

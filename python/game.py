@@ -132,21 +132,20 @@ class Game:
         string_win_condition = "Hit_Red"
         print("========================GAME START========================\n")
 
+        num = 8
         while(string_win_condition != "Lose" or string_win_condition != "Win"):
             self.cls()
             words_in_play = self.list_words()
             self.codemaster.get_board(words_in_play)
             self.display_board()
             self.display_map()
-            clue, num = self.codemaster.give_clue()
-            num = int(num)
+            clue, number = self.codemaster.give_clue()
+            number = int(number)
             clue = str(clue)
             self.cls()
             self.display_board()
-            self.guesser.get_clue(clue,num)
-
+            self.guesser.get_clue(clue,number)
             string_win_condition = "Hit_Red"
-
             while(string_win_condition == "Hit_Red" and num >= 0):
 
                 num -= 1
@@ -161,18 +160,18 @@ class Game:
 
                 # add score tracker here
                 if string_win_condition == "Hit_Red":
-                    string_win_condition = "Hit_Red"
+                    break
 
                 elif string_win_condition == "Still Going":
                     break
 
                 elif string_win_condition == "Lose":
                     print("You Lose")
-                    break
+                    exit()
 
                 elif string_win_condition == "Win":
                     print("You Won")
-                    break
+                    exit()
 
 
 if __name__ == "__main__":

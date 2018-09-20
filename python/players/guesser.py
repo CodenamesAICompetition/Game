@@ -10,13 +10,12 @@ class human_guesser(guesser):
 
     def get_clue(self,clue,num):
 
-        print("The clue is: ",clue,num,sep="")
+        print("The clue is: ",clue,num,sep=" ")
 
 
     def get_board(self,words):
         self.words = words
         
-
 
     def give_answer(self):
 
@@ -37,5 +36,6 @@ class human_guesser(guesser):
 
         if result.upper() in self.words:
             return True
+
         else:
             return False
