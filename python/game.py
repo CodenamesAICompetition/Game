@@ -126,25 +126,28 @@ class Game:
             self.words[guess_index] = "*Civilian*"
             return "Still Going"
 
+
     def cls(self):
-        print('\n'*50)
+        print('\n'*20)
+
+
     def run(self):
         string_win_condition = "Hit_Red"
         print("========================GAME START========================\n")
 
-        num = 8
+      
         while(string_win_condition != "Lose" or string_win_condition != "Win"):
             self.cls()
             words_in_play = self.list_words()
             self.codemaster.get_board(words_in_play)
             self.display_board()
             self.display_map()
-            clue, number = self.codemaster.give_clue()
-            number = int(number)
+            clue, num = self.codemaster.give_clue()
+            num = int(num)
             clue = str(clue)
             self.cls()
             self.display_board()
-            self.guesser.get_clue(clue,number)
+            self.guesser.get_clue(clue,num)
             string_win_condition = "Hit_Red"
             while(string_win_condition == "Hit_Red" and num >= 0):
 
@@ -158,11 +161,12 @@ class Game:
                 string_win_condition = self.accept_guess(guess_answer_index)
 
 
-                # add score tracker here
                 if string_win_condition == "Hit_Red":
-                    break
-
-                elif string_win_condition == "Still Going":
+                    self.cls();
+                    self.display_board();
+                    string_win_condition = "Hit_Red"
+                    
+                if string_win_condition == "Still Going":
                     break
 
                 elif string_win_condition == "Lose":
