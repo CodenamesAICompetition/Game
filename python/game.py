@@ -7,9 +7,10 @@ from players.codemaster import *
 from players.guesser import *
 
 # https://codeshare.io/aJgPVZ
-# must use python3 when running on terminal
+# if default python version isn't python3, must use python3 when running on terminal
 
 class Game:
+    
     guesser = 0
     words = 0
     codemaster = 0
@@ -18,15 +19,15 @@ class Game:
 
     def __init__(self):
         
-        #if sys.argv[1] == "human":
-        self.codemaster = human_codemaster()
-        #else:
-        # self.codemaster = bot_codemaster()
+        if sys.argv[1] == "human":
+            self.codemaster = human_codemaster()
+        else:
+            self.codemaster = bot_codemaster()
 
-        #if sys.argv[2] == "human":
-        self.guesser = human_guesser()
-        #else:
-        #self.guesser = bot_guesser()
+        if sys.argv[2] == "human":
+            self.guesser = human_guesser()
+        else:
+            self.guesser = bot_guesser()
 
         # open the text file for random selection - readonly
         f = open("CNWordList.txt", "r")
