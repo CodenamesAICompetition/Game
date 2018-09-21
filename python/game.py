@@ -10,7 +10,7 @@ from players.guesser import *
 # if default python version isn't python3, must use python3 when running on terminal
 
 class Game:
-    
+
     guesser = 0
     words = 0
     codemaster = 0
@@ -128,7 +128,7 @@ class Game:
           
     def cls(self):
       
-        print('\n'*7)
+        print('\n'*11)
         
         
     def run(self):

@@ -23,7 +23,7 @@ class human_guesser(guesser):
 
     def give_answer(self):
 
-        # answer input
+        # input answer
         answer_input = input("Guesser makes turn.\nPlease enter a valid Word >> ")
         type(answer_input)
 
@@ -54,9 +54,9 @@ class bot_guesser(guesser):
 
     def give_answer(self):
 
-        # answer inputesser makes turn.\nPlease enter a valid Word >> ")
         answer_input = "Hello"
         answer_input = random.choice(self.words)
+
         if(answer_input.startswith('*')):
             return self.give_answer()
         return answer_input
@@ -76,21 +76,4 @@ class bot_guesser(guesser):
     #         return False
     #     else:
     #         return True
-
-    # def give_answer(self):
-
-    #     # answer input
-    #     temp_words = self.words.copy()
-
-    #     # for every word in temp_words that starts with a * is removed from temp_words
-    #     for word in temp_words:
-    #         if word.startswith("*"):
-    #             temp_words.remove(word)
-
-    #     print("Guesser:\nPlease enter a valid Word >> ")
-    #     bot_answer = random.choice(temp_words)
-    #     temp_words.remove(bot_answer)
-    #     print(bot_answer)
-
-    #     return bot_answer
 

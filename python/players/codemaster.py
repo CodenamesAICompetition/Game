@@ -35,7 +35,6 @@ class bot_codemaster(codemaster):
     def __init__(self):
         pass
 
-
     def get_board(self,words):
 
         self.words = words
@@ -44,26 +43,16 @@ class bot_codemaster(codemaster):
 
         self.bot_array = bot_array
 
-    def __init__(self):
+    def give_clue(self):
 
+        # assuming none of the words in botwordlist is also in CNwordlist, gotta add that
         f = open("BotWordList.txt", "r")
         if f.mode == 'r':
             temp_arr = f.read().splitlines()
-            bot_array = set([])
 
-        for x in range(0, 8):
-            bot_array.add(random.choice(temp_arr))
-
-        if len(bot_array) != 8:
-            self.__init__()
-
-        self.bot_array = list(bot_array)
-
-    def give_clue(self):
-
-        bot_clue_input = random.choice(self.bot_array)
-        bot_num_input = random.randint(1, 3)
-        clue = [str(bot_clue_input), str(bot_num_input)]
+        bot_string_input = random.choice(temp_arr)
+        bot_num_input = random.randint(1, 8)
+        clue = [str(bot_string_input), str(bot_num_input)]
         return clue
 
 
