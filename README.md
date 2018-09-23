@@ -98,7 +98,11 @@ Play proceeds, passing back and forth, until one of 3 outcomes is achieved:
 ## Competition Rules
 
 Competition rules have not been fully settled yet.
-
+Must install:
+	--python 3
+	--nltk
+	--wordnet
+	--textblob
 
 
 
