@@ -23,11 +23,13 @@ class Game:
         
         if sys.argv[1] == "human":
             self.codemaster = human_codemaster()
+
         else:
             self.codemaster = bot_codemaster()
 
         if sys.argv[2] == "human":
             self.guesser = human_guesser()
+
         else:
             self.guesser = bot_guesser()
 
@@ -98,11 +100,12 @@ class Game:
         # CodeMaster will always win with Red and lose with Blue or Assassin
         if self.map[guess_index] == "Red":
 
+            self.words[guess_index] = "*Red*"
+
             if self.words.count("*Red*") >= 8:
 
                 return "Win"
-
-            self.words[guess_index] = "*Red*"
+            
             return "Hit_Red"
 
             
@@ -131,6 +134,41 @@ class Game:
     def cls(self):
       
         print('\n'*11)
+
+
+    def write_results(self):
+
+        red_result = 0
+        blue_result = 0
+        civ_result = 0
+        assa_result = 0
+
+        # if the guesser wasn't human
+        if not sys.argv[2] == "human":
+
+            for i in range(len(self.words)):
+
+                if self.words[i] == "*Red*":
+                    red_result += 1
+
+                elif self.words[i] == "*Blue*":
+                    blue_result += 1
+
+                elif self.words[i] == "*Civilian*":
+                    civ_result += 1
+
+                elif self.words[i] == "*Assassin*":
+                    assa_result += 1
+
+            # append file
+            f = open("bot_results.txt", "a")
+
+            # if successfully opened start appending
+            if f.mode == 'a':
+                f.write("R: %d B: %d C: %d A: %d\r\n" % (red_result, blue_result, civ_result, assa_result))
+
+            f.close()
+
         
         
     def run(self):
@@ -183,12 +221,14 @@ class Game:
                 elif string_win_condition == "Lose":
                     self.display_board()
                     print("You Lost")
+                    self.write_results()
                     exit()
                     
 
                 elif string_win_condition == "Win":
                     self.display_board()
                     print("You Won")
+                    self.write_results()
                     exit()
 
 
