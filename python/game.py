@@ -5,8 +5,6 @@ import sys
 
 from players.codemaster import *
 from players.guesser import *
-# should install Wordnet through nltk and also textblob
-from textblob import Word
 
 # https://codeshare.io/aJgPVZ
 # if default python version isn't python3, must use python3 when running on terminal

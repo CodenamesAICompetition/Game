@@ -1,15 +1,16 @@
 
-from textblob import Word
+from nltk.corpus import wordnet as wn
 
 def sss():
-	word = Word("plant")
-	print(word.synsets[:5])
-	print(word.definitions[:5])
-	plant = word.synsets[1]
+	print(wn.synsets('sofa'))
 
-	print(plant)
-	print(plant.lemma_names)
-	print(plant.hypernyms())
-	print(plant.hyponyms()[:3])
+	print(wn.synsets('ocean'))
+	print(wn.synset('sofa.n.01').definition())
+	print(wn.synset('pasta.n.01').hyponyms())
+	print(wn.synset('pasta.n.01').hypernyms())
+	print(wn.synset('dish.n.02').definition())
+	print(wn.synset('snore.v.01').entailments())
+	print(wn.synset('kitchen.n.01').part_holonyms() )
+	
 
 sss()
