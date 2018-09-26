@@ -104,9 +104,11 @@ Installation:
 * For macOS users, who don't have `pip3` or `python3` recognized in terminal, simply open terminal and type in `brew install python3` and check to see if `pip3` is a recognized command. If it is move on to the next step, if not type `brew postinstall python3`
 * Type in `sudo pip3 install -U nltk`
 * Finally type in terminal: 
-```python
+```
+python
 >>> import nltk
->>> nltk.download('all')```
+>>> nltk.download('all')
+```
 
 
 
