@@ -1,3 +1,8 @@
+# https://codeshare.io/aJgPVZ
+
+# Steps to perform before live:
+# 
+
 import random
 import array
 import os
@@ -5,9 +10,11 @@ import sys
 
 from players.codemaster import *
 from players.guesser import *
+from nltk.corpus import wordnet
+from nltk.corpus import words
+from nltk.stem import WordNetLemmatizer
+# The WordNet corpus reader gives access to the Open Multilingual WordNet, using ISO-639 language codes.
 
-# https://codeshare.io/aJgPVZ
-# if default python version isn't python3, must use python3 when running on terminal
 
 class Game:
 
@@ -130,8 +137,8 @@ class Game:
 
           
     def cls(self):
-      
-        print('\n'*11)
+        
+        print('\n'*4)
 
 
     def write_results(self):
@@ -167,6 +174,58 @@ class Game:
 
             f.close()
 
+
+    def compare_synset(self, word_a, word_b):
+
+        if not word_a in words.words() or not word_b in words.words():
+            return "Not a word"
+
+        # [Synset('string_word.n.01'), Synset('string_word.n.02')] etc.
+        potato_list = []
+        
+        for i in synset_array_a:
+            for j in synset_array_b:
+
+                synset_array_a = wordnet.synsets(word_a)
+                synset_array_b = wordnet.synsets(word_b)
+
+                if synset_array_a and synset_array_b:
+
+                    similar = synset_array_a[0].wup_similarity(synset_array_b[0])
+                    potato_list.append(similar)
+
+        print(max(potato_list))
+
+
+        #(wordnet.synset('snore.v.01').entailments())
+        # [Synset('sleep.v.01')]
+
+        #(wordnet.synset('kitchen.n.01').part_holonyms())
+        # [Synset('dwelling.n.01')]
+
+        #(wordnet.synset('kitchen.n.01').part_meronyms())
+
+        #(wordnet.synset('pasta.n.01').hyponyms())
+        # Synset('lasagna.n.01'), Synset('macaroni_and_cheese.n.01'), Synset('spaghetti.n.01')]
+
+        # (wordnet.synset('pasta.n.01').hypernyms())
+        # [Synset('dish.n.02')]
+
+
+    def check_singular(self, wordy):
+
+        bool_plur, lemma = self.isplural(wordy)
+        print(wordy, lemma, bool_plur)
+
+        # if the word is plural return true, elsewise false
+        return bool_plur
+
+    def isplural(self, wordy):
+
+        wnl = WordNetLemmatizer()
+        lemma = wnl.lemmatize(wordy, 'n')
+        plural = True if wordy is not lemma else False
+        return plural, lemma
         
         
     def run(self):
@@ -183,15 +242,26 @@ class Game:
             
             self.display_board()
             self.display_map()
-            
+
+
             clue, num = self.codemaster.give_clue()
             num = int(num)
             number = num
             clue = str(clue)
+
+            # will check codemaster string clue for singularity/pluralneess
+            plural = self.check_singular(clue)
+
+            # if the word is not singular return true, elsewise false
+            if plural:
+                print ("Invalid clue from bot")
+            else:
+                print ("Valid clue from bot")
+
             
             self.cls()
             self.display_board()
-            self.guesser.get_clue(clue,num)
+            self.guesser.get_clue(clue, num)
             
             string_win_condition = "Hit_Red"
             
@@ -201,6 +271,9 @@ class Game:
                 self.guesser.get_board(words_in_play)
 
                 guess_answer = self.guesser.give_answer()
+
+                # added synset analyzer
+                self.compare_synset(guess_answer, clue)
 
                 guess_answer_index = words_in_play.index(guess_answer.upper())
 

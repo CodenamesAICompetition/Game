@@ -11,9 +11,9 @@ class human_guesser(guesser):
     def init(self):
         pass
 
-    def get_clue(self,clue,num):
+    def get_clue(self, clue, num):
 
-        print("The clue is: ",clue,num,sep="")
+        print("The clue is: ", clue, num, sep="")
 
 
     def get_board(self,words):
@@ -28,10 +28,12 @@ class human_guesser(guesser):
         type(answer_input)
 
         while not self.is_valid(answer_input):
+
             print("Input Invalid")
             print(self.words)
             answer_input = input("Please enter a valid Word >> ")
             type(answer_input)
+
         return answer_input
 
 
@@ -59,6 +61,7 @@ class bot_guesser(guesser):
 
         if(answer_input.startswith('*')):
             return self.give_answer()
+            
         return answer_input
 
     #     while self.is_valid(answer_input):
