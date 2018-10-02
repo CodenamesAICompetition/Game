@@ -6,48 +6,48 @@ from itertools import product
 from nltk.stem import WordNetLemmatizer
 
 
-def word_synset(word_a, word_b):
-
-    if not word_a in words.words() and not word_b in words.words():
-        print("Not a word")
+def word_synset(word_a, word_b, lch_threshold=2.15, verbose=True):
 
     brown_ic = wordnet_ic.ic('ic-brown.dat')
     semcor_ic = wordnet_ic.ic('ic-semcor.dat')
+    results = []
 
-    potato_list = []
-    synset_array_a = wordnet.synsets(word_a)
-    synset_array_b = wordnet.synsets(word_b)
+    for list_a in wordnet.synsets(word_a):
+        for list_b in wordnet.synsets(word_b):
 
-    # for i in synset_array_a:
-    #   for j in synset_array_b:
+            try:
+                lch = list_a.lch_similarity(list_b)
 
-    #       temp_a = synset_array_a.
-    #       .lch_similarity(word_b)
+            except:
+                continue
 
-    # wup returns a score of 0 - 1, where 1 is a higher probabilty in favor
-    wup = max((wordnet.wup_similarity(s1, s2) or 0, s1, s2) for s1, s2 in product(synset_array_a, synset_array_b))
-    print("wup:\t", wup)
+            # The value to compare the LCH to was found empirically.
+            # (The value is very application dependent. Experiment!)
 
+            if lch >= lch_threshold:
+                results.append((list_a, list_b))
+
+    if not results:
+        return False
+
+    if verbose:
+
+        for list_a, list_b in results:
+            print("path:\t", list_a.path_similarity(list_b))
+            print("lch:\t", list_a.lch_similarity(list_b))
+            print("wup:\t", list_a.wup_similarity(list_b))
+
+    return True
+
+
+    # res_brown = synset_array_a[0].res_similarity(synset_array_b[0], brown_ic)
+    # print("res:\t", res_brown)
     
-    path = max((wordnet.path_similarity(s1, s2) or 0, s1, s2) for s1, s2 in product(synset_array_a, synset_array_b))
-    print("path:\t", path)
+    # jcn = synset_array_a[0].jcn_similarity(synset_array_b[0], brown_ic)
+    # print("jcn:\t", jcn)
 
-    # lch must have same part of speech --> noun vs noun
-    # lch gives a score of 3.6~ for maximum similarity (literally identical)
-    # lch also gives a score of 2.484 for immediate childs/parents, such as apple.n.01, and pear.n.01
-    # this command takes a while
-    lch = wordnet.lch_similarity(synset_array_a[0], synset_array_b[0])
-    print("lch:\t", lch)
-
-    # res will give pretty high numbers, the higher the number ~12 the greater the similarity
-    res_brown = synset_array_a[0].res_similarity(synset_array_b[0], brown_ic)
-    print("res:\t", res_brown)
-    
-    jcn = synset_array_a[0].jcn_similarity(synset_array_b[0], brown_ic)
-    print("jcn:\t", jcn)
-
-    lin = synset_array_a[0].lin_similarity(synset_array_b[0], brown_ic)
-    print("lin:\t", lin)
+    # lin = synset_array_a[0].lin_similarity(synset_array_b[0], brown_ic)
+    # print("lin:\t", lin)
 
 
 
@@ -74,6 +74,6 @@ def is_plural(wordy):
     return plural, lemma
 
 
-word_synset("say", "titan")
+word_synset("titan", "say")
 
 

@@ -37,7 +37,7 @@ class Game:
 
         # open the text file for random selection - readonly
         f = open("Game_Wordlist.txt", "r")
-        
+
         # if successfully opened split and randomly generate 25 words
         if f.mode == 'r':            
             # contains all words from text file as an array
@@ -172,8 +172,6 @@ class Game:
 
             f.close()
 
-
-        
         
     def run(self):
       
