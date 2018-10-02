@@ -10,9 +10,6 @@ import sys
 
 from players.codemaster import *
 from players.guesser import *
-from nltk.corpus import wordnet
-from nltk.corpus import words
-from nltk.stem import WordNetLemmatizer
 # The WordNet corpus reader gives access to the Open Multilingual WordNet, using ISO-639 language codes.
 
 
@@ -39,7 +36,7 @@ class Game:
             self.guesser = bot_guesser()
 
         # open the text file for random selection - readonly
-        f = open("CNWordList.txt", "r")
+        f = open("Game_Wordlist.txt", "r")
         # if successfully opened split and randomly generate 25 words
         if f.mode == 'r':            
             # contains all words from text file as an array
@@ -175,57 +172,6 @@ class Game:
             f.close()
 
 
-    def compare_synset(self, word_a, word_b):
-
-        if not word_a in words.words() or not word_b in words.words():
-            return "Not a word"
-
-        # [Synset('string_word.n.01'), Synset('string_word.n.02')] etc.
-        potato_list = []
-        
-        for i in synset_array_a:
-            for j in synset_array_b:
-
-                synset_array_a = wordnet.synsets(word_a)
-                synset_array_b = wordnet.synsets(word_b)
-
-                if synset_array_a and synset_array_b:
-
-                    similar = synset_array_a[0].wup_similarity(synset_array_b[0])
-                    potato_list.append(similar)
-
-        print(max(potato_list))
-
-
-        #(wordnet.synset('snore.v.01').entailments())
-        # [Synset('sleep.v.01')]
-
-        #(wordnet.synset('kitchen.n.01').part_holonyms())
-        # [Synset('dwelling.n.01')]
-
-        #(wordnet.synset('kitchen.n.01').part_meronyms())
-
-        #(wordnet.synset('pasta.n.01').hyponyms())
-        # Synset('lasagna.n.01'), Synset('macaroni_and_cheese.n.01'), Synset('spaghetti.n.01')]
-
-        # (wordnet.synset('pasta.n.01').hypernyms())
-        # [Synset('dish.n.02')]
-
-
-    def check_singular(self, wordy):
-
-        bool_plur, lemma = self.isplural(wordy)
-        print(wordy, lemma, bool_plur)
-
-        # if the word is plural return true, elsewise false
-        return bool_plur
-
-    def isplural(self, wordy):
-
-        wnl = WordNetLemmatizer()
-        lemma = wnl.lemmatize(wordy, 'n')
-        plural = True if wordy is not lemma else False
-        return plural, lemma
         
         
     def run(self):
