@@ -37,6 +37,7 @@ class Game:
 
         # open the text file for random selection - readonly
         f = open("Game_Wordlist.txt", "r")
+        
         # if successfully opened split and randomly generate 25 words
         if f.mode == 'r':            
             # contains all words from text file as an array
@@ -189,21 +190,8 @@ class Game:
             self.display_board()
             self.display_map()
 
-
             clue, num = self.codemaster.give_clue()
             num = int(num)
-            number = num
-            clue = str(clue)
-
-            # will check codemaster string clue for singularity/pluralneess
-            plural = self.check_singular(clue)
-
-            # if the word is not singular return true, elsewise false
-            if plural:
-                print ("Invalid clue from bot")
-            else:
-                print ("Valid clue from bot")
-
             
             self.cls()
             self.display_board()
@@ -218,9 +206,6 @@ class Game:
 
                 guess_answer = self.guesser.give_answer()
 
-                # added synset analyzer
-                self.compare_synset(guess_answer, clue)
-
                 guess_answer_index = words_in_play.index(guess_answer.upper())
 
                 string_win_condition = self.accept_guess(guess_answer_index)
@@ -230,7 +215,7 @@ class Game:
                     
                     self.cls()
                     self.display_board()
-                    print("The clue is : ",clue," ",number,sep="")
+                    print("The clue is : ", clue, " ", num, sep="")
                     
                 elif string_win_condition == "Still Going":
                     break

@@ -3,17 +3,20 @@
 from abc import ABC, abstractmethod
 import random
 
+
 class guesser(ABC):
     words = 0
+
 
 class human_guesser(guesser):
 
     def init(self):
         pass
 
+
     def get_clue(self, clue, num):
 
-        print("The clue is: ", clue, num, sep="")
+        print("The clue is:", clue, num, sep=" ")
 
 
     def get_board(self,words):
@@ -41,12 +44,15 @@ class human_guesser(guesser):
 
         if result.upper() in self.words:
             return True
+
         else:
             return False
+
 
 class bot_guesser(guesser):
 
     def get_board(self, words):
+
         self.words = words
 
     def get_clue(self,clue,num):
