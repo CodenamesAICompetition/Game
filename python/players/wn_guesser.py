@@ -17,6 +17,9 @@ def word_synset(word_a, word_b, lch_threshold=2.15, verbose=True):
 
             try:
                 lch = list_a.lch_similarity(list_b)
+                res = list_a.res_similarity(list_b, brown_ic)
+                jcn = list_a.jcn_similarity(list_b, brown_ic)
+                lin = list_a.lin_similarity(list_b, brown_ic)
 
             except:
                 continue
@@ -33,9 +36,13 @@ def word_synset(word_a, word_b, lch_threshold=2.15, verbose=True):
     if verbose:
 
         for list_a, list_b in results:
+
             print("path:\t", list_a.path_similarity(list_b))
             print("lch:\t", list_a.lch_similarity(list_b))
             print("wup:\t", list_a.wup_similarity(list_b))
+            print("res:\t", list_a.res_similarity(list_b, brown_ic))
+            print("jcn:\t", list_a.jcn_similarity(list_b, brown_ic))
+            print("lin:\t", list_a.lin_similarity(list_b, brown_ic))
 
     return True
 
@@ -48,7 +55,6 @@ def word_synset(word_a, word_b, lch_threshold=2.15, verbose=True):
 
     # lin = synset_array_a[0].lin_similarity(synset_array_b[0], brown_ic)
     # print("lin:\t", lin)
-
 
 
 def is_word(word_a, word_b):
@@ -66,6 +72,17 @@ def check_singular(wordy):
     return bool_plur
 
 
+def test():
+
+    words = ['abc','def','xyz']
+    scores =[7, 7, 25]
+
+    score_words = [(s,w) for s,w  in zip(scores,words)]
+
+    print(score_words)
+    print(list(reversed(sorted(score_words))))
+
+
 def is_plural(wordy):
 
     wnl = WordNetLemmatizer()
@@ -74,6 +91,6 @@ def is_plural(wordy):
     return plural, lemma
 
 
-word_synset("titan", "say")
+word_synset("titan", "titan")
 
 
