@@ -4,57 +4,96 @@ from nltk.corpus import wordnet_ic
 from nltk.corpus import genesis
 from itertools import product
 from nltk.stem import WordNetLemmatizer
+from operator import itemgetter
 
 
-def word_synset(word_a, word_b, lch_threshold=2.15, verbose=True):
+def word_synset(clue, board):
 
     brown_ic = wordnet_ic.ic('ic-brown.dat')
-    semcor_ic = wordnet_ic.ic('ic-semcor.dat')
     results = []
+    count = 0
 
-    for list_a in wordnet.synsets(word_a):
-        for list_b in wordnet.synsets(word_b):
+    for i in (board):
+        for clue_list in wordnet.synsets(clue):
 
-            try:
-                lch = list_a.lch_similarity(list_b)
-                res = list_a.res_similarity(list_b, brown_ic)
-                jcn = list_a.jcn_similarity(list_b, brown_ic)
-                lin = list_a.lin_similarity(list_b, brown_ic)
+            per_clue = 0
+            wup_clue = 0
+            pat_clue = 0
+            res_clue = 0
+            jcn_clue = 0
+            lin_clue = 0
 
-            except:
-                continue
+            for board_list in wordnet.synsets(i):
 
-            # The value to compare the LCH to was found empirically.
-            # (The value is very application dependent. Experiment!)
+                try:
+                    # only if the two compared words have the same part of speech
+                    wup = clue_list.wup_similarity(board_list)
+                    pat = clue_list.path_similarity(board_list)
+                    lch = clue_list.lch_similarity(board_list)
+                    res = clue_list.res_similarity(board_list, brown_ic)
+                    jcn = clue_list.jcn_similarity(board_list, brown_ic)
+                    lin = clue_list.lch_similarity(board_list, brown_ic)
 
-            if lch >= lch_threshold:
-                results.append((list_a, list_b))
+                except:
+                    continue
 
+                # if lch is non-zero so are the other 3 algorithms (same part of speech was compared)
+                if lch:
+
+                    results.append(("lch: ", lch, count, clue_list, board_list, i))
+                    results.append(("res: ", res, count, clue_list, board_list, i))
+                    results.append(("jcn: ", jcn, count, clue_list, board_list, i))
+                    results.append(("lin: ", lin, count, clue_list, board_list, i))
+                    count += 1
+
+                    if lch > per_clue:
+                        per_clue = lch
+
+                    if res > res_clue:
+                        res_clue = res
+
+                    if jcn > jcn_clue:
+                        jcn_clue = jcn
+
+                    if lin > lin_clue:
+                        lin_clue = lin
+
+                # wup and path_sim always compares regardless of Part of Speech to an extent
+                if wup:
+                    results.append(("wup: ", wup, count, clue_list, board_list, i))
+                    results.append(("pat: ", pat, count, clue_list, board_list, i))
+                    count += 1
+
+                    if wup > wup_clue:
+                        wup_clue = wup
+
+                    if pat > pat_clue:
+                        pat_clue = pat      
+
+            print("lch: ", i, per_clue)
+            print("wup: ", i, wup_clue)
+            print("res: ", i, res_clue)
+            print("jcn: ", i, jcn_clue)
+            print("lin: ", i, lin_clue)
+            print("pat: ", i, pat_clue)
+            print('-'*30)
+
+    # if results list is empty
     if not results:
-        return False
+        return 0
 
-    if verbose:
-
-        for list_a, list_b in results:
-
-            print("path:\t", list_a.path_similarity(list_b))
-            print("lch:\t", list_a.lch_similarity(list_b))
-            print("wup:\t", list_a.wup_similarity(list_b))
-            print("res:\t", list_a.res_similarity(list_b, brown_ic))
-            print("jcn:\t", list_a.jcn_similarity(list_b, brown_ic))
-            print("lin:\t", list_a.lin_similarity(list_b, brown_ic))
-
-    return True
+    return max(results)
 
 
-    # res_brown = synset_array_a[0].res_similarity(synset_array_b[0], brown_ic)
-    # print("res:\t", res_brown)
-    
-    # jcn = synset_array_a[0].jcn_similarity(synset_array_b[0], brown_ic)
-    # print("jcn:\t", jcn)
+def test():
 
-    # lin = synset_array_a[0].lin_similarity(synset_array_b[0], brown_ic)
-    # print("lin:\t", lin)
+    words = ['abc','def','xyz']
+    scores =[7, 10, 25]
+
+    score_words = [(s,w) for s,w  in zip(scores,words)]
+
+    print(score_words)
+    print(list(reversed(sorted(score_words))))
 
 
 def is_word(word_a, word_b):
@@ -72,17 +111,6 @@ def check_singular(wordy):
     return bool_plur
 
 
-def test():
-
-    words = ['abc','def','xyz']
-    scores =[7, 7, 25]
-
-    score_words = [(s,w) for s,w  in zip(scores,words)]
-
-    print(score_words)
-    print(list(reversed(sorted(score_words))))
-
-
 def is_plural(wordy):
 
     wnl = WordNetLemmatizer()
@@ -91,6 +119,8 @@ def is_plural(wordy):
     return plural, lemma
 
 
-word_synset("titan", "titan")
+
+my_board = ["Potato", "Vegetable", "Tomato", "Chicken", "Salad", "Titan", "Human", "Puppy", "King", "Peasant", "Phone"]
+print(word_synset("Apple", my_board))
 
 
