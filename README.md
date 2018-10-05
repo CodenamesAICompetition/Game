@@ -126,5 +126,5 @@ import nltk
 nltk.download('all')
 ```
 * Then run the program by typing "python set.py"
-Nltk should now be installed
+* Nltk should now be installed
 
