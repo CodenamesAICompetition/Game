@@ -112,8 +112,8 @@ python
 ```
 Installation for Windows:
 * Head over to the [nltk website](https://pypi.org/project/nltk/#files)
-* Download the nltk file above
-* start a terminal and change into the nltk directory
+* Download the nltk file from the above link
+* Start a terminal and change into the nltk directory
 * Finally type in: 
 ```
 python setup.py install
@@ -126,5 +126,5 @@ import nltk
 nltk.download('all')
 ```
 * Then run the program by typing "python set.py"
-* nltk should now be installed
+Nltk should now be installed
 
