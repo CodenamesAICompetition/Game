@@ -2,7 +2,6 @@
 
 from abc import ABC, abstractmethod
 import random
-import players.wn_guesser as wn_guesser
 
 
 class guesser(ABC):
@@ -46,42 +45,3 @@ class human_guesser(guesser):
 
         else:
             return False
-
-
-class bot_guesser(guesser):
-
-    def get_board(self, words):
-
-        self.words = words
-        return words
-
-
-    def get_clue(self, clue, num):
-
-        self.clue = clue
-        print("The clue is:", clue, num, sep=" ")
-
-        li = [clue, num]
-        return li
-
-
-    def give_answer(self):
-
-        sorted_results = wn_guesser.word_synset(self.clue, self.words)
-
-        first_index_row = [i[0] for i in sorted_results]
-
-        for i in first_index_row:
-            print(i)
-
-        # testing res, change here for voting alg when possible
-        closest_synset = sorted_results[2][0]
-        print(closest_synset)
-
-        answer_input = closest_synset[5]
-        print(answer_input)
-        answer_input = str(answer_input)
-
-        return answer_input
-
-

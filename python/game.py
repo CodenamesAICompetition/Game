@@ -10,6 +10,7 @@ import sys
 
 from players.codemaster import *
 from players.guesser import *
+from players.wn_guesser import wn_guesser
 # The WordNet corpus reader gives access to the Open Multilingual WordNet, using ISO-639 language codes.
 
 
@@ -33,7 +34,7 @@ class Game:
             self.guesser = human_guesser()
 
         else:
-            self.guesser = bot_guesser()
+            self.guesser = wn_guesser()
 
         # open the text file for random selection - readonly
         f = open("Game_Wordlist.txt", "r")
