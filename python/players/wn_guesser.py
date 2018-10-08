@@ -132,13 +132,14 @@ def is_plural(wordy):
     return plural, lemma
 
 
+def run():
+    
+    my_board = ["Potato", "Crab", "Tomato", "Chicken", "Salad", "Titan", "Human", "Puppy", "King", "Peasant", "Phone"]
+    sorted_results = (word_synset("Food", my_board))
 
-my_board = ["Potato", "Vegetable", "Tomato", "Chicken", "Salad", "Titan", "Human", "Puppy", "King", "Peasant", "Phone"]
-sorted_results = (word_synset("Food", my_board))
-
-# grab the first index of the 2d list in each row
-first_index_row = [i[0] for i in sorted_results]
-for j in first_index_row:
-    print(j)
+    # grab the first index of the 2d list in each row
+    first_index_row = [i[0] for i in sorted_results]
+    for j in first_index_row:
+        print(j)
 
 
