@@ -10,18 +10,18 @@ from operator import itemgetter
 def word_synset(clue, board):
 
     brown_ic = wordnet_ic.ic('ic-brown.dat')
-    results = []
+    wup_results = []
+    pat_results = []
+    lch_results = []
+    res_results = []
+    jcn_results = []
+    lin_results = []
     count = 0
 
     for i in (board):
         for clue_list in wordnet.synsets(clue):
 
-            per_clue = 0
-            wup_clue = 0
-            pat_clue = 0
-            res_clue = 0
-            jcn_clue = 0
-            lin_clue = 0
+            per_clue = wup_clue = pat_clue = res_clue = jcn_clue = lin_clue = 0
 
             for board_list in wordnet.synsets(i):
 
@@ -40,10 +40,10 @@ def word_synset(clue, board):
                 # if lch is non-zero so are the other 3 algorithms (same part of speech was compared)
                 if lch:
 
-                    results.append(("lch: ", lch, count, clue_list, board_list, i))
-                    results.append(("res: ", res, count, clue_list, board_list, i))
-                    results.append(("jcn: ", jcn, count, clue_list, board_list, i))
-                    results.append(("lin: ", lin, count, clue_list, board_list, i))
+                    lch_results.append(("lch: ", lch, count, clue_list, board_list, i))
+                    res_results.append(("res: ", res, count, clue_list, board_list, i))
+                    jcn_results.append(("jcn: ", jcn, count, clue_list, board_list, i))
+                    lin_results.append(("lin: ", lin, count, clue_list, board_list, i))
                     count += 1
 
                     if lch > per_clue:
@@ -60,8 +60,9 @@ def word_synset(clue, board):
 
                 # wup and path_sim always compares regardless of Part of Speech to an extent
                 if wup:
-                    results.append(("wup: ", wup, count, clue_list, board_list, i))
-                    results.append(("pat: ", pat, count, clue_list, board_list, i))
+
+                    wup_results.append(("wup: ", wup, count, clue_list, board_list, i))
+                    pat_results.append(("pat: ", pat, count, clue_list, board_list, i))
                     count += 1
 
                     if wup > wup_clue:
@@ -79,10 +80,22 @@ def word_synset(clue, board):
             print('-'*30)
 
     # if results list is empty
-    if not results:
-        return 0
+    if not lch_results:
+        return []
 
-    return max(results)
+    wup_results = list(reversed(sorted(wup_results, key=take_second)))
+    pat_results = list(reversed(sorted(pat_results, key=take_second)))
+    lch_results = list(reversed(sorted(lch_results, key=take_second)))
+    res_results = list(reversed(sorted(res_results, key=take_second)))
+    jcn_results = list(reversed(sorted(jcn_results, key=take_second)))
+    lin_results = list(reversed(sorted(lin_results, key=take_second)))
+
+    results = [wup_results, pat_results, res_results, lch_results, lin_results, jcn_results]
+    return results
+
+
+def take_second(elem):
+    return elem[1]
 
 
 def test():
@@ -121,6 +134,11 @@ def is_plural(wordy):
 
 
 my_board = ["Potato", "Vegetable", "Tomato", "Chicken", "Salad", "Titan", "Human", "Puppy", "King", "Peasant", "Phone"]
-print(word_synset("Apple", my_board))
+sorted_results = (word_synset("Food", my_board))
+
+# grab the first index of the 2d list in each row
+first_index_row = [i[0] for i in sorted_results]
+for j in first_index_row:
+    print(j)
 
 
