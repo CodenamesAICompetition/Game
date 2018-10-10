@@ -6,6 +6,8 @@ from itertools import product
 from nltk.stem import WordNetLemmatizer
 from operator import itemgetter
 from players.guesser import guesser
+from collections import Counter
+import random
 
 class wn_guesser(guesser):
 
@@ -122,19 +124,24 @@ class wn_guesser(guesser):
         for i in first_index_row:
             print(i)
 
-        # testing res, change here for voting alg when possible
-        closest_synset = sorted_results[2][0]
-        print(closest_synset)
+        L = [sorted_results[0][0][5], sorted_results[1][0][5], sorted_results[2][0][5],
+             sorted_results[3][0][5], sorted_results[4][0][5], sorted_results[5][0][5]]
+        c = Counter(L)
 
-        # the 5th element of this list, which is a string word
-        answer_input = closest_synset[5]
-        answer_input = str(answer_input)
+        maxCount = c.most_common(2)[0][1]
+
+        most = []
+        for i, count in c.most_common():
+            if count != maxCount:
+                break
+            most.append(i)
+
+        answer_input = random.choice(most)
+
         print(answer_input)
         print('-'*40)
         
         return answer_input
-
-
 
 
     def take_second(self,elem):

@@ -198,7 +198,7 @@ class Game:
             
             string_win_condition = "Hit_Red"
             
-            while(string_win_condition == "Hit_Red" and num >= 0):
+            while(string_win_condition == "Hit_Red" and num > 0):
 
                 num -= 1
                 self.guesser.get_board(words_in_play)
