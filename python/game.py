@@ -37,7 +37,7 @@ class Game:
             self.guesser = wn_guesser()
 
         # open the text file for random selection - readonly
-        f = open("Game_Wordlist.txt", "r")
+        f = open("game_wordlist.txt", "r")
 
         # if successfully opened split and randomly generate 25 words
         if f.mode == 'r':            
@@ -195,12 +195,11 @@ class Game:
             self.cls()
             self.display_board()
             self.guesser.get_clue(clue, num)
-            
+            num -= 1
             string_win_condition = "Hit_Red"
             
-            while(string_win_condition == "Hit_Red" and num > 0):
+            while(string_win_condition == "Hit_Red" and num >= 0):
 
-                num -= 1
                 self.guesser.get_board(words_in_play)
 
                 guess_answer = self.guesser.give_answer()

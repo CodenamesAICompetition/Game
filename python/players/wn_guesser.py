@@ -2,8 +2,10 @@ from nltk.corpus import wordnet
 from nltk.corpus import words
 from nltk.corpus import wordnet_ic
 from nltk.corpus import genesis
-from itertools import product
+from nltk.probability import ConditionalFreqDist
+from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
+from itertools import product
 from operator import itemgetter
 from players.guesser import guesser
 from collections import Counter
@@ -124,19 +126,19 @@ class wn_guesser(guesser):
         for i in first_index_row:
             print(i)
 
-        L = [sorted_results[0][0][5], sorted_results[1][0][5], sorted_results[2][0][5],
+        most_common_word = [sorted_results[0][0][5], sorted_results[1][0][5], sorted_results[2][0][5],
              sorted_results[3][0][5], sorted_results[4][0][5], sorted_results[5][0][5]]
-        c = Counter(L)
 
-        maxCount = c.most_common(2)[0][1]
+        most_list = []
 
-        most = []
-        for i, count in c.most_common():
-            if count != maxCount:
+        for i, count in Counter(most_common_word).most_common():
+
+            if count != Counter(most_common_word).most_common(2)[0][1]:
                 break
-            most.append(i)
 
-        answer_input = random.choice(most)
+            most_list.append(i)
+
+        answer_input = random.choice(most_list)
 
         print(answer_input)
         print('-'*40)
@@ -146,17 +148,6 @@ class wn_guesser(guesser):
 
     def take_second(self,elem):
         return elem[1]
-
-
-    def test():
-
-        words = ['abc','def','xyz']
-        scores =[7, 10, 25]
-
-        score_words = [(s,w) for s,w  in zip(scores,words)]
-
-        print(score_words)
-        print(list(reversed(sorted(score_words))))
 
 
     def is_word(word_a, word_b):
@@ -181,15 +172,5 @@ class wn_guesser(guesser):
         plural = True if wordy is not lemma else False
         return plural, lemma
 
-
-    def run():
-
-        my_board = ["Potato", "Crab", "Tomato", "Chicken", "Salad", "Titan", "Human", "Puppy", "King", "Peasant", "Phone"]
-        sorted_results = (word_synset("Food", my_board))
-
-        # grab the first index of the 2d list in each row
-        first_index_row = [i[0] for i in sorted_results]
-        for j in first_index_row:
-            print(j)
 
 
