@@ -128,3 +128,10 @@ nltk.download('all')
 * Then run the program by typing "python set.py"
 * Nltk should now be installed
 
+Installing Gensim:
+
+* For windows, use anaconda:
+```conda install gensim```
+
+* For macOS, use easy_install or anaconda:
+```sudo easy_install --upgrade gensim```
