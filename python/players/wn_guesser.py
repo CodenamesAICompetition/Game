@@ -119,26 +119,30 @@ class wn_guesser(guesser):
 
         sorted_results = self.word_synset(self.clue, self.words)
 
-        first_index_row = [i[0] for i in sorted_results]
+        if(sorted_results):
 
-        print('-'*40)
+            first_index_row = [i[0] for i in sorted_results]
 
-        for i in first_index_row:
-            print(i)
+            print('-'*40)
 
-        most_common_word = [sorted_results[0][0][5], sorted_results[1][0][5], sorted_results[2][0][5],
+            for i in first_index_row:
+                print(i)
+
+            most_common_word = [sorted_results[0][0][5], sorted_results[1][0][5], sorted_results[2][0][5],
              sorted_results[3][0][5], sorted_results[4][0][5], sorted_results[5][0][5]]
 
-        most_list = []
+            most_list = []
 
-        for i, count in Counter(most_common_word).most_common():
+            for i, count in Counter(most_common_word).most_common():
+                if count != Counter(most_common_word).most_common(2)[0][1]:
+                    break
 
-            if count != Counter(most_common_word).most_common(2)[0][1]:
-                break
+                most_list.append(i)
 
-            most_list.append(i)
+            answer_input = random.choice(most_list)
 
-        answer_input = random.choice(most_list)
+        else:
+            return self.words[0]
 
         print(answer_input)
         print('-'*40)
@@ -150,27 +154,27 @@ class wn_guesser(guesser):
         return elem[1]
 
 
-    def is_word(word_a, word_b):
+    # def is_word(word_a, word_b):
 
-        if not word_a in words.words() or not word_b in words.words():
-            return "Not a word"
+    #     if not word_a in words.words() or not word_b in words.words():
+    #         return "Not a word"
 
         
-    def check_singular(wordy):
+    # def check_singular(wordy):
 
-        bool_plur, lemma = is_plural(wordy)
-        print(wordy, lemma, bool_plur)
+    #     bool_plur, lemma = is_plural(wordy)
+    #     print(wordy, lemma, bool_plur)
 
-        # if word is plural return true, elsewise false
-        return bool_plur
+    #     # if word is plural return true, elsewise false
+    #     return bool_plur
 
 
-    def is_plural(wordy):
+    # def is_plural(wordy):
 
-        wnl = WordNetLemmatizer()
-        lemma = wnl.lemmatize(wordy, 'n')
-        plural = True if wordy is not lemma else False
-        return plural, lemma
+    #     wnl = WordNetLemmatizer()
+    #     lemma = wnl.lemmatize(wordy, 'n')
+    #     plural = True if wordy is not lemma else False
+    #     return plural, lemma
 
 
 
