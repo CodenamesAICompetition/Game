@@ -128,6 +128,7 @@ class wn_guesser(guesser):
             for i in first_index_row:
                 print(i)
 
+            # simple voting alg
             most_common_word = [sorted_results[0][0][5], sorted_results[1][0][5], sorted_results[2][0][5],
              sorted_results[3][0][5], sorted_results[4][0][5], sorted_results[5][0][5]]
 
@@ -142,7 +143,10 @@ class wn_guesser(guesser):
             answer_input = random.choice(most_list)
 
         else:
-            return self.words[0]
+
+            for i in range(25):
+                if(self.words[i][0] is not '*'):
+                    return self.words[i]
 
         print(answer_input)
         print('-'*40)

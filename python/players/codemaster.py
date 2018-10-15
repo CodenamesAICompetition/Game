@@ -11,29 +11,24 @@ class codemaster(ABC):
     bot_array = 0
 
     def __init__(self):
-
         pass
 
 
     def get_map(self,map_list):
-
         self.map = map_list
         
 
     def give_clue(self):
-
         pass
 
 
 class human_codemaster(codemaster):
 
     def __init__(self):
-
         pass
 
 
     def get_board(self,words):
-
         self.words = words
 
 
@@ -52,17 +47,14 @@ class human_codemaster(codemaster):
 class bot_codemaster(codemaster):
 
     def __init__(self):
-
         pass
 
 
     def get_board(self,words):
-
         self.words = words
 
 
     def get_bot_text(self, bot_array):
-
         self.bot_array = bot_array
 
 

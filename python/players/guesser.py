@@ -1,12 +1,13 @@
 #guesser.py
 
-from abc import ABC, abstractmethod
+from abc import ABC
 import random
 
 
 class guesser(ABC):
     words = 0
     clue = 0
+
 
 class human_guesser(guesser):
 
