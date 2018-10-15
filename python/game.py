@@ -40,10 +40,12 @@ class Game:
         f = open("game_wordlist.txt", "r")
 
         # if successfully opened split and randomly generate 25 words
-        if f.mode == 'r':            
+        if f.mode == 'r': 
+
             # contains all words from text file as an array
             temp_array = f.read().splitlines()
             self.words = set([])
+
             # initialize the set words randomly
             for x in range(0, 25):
                 self.words.add(random.choice(temp_array))
@@ -176,11 +178,11 @@ class Game:
         
     def run(self):
       
-        string_win_condition = "Hit_Red"
+        string_condition = "Hit_Red"
         print("========================GAME START========================\n")
 
       
-        while(string_win_condition != "Lose" or string_win_condition != "Win"):
+        while(string_condition != "Lose" or string_condition != "Win"):
           
             self.cls()
             words_in_play = self.list_words()
@@ -196,36 +198,39 @@ class Game:
             self.display_board()
             self.guesser.get_clue(clue, num)
             num -= 1
-            string_win_condition = "Hit_Red"
+            string_condition = "Hit_Red"
             
-            while(string_win_condition == "Hit_Red" and num >= 0):
+            while(string_condition == "Hit_Red" and num >= 0):
 
                 self.guesser.get_board(words_in_play)
 
                 guess_answer = self.guesser.give_answer()
 
+                # if no comparisons were made/found than retry input from codemaster
+                if(guess_answer == ("no comparisons")):
+                    break
+
                 guess_answer_index = words_in_play.index(guess_answer.upper())
+                string_condition = self.accept_guess(guess_answer_index)
 
-                string_win_condition = self.accept_guess(guess_answer_index)
 
-
-                if string_win_condition == "Hit_Red":
+                if string_condition == "Hit_Red":
                     
                     self.cls()
                     self.display_board()
                     print("The clue is : ", clue, " ", num, sep="")
                     
-                elif string_win_condition == "Still Going":
+                elif string_condition == "Still Going":
                     break
 
-                elif string_win_condition == "Lose":
+                elif string_condition == "Lose":
                     self.display_board()
                     print("You Lost")
                     self.write_results()
                     exit()
                     
 
-                elif string_win_condition == "Win":
+                elif string_condition == "Win":
                     self.display_board()
                     print("You Won")
                     self.write_results()

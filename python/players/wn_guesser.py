@@ -118,7 +118,8 @@ class wn_guesser(guesser):
     def give_answer(self):
 
         sorted_results = self.word_synset(self.clue, self.words)
-
+        
+        # if non empty result list
         if(sorted_results):
 
             first_index_row = [i[0] for i in sorted_results]
@@ -141,12 +142,11 @@ class wn_guesser(guesser):
                 most_list.append(i)
 
             answer_input = random.choice(most_list)
+            status = False
 
+        # result list was empty
         else:
-
-            for i in range(25):
-                if(self.words[i][0] is not '*'):
-                    return self.words[i]
+            answer_input = "no comparisons"
 
         print(answer_input)
         print('-'*40)
