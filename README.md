@@ -108,7 +108,7 @@ Installation for nltk on macOS/linux:
 ```
 python
 >>> import nltk
->>> nltk.download('all')
+>>> nltk.download('wordnet')
 ```
 Installation for nltk on Windows:
 * Head over to the [nltk website](https://pypi.org/project/nltk/#files)
@@ -123,7 +123,7 @@ python setup.py install
 * Add these 2 lines of code:
 ```
 import nltk
-nltk.download('all')
+nltk.download('wordnet')
 ```
 * Then run the program by typing "python set.py"
 * Nltk should now be installed
