@@ -99,7 +99,7 @@ Play proceeds, passing back and forth, until one of 3 outcomes is achieved:
 
 Competition rules have not been fully settled yet.
 
-## Installation and Downloads
+## Prerequisite: Installation and Downloads
 Installation for nltk on macOS/linux:
 * Install python3 on your operation system. If python 2 and python 3 coexists in your Operating System than you must specify `python3` for your commands.
 * For macOS users, who don't have `pip3` or `python3` recognized in terminal, simply open terminal and type in `brew install python3` and check to see if `pip3` is a recognized command. If it is move on to the next step, if not type `brew postinstall python3`
@@ -130,10 +130,10 @@ nltk.download('all')
 
 Installing Gensim:
 
-* For windows, use anaconda:
+* For windows, using anaconda:
 ```conda install gensim```
 
-* For macOS, use easy_install or anaconda:
+* For macOS, using easy_install or anaconda(same as above):
 ```sudo easy_install --upgrade gensim```
 
 Installing AllenNLP:
