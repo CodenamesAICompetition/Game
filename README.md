@@ -136,6 +136,6 @@ Installing Gensim:
 * For macOS, use easy_install or anaconda:
 ```sudo easy_install --upgrade gensim```
 
-### These files must be installed as well, place them under your /players/ folder:
+### These files must be installed as well, place them under your /game/python/players/ folder:
 * https://nlp.stanford.edu/data/glove.6B.zip
 * https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit
