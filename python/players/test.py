@@ -44,6 +44,8 @@ def test_glove():
 
 def test_google_w2v():
 
+    # download from here ---->  https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit
+    # and move to this directory (~/Desktop/game/python/players)
 	model = word2vec.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
 
 	good = ['tick','well','bank','worm','change','back','fall','row']
