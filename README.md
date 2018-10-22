@@ -99,7 +99,7 @@ Play proceeds, passing back and forth, until one of 3 outcomes is achieved:
 
 Competition rules have not been fully settled yet.
 
-## Installation
+## Installation and Downloads
 Installation for nltk on macOS/linux:
 * Install python3 on your operation system. If python 2 and python 3 coexists in your Operating System than you must specify `python3` for your commands.
 * For macOS users, who don't have `pip3` or `python3` recognized in terminal, simply open terminal and type in `brew install python3` and check to see if `pip3` is a recognized command. If it is move on to the next step, if not type `brew postinstall python3`
@@ -108,7 +108,7 @@ Installation for nltk on macOS/linux:
 ```
 python
 >>> import nltk
->>> nltk.download('wordnet')
+>>> nltk.download('all')
 ```
 Installation for nltk on Windows:
 * Head over to the [nltk website](https://pypi.org/project/nltk/#files)
@@ -123,7 +123,7 @@ python setup.py install
 * Add these 2 lines of code:
 ```
 import nltk
-nltk.download('wordnet')
+nltk.download('all')
 ```
 * Then run the program by typing "python set.py"
 * Nltk should now be installed
@@ -135,3 +135,7 @@ Installing Gensim:
 
 * For macOS, use easy_install or anaconda:
 ```sudo easy_install --upgrade gensim```
+
+### These files must be installed as well, place them under your /players/ folder:
+* https://nlp.stanford.edu/data/glove.6B.zip
+* https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit
