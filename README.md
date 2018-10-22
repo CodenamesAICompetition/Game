@@ -136,6 +136,12 @@ Installing Gensim:
 * For macOS, use easy_install or anaconda:
 ```sudo easy_install --upgrade gensim```
 
+Installing AllenNLP:
+* open a terminal with pip/pip3 and type:
+```pip install allennlp```
+* Check if allennlp was successfully installed in python. 
+* (Note that your first time importing allennlp will install some files locally)
+
 ### These files must be installed as well, place them under your /game/python/players/ folder:
 * https://nlp.stanford.edu/data/glove.6B.zip (~2.25 GB)
 * https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit (~3.5 GB)
