@@ -1,6 +1,8 @@
 import numpy as np
 import gensim.models.keyedvectors as word2vec
 import itertools
+from allennlp.commands.elmo import ElmoEmbedder
+import scipy
 
 def test_glove():
 
@@ -46,22 +48,42 @@ def test_google_w2v():
 
     # download from here ---->  https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit
     # and move to this directory (~/Desktop/game/python/players)
-	model = word2vec.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
+    word_vectors = word2vec.KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
 
-	good = ['tick','well','bank','worm','change','back','fall','row']
-	good = ['degree','parachute','night','canada','litter','shoe','bolt','brush']
-	good = ['ground','post','soldier','lock', 'spy','life','egypt','alps']
-	good = ['berry','calf','turkey','heart','switch','fork','bug','ice']
-	bad = []
+    good = ['berry','calf','turkey','heart','switch','fork','bug','ice']
+    bad = []
 
-	for combo in list(itertools.combinations(good,2)):
+    for combo in list(itertools.combinations(good,2)):
 
-		best = model.most_similar_cosmul(list(combo),bad)
-		best = [t for t in best if '_' not in t[0]]
-		best = [t for t in best if not t[0][0].isupper()]
-		best = [t for t in best if combo[0] not in t[0].lower() and combo[1] not in t[0].lower()]
+        best = word_vectors.most_similar_cosmul(list(combo),bad)
+        best = [t for t in best if '_' not in t[0]]
+        best = [t for t in best if not t[0][0].isupper()]
+        best = [t for t in best if combo[0] not in t[0].lower() and combo[1] not in t[0].lower()]
 
-		print(combo,'\n','\n\t'.join([str(t) for t in  best if t[1] > 0.5]))
+        print(combo,'\n','\n\t'.join([str(t) for t in  best if t[1] > 0.5]))
 
-test_google_w2v()
+    result = word_vectors.most_similar(positive=['woman', 'king'], negative=['man'])
+    print("{}: {:.4f}".format(*result[0]))
+
+    similarity = word_vectors.similarity('woman', 'man')
+    print(similarity)
+
+
+def test_elmo():
+
+    elmo = ElmoEmbedder()
+    tokens = ["I", "ate", "an", "apple", "for", "breakfast"]
+
+    vectors = elmo.embed_sentence(tokens)
+    vectors2 = elmo.embed_sentence(["I", "ate", "a", "carrot", "for", "breakfast"])
+
+
+    # cosine distance between "ate" and "carrot" in the last layer
+    x = scipy.spatial.distance.cosine(vectors[2][3], vectors2[2][3])
+
+    print(x)
+
+
+
+test_elmo()
 
