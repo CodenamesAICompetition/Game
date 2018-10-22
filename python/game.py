@@ -11,6 +11,7 @@ import sys
 from players.codemaster import *
 from players.guesser import *
 from players.wn_guesser import wn_guesser
+from players.wn_codemaster import wn_codemaster
 # The WordNet corpus reader gives access to the Open Multilingual WordNet, using ISO-639 language codes.
 
 
@@ -28,7 +29,7 @@ class Game:
             self.codemaster = human_codemaster()
 
         else:
-            self.codemaster = bot_codemaster()
+            self.codemaster = wn_codemaster()
 
         if sys.argv[2] == "human":
             self.guesser = human_guesser()
@@ -197,11 +198,11 @@ class Game:
             self.cls()
             self.display_board()
             self.guesser.get_clue(clue, num)
-            num -= 1
             string_condition = "Hit_Red"
             
             while(string_condition == "Hit_Red" and num >= 0):
 
+                num -= 1
                 self.guesser.get_board(words_in_play)
 
                 guess_answer = self.guesser.give_answer()
@@ -218,7 +219,7 @@ class Game:
                     
                     self.cls()
                     self.display_board()
-                    print("The clue is : ", clue, " ", num, sep="")
+                    print("The clue is :", clue, num, sep=" ")
                     
                 elif string_condition == "Still Going":
                     break
@@ -235,6 +236,7 @@ class Game:
                     print("You Won")
                     self.write_results()
                     exit()
+
 
 
 if __name__ == "__main__":

@@ -5,12 +5,12 @@ import random
 
 
 class guesser(ABC):
+    
     words = 0
     clue = 0
 
 
 class human_guesser(guesser):
-
 
     def init(self):
         pass

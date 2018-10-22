@@ -44,31 +44,6 @@ class human_codemaster(codemaster):
         return clue
 
 
-class bot_codemaster(codemaster):
-
-    def __init__(self):
-        pass
-
-
-    def get_board(self,words):
-        self.words = words
-
-
-    def get_bot_text(self, bot_array):
-        self.bot_array = bot_array
-
-
-    def give_clue(self):
-
-        # assuming none of the words in botwordlist is also in CNwordlist, gotta add that
-        f = open("BotWordList.txt", "r")
-        if f.mode == 'r':
-            temp_arr = f.read().splitlines()
-
-        bot_string_input = random.choice(temp_arr)
-        bot_num_input = random.randint(1, 8)
-        clue = [str(bot_string_input), str(bot_num_input)]
-        return clue
 
 
 

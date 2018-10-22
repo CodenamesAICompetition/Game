@@ -1,15 +1,12 @@
 from nltk.corpus import wordnet
 from nltk.corpus import words
 from nltk.corpus import wordnet_ic
-from nltk.corpus import genesis
-from nltk.probability import ConditionalFreqDist
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
-from itertools import product
 from operator import itemgetter
 from players.guesser import guesser
 from collections import Counter
+import numpy as np
 import random
+
 
 class wn_guesser(guesser):
 
@@ -124,14 +121,14 @@ class wn_guesser(guesser):
 
             first_index_row = [i[0] for i in sorted_results]
 
-            print('-'*40)
 
             for i in first_index_row:
                 print(i)
 
             # simple voting alg
-            most_common_word = [sorted_results[0][0][5], sorted_results[1][0][5], sorted_results[2][0][5],
-             sorted_results[3][0][5], sorted_results[4][0][5], sorted_results[5][0][5]]
+            most_common_word = []
+            for i in range(0,5):
+                most_common_word.append(sorted_results[i][0][5])
 
             most_list = []
 
@@ -142,14 +139,12 @@ class wn_guesser(guesser):
                 most_list.append(i)
 
             answer_input = random.choice(most_list)
-            status = False
 
         # result list was empty
         else:
             answer_input = "no comparisons"
 
         print(answer_input)
-        print('-'*40)
         
         return answer_input
 
@@ -157,28 +152,6 @@ class wn_guesser(guesser):
     def take_second(self,elem):
         return elem[1]
 
-
-    # def is_word(word_a, word_b):
-
-    #     if not word_a in words.words() or not word_b in words.words():
-    #         return "Not a word"
-
-        
-    # def check_singular(wordy):
-
-    #     bool_plur, lemma = is_plural(wordy)
-    #     print(wordy, lemma, bool_plur)
-
-    #     # if word is plural return true, elsewise false
-    #     return bool_plur
-
-
-    # def is_plural(wordy):
-
-    #     wnl = WordNetLemmatizer()
-    #     lemma = wnl.lemmatize(wordy, 'n')
-    #     plural = True if wordy is not lemma else False
-    #     return plural, lemma
 
 
 
