@@ -6,42 +6,39 @@ import scipy
 
 def test_glove():
 
+    board = ["COFFEE", "POTATO", "CHICKEN", "CARROT", "LIGHT", 
+    "DARK", "GRIND", "KING", "PIN", "DEVIL", 
+    "ICE", "DOG", "ALADIN", "WOLF", "SWITCH", 
+    "TOGGLE", "GALAXY", "WIND", "SEASON", "FALL", 
+    "RAIN", "TOMATO", "FIRE", "FLY", "WINTER"]
+
+    clue = "FOOD"
+
     words = {}
+    result = []
+    i = 1
 
     # download from here, --> https://nlp.stanford.edu/data/glove.6B.zip
     # and move to this directory (~/Desktop/Game/python/players/glove)
     with open('glove/glove.6B.50d.txt') as infile:
         for line in infile:
+            i += 1
+            print(i)
             line = line.rstrip().split(' ')
             words[line[0]] = np.array([float(n) for n in line[1:]])
 
-    word1 = 'cat'
-    word2 = 'potato'
-    god = np.dot(words[word1]/np.linalg.norm(words[word1]),words[word2]/np.linalg.norm(words[word2]))
+    # for i in range(25):
 
-    print(word1, word2, god)
+    #     linalg = np.dot(words[board[i].lower()] / np.linalg.norm(words[board[i].lower()]),
+    #         words[clue.lower()] / np.linalg.norm(words[clue.lower()]))
+    #     result.append([board[i], clue, linalg])
 
-    word2 = 'tiger'
-    god = np.dot(words[word1]/np.linalg.norm(words[word1]),words[word2]/np.linalg.norm(words[word2]))
+    # result = list(reversed(sorted(result, key=take_third)))
+    # return result[:5]
 
-    print(word1, word2, god)
 
-    word2 = 'dog'
-    god = np.dot(words[word1]/np.linalg.norm(words[word1]),words[word2]/np.linalg.norm(words[word2]))
-
-    print(word1, word2, god)
-
-    word1 = 'chronological'
-    word2 = 'history'
-    god = np.dot(words[word1]/np.linalg.norm(words[word1]),words[word2]/np.linalg.norm(words[word2]))
-
-    print(word1, word2, god)
-
-    word1 = 'basketball'
-    word2 = 'orange'
-    god = np.dot(words[word1]/np.linalg.norm(words[word1]),words[word2]/np.linalg.norm(words[word2]))
-
-    print(word1, word2, god)
+def take_third(elem):
+    return elem[2]
 
 
 def test_google_w2v():
@@ -70,20 +67,42 @@ def test_google_w2v():
 
 
 def test_elmo():
+    board = ["China", "Potato", "Tomato", "Eggplant", "Nasa", "Kingdom"]
+    clue = "Wall"
 
-    elmo = ElmoEmbedder()
-    tokens = ["I", "ate", "an", "apple", "for", "breakfast"]
+    # hot = wordnet.synsets('hot')
+    # tokenized = [tokens.split(' ') for tokens in hot[8].examples()]
+    # print(tokenized)
 
-    vectors = elmo.embed_sentence(tokens)
-    vectors2 = elmo.embed_sentence(["I", "ate", "a", "carrot", "for", "breakfast"])
-
-
-    # cosine distance between "ate" and "carrot" in the last layer
-    x = scipy.spatial.distance.cosine(vectors[2][3], vectors2[2][3])
-
-    print(x)
+    vectors = ElmoEmbedder().embed_sentence(["I", "ate", "an", "apple", "for", "breakfast"])
+    vectors2 = ElmoEmbedder().embed_sentence(["I", "ate", "a", "carrot", "for", "breakfast"])
+    vectors3 = ElmoEmbedder().embed_sentence(["I", "ate", "a", "airplane", "for", "breakfast"])
+    carrot = ElmoEmbedder().embed_sentence(['carrot'])
+    apple = ElmoEmbedder().embed_sentence(['apple'])
 
 
+    hot_temp = ElmoEmbedder().embed_sentence(["It", "was", "a", "hot", "oven"])
+    hot_spicy = ElmoEmbedder().embed_sentence(["I", "ate", "a", "hot", "pepper"])
+    spicy = ElmoEmbedder().embed_sentence(['jalapeno', 'peppers', 'are', 'very', 'hot'])
 
-test_elmo()
+    spicy2 = ElmoEmbedder().embed_sentence(['hot','salsa'])
+    print('hot to spicy',scipy.spatial.distance.cosine(spicy2[2][0], spicy[2][4]))
+    print('hot to hot',scipy.spatial.distance.cosine(hot_spicy[2][3], hot_temp[2][3]))
+
+    board_vector = ElmoEmbedder().embed_sentence(board)
+    vec_clue = ElmoEmbedder().embed_sentence(clue)
+
+    for i in range(len(board)):
+        print(scipy.spatial.distance.cosine(board_vector[2][i], vec_clue[2][0]))
+
+
+def salmon():
+    w2v = [(0.3589853048324585, 'APPLE'), (0.8013214617967606, 'FLY'), 
+    (0.8053699284791946, 'GRASS'), (0.8500983864068985, 'FLUTE')]
+    glove = [(0.40823636894816195, 'APPLE'), (0.48846032017027585, 'GRASS'), 
+    (0.5819027688959142, 'MOUSE'), (0.6007173192984769, 'DAY')]
+    result = w2v[:4] + glove[:4]
+    print(result)
+
+test_glove()
 

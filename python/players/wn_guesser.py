@@ -4,11 +4,30 @@ from nltk.corpus import wordnet_ic
 from operator import itemgetter
 from players.guesser import guesser
 from collections import Counter
+from allennlp.commands.elmo import ElmoEmbedder
+import gensim.models.keyedvectors as word2vec
+import itertools
 import numpy as np
 import random
-
+import scipy
 
 class wn_guesser(guesser):
+
+    def __init__(self):
+
+        self.brown_ic = wordnet_ic.ic('ic-brown.dat')
+        print("IC corpus successfully imported")
+        self.word_vectors = word2vec.KeyedVectors.load_word2vec_format(
+            'players/GoogleNews-vectors-negative300.bin', binary=True)
+        print("Glove successfully imported")
+
+        self.glove_vecs = {}
+        with open('players/glove/glove.6B.50d.txt') as infile:
+            for line in infile:
+                line = line.rstrip().split(' ')
+                self.glove_vecs[line[0]] = np.array([float(n) for n in line[1:]])
+        # self.elmo = ElmoEmbedder()
+        
 
     def get_board(self, words):
 
@@ -25,117 +44,134 @@ class wn_guesser(guesser):
         return li
 
 
-    def word_synset(self,clue, board):
+    def wordnet_synset(self, clue, board):
 
-        brown_ic = wordnet_ic.ic('ic-brown.dat')
         wup_results = []
-        pat_results = []
-        lch_results = []
         res_results = []
-        jcn_results = []
-        lin_results = []
         count = 0
 
         for i in (board):
             for clue_list in wordnet.synsets(clue):
-
-                per_clue = wup_clue = pat_clue = res_clue = jcn_clue = lin_clue = 0
-
+                wup_clue = res_clue = 0
                 for board_list in wordnet.synsets(i):
-
                     try:
                         # only if the two compared words have the same part of speech
                         wup = clue_list.wup_similarity(board_list)
-                        pat = clue_list.path_similarity(board_list)
-                        lch = clue_list.lch_similarity(board_list)
-                        res = clue_list.res_similarity(board_list, brown_ic)
-                        jcn = clue_list.jcn_similarity(board_list, brown_ic)
-                        lin = clue_list.lch_similarity(board_list, brown_ic)
-
+                        res = clue_list.res_similarity(board_list, self.brown_ic)
                     except:
                         continue
-
                     # if lch is non-zero so are the other 3 algorithms (same part of speech was compared)
-                    if lch:
-
-                        lch_results.append(("lch: ", lch, count, clue_list, board_list, i))
+                    if res:
                         res_results.append(("res: ", res, count, clue_list, board_list, i))
-                        jcn_results.append(("jcn: ", jcn, count, clue_list, board_list, i))
-                        lin_results.append(("lin: ", lin, count, clue_list, board_list, i))
                         count += 1
-
-                        if lch > per_clue:
-                            per_clue = lch
 
                         if res > res_clue:
                             res_clue = res
 
-                        if jcn > jcn_clue:
-                            jcn_clue = jcn
-
-                        if lin > lin_clue:
-                            lin_clue = lin
-
-                    # wup and path_sim always compares regardless of Part of Speech to an extent
+                    # wup always compares regardless of Part of Speech to an extent
                     if wup:
-
                         wup_results.append(("wup: ", wup, count, clue_list, board_list, i))
-                        pat_results.append(("pat: ", pat, count, clue_list, board_list, i))
                         count += 1
 
                         if wup > wup_clue:
-                            wup_clue = wup
+                            wup_clue = wup 
 
-                        if pat > pat_clue:
-                            pat_clue = pat      
-
-                print("lch: ", i, per_clue)
                 print("wup: ", i, wup_clue)
                 print("res: ", i, res_clue)
-                print("jcn: ", i, jcn_clue)
-                print("lin: ", i, lin_clue)
-                print("pat: ", i, pat_clue)
                 print('-'*30)
 
         # if results list is empty
-        if not lch_results:
+        if not res_results:
             return []
 
         wup_results = list(reversed(sorted(wup_results, key=self.take_second)))
-        pat_results = list(reversed(sorted(pat_results, key=self.take_second)))
-        lch_results = list(reversed(sorted(lch_results, key=self.take_second)))
         res_results = list(reversed(sorted(res_results, key=self.take_second)))
-        jcn_results = list(reversed(sorted(jcn_results, key=self.take_second)))
-        lin_results = list(reversed(sorted(lin_results, key=self.take_second)))
 
-        results = [wup_results, pat_results, res_results, lch_results, lin_results, jcn_results]
+        results = [wup_results, res_results]
         return results
+
+
+    def take_second(self, elem):
+        return elem[1]
+
+    def take_third(self, elem):
+        return elem[2]
+
+
+    # def go_elmo(self, clue, board):
+
+    #     hot = wordnet.synsets('hot')
+    #     tokenized = [tokens.split(' ') for tokens in hot[8].examples()]
+    #     print(tokenized)
+
+    #     vec_clue = self.elmo.embed_sentence([clue])
+
+    #     return results
+
+
+    def compute_GooGlove(self, clue, board):
+    
+
+        w2v = []
+        glove = []
+        linalg_result = []
+
+        for word in board:
+            try:
+                if word[0] == '*':
+                    continue
+
+                # for i in range(25):
+
+                #     linalg = np.dot(words[board[i].lower()] / np.linalg.norm(words[board[i].lower()]),
+                #         words[clue.lower()] / np.linalg.norm(words[clue.lower()]))
+                #     linalg_result.append([board[i], clue, linalg])
+
+                w2v.append((scipy.spatial.distance.cosine(self.word_vectors[clue], 
+                    self.word_vectors[word.lower()]),word))
+                glove.append((scipy.spatial.distance.cosine(self.glove_vecs[clue],
+                    self.glove_vecs[word.lower()]),word))
+
+            except KeyError:
+                continue
+
+        print("w2v ", sorted(w2v)[:3])
+        print("glove ", sorted(glove)[:3])
+
+        w2v = list(sorted(w2v))
+        glove = list(sorted(glove))
+        # linalg_result = list(reversed(sorted(linalg_result, key=self.take_third)))
+
+        result = w2v[:3] + glove[:3] # + linalg_result[:4]
+        return result
 
 
     def give_answer(self):
 
-        sorted_results = self.word_synset(self.clue, self.words)
-        
-        # if non empty result list
+        sorted_results = self.wordnet_synset(self.clue, self.words)
+        print('-' * 20)
+        google_glove = self.compute_GooGlove(self.clue, self.words)
+        print(google_glove)
+
         if(sorted_results):
 
             first_index_row = [i[0] for i in sorted_results]
-
-
             for i in first_index_row:
                 print(i)
 
             # simple voting alg
             most_common_word = []
-            for i in range(0,5):
+            for i in range(len(sorted_results)):
                 most_common_word.append(sorted_results[i][0][5])
 
-            most_list = []
+            most_common_word.append(google_glove[0][1])
+            most_common_word.append(google_glove[3][1])
+            #most_common_word.append(google_glove[6][0][0])
 
+            most_list = []
             for i, count in Counter(most_common_word).most_common():
                 if count != Counter(most_common_word).most_common(2)[0][1]:
                     break
-
                 most_list.append(i)
 
             answer_input = random.choice(most_list)
@@ -145,13 +181,6 @@ class wn_guesser(guesser):
             answer_input = "no comparisons"
 
         print(answer_input)
-        
         return answer_input
-
-
-    def take_second(self,elem):
-        return elem[1]
-
-
 
 

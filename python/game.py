@@ -1,19 +1,13 @@
-# https://codeshare.io/aJgPVZ
-
-# Steps to perform before live:
-# 
-
 import random
 import array
 import os
 import sys
-
 from players.codemaster import *
 from players.guesser import *
 from players.wn_guesser import wn_guesser
 from players.wn_codemaster import wn_codemaster
 # The WordNet corpus reader gives access to the Open Multilingual WordNet, using ISO-639 language codes.
-
+# https://codeshare.io/aJgPVZ
 
 class Game:
 
@@ -37,12 +31,11 @@ class Game:
         else:
             self.guesser = wn_guesser()
 
-        # open the text file for random selection - readonly
+        # open the text file for random selection - read only
         f = open("game_wordlist.txt", "r")
 
         # if successfully opened split and randomly generate 25 words
         if f.mode == 'r': 
-
             # contains all words from text file as an array
             temp_array = f.read().splitlines()
             self.words = set([])
@@ -106,30 +99,23 @@ class Game:
 
         # CodeMaster will always win with Red and lose with Blue or Assassin
         if self.map[guess_index] == "Red":
-
             self.words[guess_index] = "*Red*"
 
             if self.words.count("*Red*") >= 8:
-
                 return "Win"
             
             return "Hit_Red"
 
             
         elif self.map[guess_index] == "Blue":
-
             self.words[guess_index] = "*Blue*"
 
             if self.words.count("*Blue*") >= 7:
-
                 return "Lose"
-                
             else:
-
                 return "Still Going"
 
         elif self.map[guess_index] == "Assassin":
-
             self.words[guess_index] = "*Assassin*"
             return "Lose"
 
@@ -167,7 +153,7 @@ class Game:
                 elif self.words[i] == "*Assassin*":
                     assa_result += 1
 
-            # append file
+            # append to file
             f = open("bot_results.txt", "a")
 
             # if successfully opened start appending
