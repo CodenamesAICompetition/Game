@@ -168,7 +168,7 @@ class wn_guesser(guesser):
             #         break
             #     most_list.append(i)
 
-            answer_input = random.choice(best)
+            # answer_input = random.choice(most_list)
 
         # result list was empty
         else:
