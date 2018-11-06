@@ -159,22 +159,16 @@ class wn_guesser(guesser):
             for i in first_index_row:
                 print(i)
 
-            # simple voting alg
-            most_common_word = []
-            for i in range(len(sorted_results)):
-                most_common_word.append(sorted_results[i][0][5])
-
-            most_common_word.append(google_glove[0][1])
-            most_common_word.append(google_glove[3][1])
+            answer_input = (google_glove[0][1])
             #most_common_word.append(google_glove[6][0][0])
 
-            most_list = []
-            for i, count in Counter(most_common_word).most_common():
-                if count != Counter(most_common_word).most_common(2)[0][1]:
-                    break
-                most_list.append(i)
+            # most_list = []
+            # for i, count in Counter(most_common_word).most_common():
+            #     if count != Counter(most_common_word).most_common(2)[0][1]:
+            #         break
+            #     most_list.append(i)
 
-            answer_input = random.choice(most_list)
+            answer_input = random.choice(best)
 
         # result list was empty
         else:
