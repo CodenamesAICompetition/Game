@@ -27,6 +27,8 @@ class human_guesser(guesser):
     def give_answer(self):
 
         answer_input = input("Guesser makes turn.\nPlease enter a valid Word >> ")
+        #answer_input = answer_input.strip()
+        #answer_input.upper()
         type(answer_input)
 
         while not self.is_valid(answer_input):

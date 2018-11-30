@@ -37,6 +37,7 @@ class human_codemaster(codemaster):
 
     def give_clue(self):
         clue_input = input("Input CM Clue:\nPlease enter a Word followed by a space and a Number >> ")
+        clue_input = clue_input.strip()
         type(clue_input)
         clue = clue_input.split(" ")
 

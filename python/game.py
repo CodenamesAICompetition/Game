@@ -19,16 +19,20 @@ class Game:
 
 
     def __init__(self):
-        if sys.argv[1] == "human":
+        if len(sys.argv) == 1:
+            self.guesser =  human_guesser()
             self.codemaster = human_codemaster()
         else:
-            self.codemaster = wn_codemaster()
- 
-        if sys.argv[2] == "human":
-            self.guesser = human_guesser()
-        else:
-            self.guesser = wn_guesser()
- 
+
+            if sys.argv[1] == "human":
+                self.codemaster = human_codemaster()
+            else:
+                self.codemaster = wn_codemaster()
+     
+            if sys.argv[2] == "human":
+                self.guesser = human_guesser()
+            else:
+                self.guesser = wn_guesser()
         f = open("game_wordlist.txt", "r")
         if f.mode == 'r':
             temp_array = f.read().splitlines()
@@ -210,8 +214,7 @@ class Game:
                 # if no comparisons were made/found than retry input from codemaster
                 if(guess_answer == ("no comparisons")):
                     break
- 
-                guess_answer_index = words_in_play.index(guess_answer.upper())
+                guess_answer_index = words_in_play.index(guess_answer.upper().strip())
                 string_condition = self.accept_guess(guess_answer_index)
  
  
