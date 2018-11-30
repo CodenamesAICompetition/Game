@@ -12,7 +12,7 @@ class guesser(ABC):
 
 class human_guesser(guesser):
 
-    def init(self):
+    def __init__(self):
         pass
 
 
