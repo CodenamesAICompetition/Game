@@ -3,10 +3,10 @@ import random
 
 
 class codemaster(ABC):
+
     words = 0
     map = 0
     bot_array = 0
-
 
     def __init__(self):
         pass
@@ -21,7 +21,6 @@ class codemaster(ABC):
 
 
 class human_codemaster(codemaster):
-
 
     def __init__(self):
         pass

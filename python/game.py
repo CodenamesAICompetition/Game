@@ -219,7 +219,6 @@ class Game:
  
  
                 if string_condition == "Hit_Red":
-                   
                     self.cls()
                     self.display_board_guesser()
                     print("The clue is :", clue, num, sep=" ")

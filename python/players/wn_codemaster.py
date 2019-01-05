@@ -5,6 +5,8 @@ from nltk.corpus import wordnet_ic
 from players.codemaster import codemaster
 from allennlp.commands.elmo import ElmoEmbedder
 from operator import itemgetter
+from numpy import *
+from numpy.linalg import norm
 import gensim.models.keyedvectors as word2vec
 import gensim.downloader as api
 import itertools
@@ -19,8 +21,8 @@ class wn_codemaster(codemaster):
 	def __init__(self):
 		self.brown_ic = wordnet_ic.ic('ic-brown.dat')
 		self.glove_vecs = {}
-		# self.word_vectors = word2vec.KeyedVectors.load_word2vec_format(
-        #     'players/GoogleNews-vectors-negative300.bin', binary=True, unicode_errors='ignore')
+		self.word_vectors = word2vec.KeyedVectors.load_word2vec_format(
+            'players/GoogleNews-vectors-negative300.bin', binary=True, unicode_errors='ignore')
 		# with open('glove/glove.6B.300d.txt') as infile:
 		# 	for line in infile:
 		# 		line = line.rstrip().split(' ')
@@ -44,65 +46,72 @@ class wn_codemaster(codemaster):
 
 	def give_clue(self):
 		result = []
-		result_two = []
 		red_word_synsets = []
-		pat_results = []
-		lch_results = []
-		res_results = []
+		red_words = []
+		cm_wordlist = []
+		best = np.inf
+
+		# with open('cm_wordlist.txt') as infile:
+		# 	for line in infile:
+		# 		cm_wordlist.append(line.rstrip())
 
 		for i in range(25):
-			if(self.maps[i] != "Red" or self.words[i][0] == '*'):
+			if(self.maps[i] == "Assassin"):
+				black = self.words[i].lower()
+			elif(self.maps[i] != "Red" or self.words[i][0] == '*'):
 				continue
-			red_word_synsets.append(wordnet.synsets(self.words[i].lower()))
+			else:
+				red_word_synsets.append(wordnet.synsets(self.words[i].lower()))
+				red_words.append(self.words[i].lower())
 
-		for syn_list in red_word_synsets:
-			for i in syn_list:
-				for lemma in i.lemmas():
-					try:
-						result.append((i.hyponyms(), lemma.name(), "hypo"))
-						result.append((i.member_holonyms(), lemma.name(), "mem_holo"))
-						result.append((i.root_hypernyms(), lemma.name(), "root_hol"))
-						for j in syn_list:
-							result_two.append(i.lowest_common_hypernyms(j))
-					except:
-						continue
+		print("red: ", red_words)
+		print("black: ", black)
 
-				for j in syn_list:
-					try:
-						pat = i.path_similarity(j)
-						lch = i.lch_similarity(j)
-						res = i.res_similarity(j, self.brown_ic)
-						if(pat == 1 or pat is None):
-							continue
-						pat_results.append((pat, i, j))
-						lch_results.append((lch, i, j))
-						res_results.append((res, i, j))
-					except:
-						continue
+		# for syn_list in red_word_synsets:
+		# 	for i in syn_list:
+		# 		for i_lemma in i.lemmas():
+		# 			try:
+		# 				result.append((i.hyponyms(), i_lemma.name(), "hypo"))
+		# 				result.append((i.member_holonyms(), i_lemma.name(), "mem_holo"))
+		# 				result.append((i.root_hypernyms(), i_lemma.name(), "root_hol"))
+		# 			except:
+		# 				continue
 
-		root_hypernym_list = []
-		newlist = []
-		for i in result_two:
-			for j in i:
-				for lemma in j.lemmas():
-					if(self.check_useless(lemma.name()) or lemma.name().upper() in self.words):
-						continue
-					root_hypernym_list.append(lemma.name())
+		# guess = ['fire', 'bell']
+		# for word in reversed(cm_wordlist):
+		# 	try:
+		# 		dist = scipy.spatial.distance.cosine(self.word_vectors[word],
+		# 			slerp(self.word_vectors[guess[0]], self.word_vectors[guess[1]], 0.5))
 
-		for i in root_hypernym_list:
-			if i not in newlist:
-				newlist.append(i)
+		# 		if dist < best and word not in guess:
+		# 			best = dist
+		# 			print(best,word)
+		# 	except:
+		# 		continue
 
-		print(newlist, "\n")
-		pat_results = list(reversed(sorted(pat_results, key=itemgetter(0))))
-		lch_results = list(reversed(sorted(lch_results, key=itemgetter(0))))
-		res_results = list(reversed(sorted(res_results, key=itemgetter(0))))
-		print(pat_results[:5])
-		print(lch_results[:5])
-		print(res_results[:5])
+		list_of_words = []
+		for i in range(len(red_words)):
+			try:
+				for j in range(i, len(red_words)):
+						result = self.word_vectors.most_similar(positive=[red_words[i], red_words[j]], negative=[black])
+						print("{}: {:.3f}".format(*result[0]))
+				list_of_words.append(self.word_vectors.similar_by_word(red_words[i]))
+			except:
+				continue
 
+		for i in range(len(list_of_words)):
+			if(self.redund(list_of_words[i], red_words)):
+				list_of_words.remove()
+
+		print(list_of_words)
 		clue = ["food", "1"]
 		return clue
+
+
+	def slerp(self, p0, p1, t):
+		omega = arccos(dot(p0/norm(p0), p1/norm(p1)))
+		so = sin(omega)
+		return sin((1.0-t)*omega / so * p0 + sin(t*omega)/so * p1)
 
 
 	def check_singular(self, word):
@@ -117,6 +126,11 @@ class wn_codemaster(codemaster):
 			or string == "artefact" or string == "artifact"):
 			return True
 		return False
+
+
+	def redund(self, word_one, word_two):
+		if(word_one.lower() in word_two.lower() or word_two.lower() in word_one.lower()):
+			return True
 
 
 	def is_plural(self, word):

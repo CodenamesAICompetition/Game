@@ -113,10 +113,22 @@ def salmon():
 
 def potato():
     for synset in wordnet.synsets('dog'):
+        print(synset)
         for lemma in synset.lemmas():
             print(lemma.name())
 
+def scope_test():
+    while(True):
+        black = "im black"
+        break
+    print(black)
 
-potato()
+def loop():
+    for i in range(25):
+        for j in range(i, 25):
+            print(i, "  ", j)
+
+
+loop()
 
 
