@@ -5,10 +5,14 @@ import sys
 import colorama
 from players.codemaster import *
 from players.guesser import *
-from players.wn_guesser import wn_guesser
-from players.wn_codemaster import wn_codemaster
+try:
+    from players.ai_guesser import *
+    from players.ai_codemaster import *
+except:
+    pass
+from players.wn_guesser import *
+from players.wn_codemaster import *
 # The WordNet corpus reader gives access to the Open Multilingual WordNet, using ISO-639 language codes.
-# https://codeshare.io/aJgPVZ
 
 
 class Game:
@@ -23,24 +27,26 @@ class Game:
             self.guesser =  human_guesser()
             self.codemaster = human_codemaster()
         else:
-
             if sys.argv[1] == "human":
                 self.codemaster = human_codemaster()
+            elif sys.argv[1] == "ai":
+                self.codemaster = ai_codemaster()
             else:
                 self.codemaster = wn_codemaster()
-     
+
             if sys.argv[2] == "human":
                 self.guesser = human_guesser()
+            elif sys.argv[2] == "ai":
+                self.guesser = ai_guesser()
             else:
                 self.guesser = wn_guesser()
+
         f = open("game_wordlist.txt", "r")
         if f.mode == 'r':
             temp_array = f.read().splitlines()
             self.words = set([])
- 
             for x in range(0, 25):
                 self.words.add(random.choice(temp_array))
-
             # if duplicates were detected and the set length is not 25 then restart
             if len(self.words) != 25:
                 self.__init__()
@@ -68,7 +74,6 @@ class Game:
             else:
                 print(str.center(colorama.Fore.MAGENTA + self.words[i], 15), " ", end='')
                 counter += 1
- 
         print(str.center(colorama.Fore.YELLOW + "\n___________________________________________________________", 60))
         print("\n")
 
@@ -107,7 +112,6 @@ class Game:
             else:
                 print(str.center(colorama.Fore.MAGENTA + self.maps[i], 15), " ", end='')
                 counter += 1
- 
         print(str.center(colorama.Fore.YELLOW + "\n___________________________________________________________", 55))
         print("\n")
  
@@ -127,22 +131,19 @@ class Game:
             self.words[guess_index] = "*Red*"
             if self.words.count("*Red*") >= 8:
                 return "Win"
-           
             return "Hit_Red"
- 
-           
+
         elif self.maps[guess_index] == "Blue":
             self.words[guess_index] = "*Blue*"
- 
             if self.words.count("*Blue*") >= 7:
                 return "Lose"
             else:
                 return "Still Going"
- 
+
         elif self.maps[guess_index] == "Assassin":
             self.words[guess_index] = "*Assassin*"
             return "Lose"
- 
+
         else:
             self.words[guess_index] = "*Civilian*"
             return "Still Going"
@@ -157,7 +158,6 @@ class Game:
         blue_result = 0
         civ_result = 0
         assa_result = 0
- 
         # if the guesser wasn't human
         if not sys.argv[2] == "human":
             for i in range(len(self.words)):
@@ -172,35 +172,29 @@ class Game:
  
                 elif self.words[i] == "*Assassin*":
                     assa_result += 1
- 
+
             # append to file
             f = open("bot_results.txt", "a")
- 
             # if successfully opened start appending
             if f.mode == 'a':
                 f.write("R: %d B: %d C: %d A: %d\r\n" % (red_result, blue_result, civ_result, assa_result))
- 
             f.close()
  
        
     def run(self):
         string_condition = "Hit_Red"
         print("========================GAME START========================\n")
-     
+
         while(string_condition != "Lose" or string_condition != "Win"):
-         
             self.cls()
             words_in_play = self.list_words()
             map_in_play = self.list_map()
             self.codemaster.get_map(map_in_play)
             self.codemaster.get_board(words_in_play)
-           
             self.display_board_codemaster()
             self.display_map()
- 
             clue, num = self.codemaster.give_clue()
             num = int(num)
-           
             self.cls()
             self.display_board_guesser()
             self.guesser.get_clue(clue, num)
@@ -210,14 +204,12 @@ class Game:
                 num -= 1
                 self.guesser.get_board(words_in_play)
                 guess_answer = self.guesser.give_answer()
- 
                 # if no comparisons were made/found than retry input from codemaster
                 if(guess_answer == ("no comparisons")):
                     break
                 guess_answer_index = words_in_play.index(guess_answer.upper().strip())
                 string_condition = self.accept_guess(guess_answer_index)
- 
- 
+
                 if string_condition == "Hit_Red":
                     self.cls()
                     self.display_board_guesser()
@@ -231,7 +223,6 @@ class Game:
                     print("You Lost")
                     self.write_results()
                     exit()
-                   
  
                 elif string_condition == "Win":
                     self.display_board_codemaster()

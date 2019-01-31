@@ -64,18 +64,8 @@ class wn_codemaster(codemaster):
 				red_word_synsets.append(wordnet.synsets(self.words[i].lower()))
 				red_words.append(self.words[i].lower())
 
-		print("red: ", red_words)
-		print("black: ", black)
-
-		# for syn_list in red_word_synsets:
-		# 	for i in syn_list:
-		# 		for i_lemma in i.lemmas():
-		# 			try:
-		# 				result.append((i.hyponyms(), i_lemma.name(), "hypo"))
-		# 				result.append((i.member_holonyms(), i_lemma.name(), "mem_holo"))
-		# 				result.append((i.root_hypernyms(), i_lemma.name(), "root_hol"))
-		# 			except:
-		# 				continue
+		print("red:  ", red_words)
+		print("black:", black)
 
 		# guess = ['fire', 'bell']
 		# for word in reversed(cm_wordlist):
@@ -99,13 +89,18 @@ class wn_codemaster(codemaster):
 			except:
 				continue
 
-		for i in range(len(list_of_words)):
-			if(self.redund(list_of_words[i], red_words)):
-				list_of_words.remove()
+		# code goes busts over here
+		li = result.pop(0)
+		print(li)
 
-		print(list_of_words)
-		clue = ["food", "1"]
-		return clue
+		for i in li:
+			print(i[0])
+			index = li.index(i)
+			if(self.redund(i[0], red_words)):
+				li.pop(index)
+
+		print(li)
+		return ["food", "2"]
 
 
 	def slerp(self, p0, p1, t):
@@ -128,9 +123,11 @@ class wn_codemaster(codemaster):
 		return False
 
 
-	def redund(self, word_one, word_two):
-		if(word_one.lower() in word_two.lower() or word_two.lower() in word_one.lower()):
-			return True
+	def redund(self, word_one, list_of_reds):
+		for i in list_of_reds:
+			if(word_one.lower() in i.lower() or i.lower() in word_one.lower()):
+				return True
+		return False
 
 
 	def is_plural(self, word):

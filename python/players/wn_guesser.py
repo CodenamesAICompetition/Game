@@ -11,12 +11,15 @@ import itertools
 import numpy as np
 import random
 import scipy
+import timeit
+
 
 
 class wn_guesser(guesser):
 
 
     def __init__(self):
+        start = timeit.timeit()
         # self.word_vectors = api.load("glove-wiki-gigaword-100")
         self.brown_ic = wordnet_ic.ic('ic-brown.dat')
         self.word_vectors = word2vec.KeyedVectors.load_word2vec_format(
@@ -27,7 +30,9 @@ class wn_guesser(guesser):
                 line = line.rstrip().split(' ')
                 self.glove_vecs[line[0]] = np.array([float(n) for n in line[1:]])
         # self.elmo = ElmoEmbedder()
-        
+        end = timeit.timeit()
+        print(end - start)
+
 
     def get_board(self, words):
         self.words = words
@@ -37,7 +42,6 @@ class wn_guesser(guesser):
     def get_clue(self, clue, num):
         self.clue = clue
         print("The clue is:", clue, num, sep=" ")
-
         li = [clue, num]
         return li
 
@@ -108,7 +112,7 @@ class wn_guesser(guesser):
 
         print("w2v ", sorted(w2v)[:1])
         print("glove ", sorted(glove)[:1])
-
+        
         w2v = list(sorted(w2v))
         glove = list(sorted(glove))
         # linalg_result = list(reversed(sorted(linalg_result, key=self.take_third)))
@@ -118,46 +122,47 @@ class wn_guesser(guesser):
 
 
     def give_answer(self):
+        # set weights based on testing for optimal voting algorithm
+        # order is w2v, glove, path_sim, jcn_sim, lin_sim. w2v has more initial weights due to its accuracy.
         weights = [15, 12, 8, 8, 8]
-
         sorted_results = self.wordnet_synset(self.clue, self.words)
         google_glove = self.compute_GooGlove(self.clue, self.words)
 
         if google_glove and sorted_results:
-            #w2v
+            #w2v threshhold + added weights
             if(google_glove[0][0] < 0.8):
                 if(google_glove[0][0] < 0.7):
                     if(google_glove[0][0] < 0.51):
                         weights[0] += 20
                     weights[0] += 10
                 weights[0] += 3
-            #glove
+            #glove threshhold + added weights
             if(google_glove[3][0] < 0.66):
                 if(google_glove[3][0] < 0.51):
                     if(google_glove[3][0] < 0.36):
                         weights[1] += 20
                     weights[1] += 10
                 weights[1] += 4
-            #path_sim
+            #path_sim threshhold + added weights
             if(sorted_results[0][0][1] > 0.24):
                 if(sorted_results[0][0][1] > 0.34):
                     if(sorted_results[0][0][1] > 0.49):
-                        weights[2] += 20
-                    weights[2] += 10
+                        weights[2] += 11
+                    weights[2] += 7
                 weights[2] += 5
-            #jcn_sim
+            #jcn_sim threshhold + added weights
             if(sorted_results[1][0][1] > 0.10):
                 if(sorted_results[1][0][1] > 0.128):
                     if(sorted_results[1][0][1] > 0.19):
-                        weights[3] += 20
-                    weights[3] += 10
+                        weights[3] += 11
+                    weights[3] += 7
                 weights[3] += 5
-            #lin_sim
+            #lin_sim threshhold + added weights
             if(sorted_results[2][0][1] > 0.52):
                 if(sorted_results[2][0][1] > 0.64):
                     if(sorted_results[2][0][1] > 0.79):
-                        weights[4] += 20
-                    weights[4] += 10
+                        weights[4] += 11
+                    weights[4] += 7
                 weights[4] += 5
 
             for i in [i[0] for i in sorted_results]:
@@ -178,11 +183,9 @@ class wn_guesser(guesser):
                 string_answer_input = (sorted_results[1][0][5])
             elif x == 4:
                 string_answer_input = (sorted_results[2][0][5])
-
         else:
             return("no comparisons")
         
         print("Threshold chose word: ", string_answer_input)
         return string_answer_input
-
 

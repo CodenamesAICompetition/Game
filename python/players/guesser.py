@@ -1,16 +1,14 @@
-#guesser.py
-
 from abc import ABC
 import random
 
 
 class guesser(ABC):
-
     words = 0
     clue = 0
 
 
 class human_guesser(guesser):
+
 
     def __init__(self):
         pass
@@ -27,7 +25,7 @@ class human_guesser(guesser):
     def give_answer(self):
         answer_input = input("Guesser makes turn.\nPlease enter a valid Word >> ")
         type(answer_input)
-
+        
         while not self.is_valid(answer_input):
             print("Input Invalid")
             print(self.words)
@@ -40,6 +38,5 @@ class human_guesser(guesser):
     def is_valid(self, result):
         if result.upper() in self.words:
             return True
-
         else:
             return False
