@@ -5,6 +5,7 @@ import random
 class guesser(ABC):
     words = 0
     clue = 0
+    clues=[]
 
 
 class human_guesser(guesser):

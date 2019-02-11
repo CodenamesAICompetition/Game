@@ -18,16 +18,10 @@ import scipy
 class wn_codemaster(codemaster):
 
 
-	def __init__(self):
-		self.brown_ic = wordnet_ic.ic('ic-brown.dat')
-		self.glove_vecs = {}
-		self.word_vectors = word2vec.KeyedVectors.load_word2vec_format(
-            'players/GoogleNews-vectors-negative300.bin', binary=True, unicode_errors='ignore')
-		# with open('glove/glove.6B.300d.txt') as infile:
-		# 	for line in infile:
-		# 		line = line.rstrip().split(' ')
-		# 		self.glove_vecs[line[0]] = np.array([float(n) for n in line[1:]])
-
+	def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
+		self.brown_ic = brown_ic
+		self.glove_vecs = glove_vecs
+		self.word_vectors = word_vectors
 
 	def get_board(self, words):
 		self.words = words
@@ -83,8 +77,8 @@ class wn_codemaster(codemaster):
 		for i in range(len(red_words)):
 			try:
 				for j in range(i, len(red_words)):
-						result = self.word_vectors.most_similar(positive=[red_words[i], red_words[j]], negative=[black])
-						print("{}: {:.3f}".format(*result[0]))
+					result = self.word_vectors.most_similar(positive=[red_words[i], red_words[j]], negative=[black])
+					print("{}: {:.3f}".format(*result[0]))
 				list_of_words.append(self.word_vectors.similar_by_word(red_words[i]))
 			except:
 				continue
