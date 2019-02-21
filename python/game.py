@@ -1,7 +1,5 @@
 from players.codemaster import *
 from players.guesser import *
-import gensim.models.keyedvectors as word2vec
-import gensim.downloader as api
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
 from nltk.corpus import words
@@ -15,6 +13,8 @@ import array
 import os
 import sys
 import colorama
+import gensim.models.keyedvectors as word2vec
+import gensim.downloader as api
 
 
 class Game:
