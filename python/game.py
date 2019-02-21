@@ -1,18 +1,20 @@
+from players.codemaster import *
+from players.guesser import *
+import gensim.models.keyedvectors as word2vec
+import gensim.downloader as api
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
+from nltk.corpus import words
+from nltk.corpus import wordnet_ic
+import numpy as np
+import scipy
+import itertools
+import importlib
 import random
 import array
 import os
 import sys
 import colorama
-from players.codemaster import *
-from players.guesser import *
-try:
-	from players.ai_guesser import *
-	from players.ai_codemaster import *
-except:
-	pass
-from players.wn_guesser import *
-from players.wn_codemaster import *
-# The WordNet corpus reader gives access to the Open Multilingual WordNet, using ISO-639 language codes.
 
 
 class Game:
@@ -27,39 +29,46 @@ class Game:
 			brown_ic = wordnet_ic.ic('ic-brown.dat')
 			glove_vecs = {}
 			word_vectors = word2vec.KeyedVectors.load_word2vec_format(
-			'players/GoogleNews-vectors-negative300.bin', binary=True, unicode_errors='ignore', limit=500000)
+			'players/GoogleNews-vectors-negative300.bin', binary=True, unicode_errors='ignore')
+			print('loaded word vectors')
 			with open('players/glove/glove.6B.300d.txt') as infile:
 				for line in infile:
 					line = line.rstrip().split(' ')
 					glove_vecs[line[0]] = np.array([float(n) for n in line[1:]])
+			print('loaded glove vectors')
 		if len(sys.argv) == 1:
 			self.guesser =  human_guesser()
 			self.codemaster = human_codemaster()
 		else:
 			if sys.argv[1] == "human":
 				self.codemaster = human_codemaster()
+				print('human codemaster')
 			elif sys.argv[1] == "ai":
 				self.codemaster = ai_codemaster()
 			else:
-				self.codemaster = wn_codemaster(brown_ic, glove_vecs, word_vectors)
-
+				codemaster_module = importlib.import_module(sys.argv[1])
+				self.codemaster = codemaster_module.ai_codemaster(brown_ic, glove_vecs, word_vectors)
+				print('loaded codemaster')
 			if sys.argv[2] == "human":
 				self.guesser = human_guesser()
+				print('human guesser')
 			elif sys.argv[2] == "ai":
 				self.guesser = ai_guesser()
 			else:
-				self.guesser = wn_guesser(brown_ic, glove_vecs, word_vectors)
+				guesser_module = importlib.import_module(sys.argv[2])
+				self.guesser = guesser_module.ai_guesser(brown_ic, glove_vecs, word_vectors)
+				print('loaded guesser')
 		f = open("game_wordlist.txt", "r")
 		if f.mode == 'r':
 			temp_array = f.read().splitlines()
 			self.words = set([])
-			for x in range(0, 25):
-				self.words.add(random.choice(temp_array))
-			# if duplicates were detected and the set length is not 25 then restart
-			if len(self.words) != 25:
-				self.__init__()
+			while len(self.words) != 25:
+				self.words = set([])
+				for x in range(0, 25):
+					self.words.add(random.choice(temp_array))
+				# if duplicates were detected and the set length is not 25 then restart
 			self.words = list(self.words)
- 
+
 		self.maps = ["Red"]*8 + ["Blue"]*7 + ["Civilian"]*9 + ["Assassin"]
 		random.shuffle(self.maps)
 
@@ -186,7 +195,7 @@ class Game:
 			f = open("bot_results.txt", "a")
 			# if successfully opened start appending
 			if f.mode == 'a':
-				f.write("R: %d B: %d C: %d A: %d\r\n" % (red_result, blue_result, civ_result, assa_result))
+				f.write("R:%d  B:%d  C:%d  A:%d\r\n" % (red_result, blue_result, civ_result, assa_result))
 			f.close()
  
 	   

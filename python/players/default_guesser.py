@@ -4,7 +4,6 @@ from nltk.corpus import wordnet_ic
 from operator import itemgetter
 from players.guesser import guesser
 from collections import Counter
-from allennlp.commands.elmo import ElmoEmbedder
 import gensim.models.keyedvectors as word2vec
 import gensim.downloader as api
 import itertools
@@ -14,7 +13,8 @@ import scipy
 import timeit
 
 
-class wn_guesser(guesser):
+class ai_guesser(guesser):
+
 
 	def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
 		self.brown_ic = brown_ic
@@ -26,12 +26,13 @@ class wn_guesser(guesser):
 		self.words = words
 		return words
 
+
 	def get_clue(self, clue, num):
 		self.clue = clue
-		#hint = self.clues.pop()
 		print("The clue is:", clue, num, sep=" ")
 		li = [clue, num]
 		return li
+
 
 	def wordnet_synset(self, clue, board):
 		pat_results = []
@@ -78,6 +79,7 @@ class wn_guesser(guesser):
 		results = [pat_results[:3], jcn_results[:3], lin_results[:3]]
 		return results
 
+
 	def compute_GooGlove(self, clue, board):
 		w2v = []
 		glove = []
@@ -87,11 +89,6 @@ class wn_guesser(guesser):
 			try:
 				if word[0] == '*':
 					continue
-
-				# for i in range(25):
-				#     linalg = np.dot(words[board[i].lower()] / np.linalg.norm(words[board[i].lower()]),
-				#         words[clue.lower()] / np.linalg.norm(words[clue.lower()]))
-				#     linalg_result.append([board[i], clue, linalg])
 
 				w2v.append((scipy.spatial.distance.cosine(self.word_vectors[clue],
 					self.word_vectors[word.lower()]), word))
@@ -106,16 +103,9 @@ class wn_guesser(guesser):
 
 		w2v = list(sorted(w2v))
 		glove = list(sorted(glove))
-		# linalg_result = list(reversed(sorted(linalg_result, key=self.take_third)))
 
 		result = w2v[:3] + glove[:3]
 		return result
-
-
-	def keep_guessing(self):
-		if bot.keep_guessing():
-			answer = bot.give_answer()
-		return False
 
 
 	def give_answer(self):
