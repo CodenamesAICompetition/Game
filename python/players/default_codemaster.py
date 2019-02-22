@@ -1,10 +1,10 @@
 from nltk.stem import WordNetLemmatizer
+from nltk.stem.lancaster import LancasterStemmer
 from nltk.corpus import wordnet
 from nltk.corpus import words
 from nltk.corpus import wordnet_ic
 from numpy.linalg import norm
 from players.codemaster import codemaster
-from allennlp.commands.elmo import ElmoEmbedder
 from operator import itemgetter
 from numpy import *
 import gensim.models.keyedvectors as word2vec
@@ -72,16 +72,25 @@ class ai_codemaster(codemaster):
 							num_best = dist
 							word_best = word
 							li.append((num_best, word_best))
-					except Exception as e:
+					except:
 						continue
 
 		li = list(sorted(li))
-		return [li[0][1], 1]
+		# select the 1st element in li, which is the "String clue"
+		list_comp = [i[1] for i in li]
+		print("The clue is: ", list_comp[0])
+		# return in style array style ["clue", number]
+		return [list_comp[0], 2]
 		
 
 	def arr_not_in_word(self, word, arr):
+		wordnet_lemmatizer = WordNetLemmatizer()
+		lancaster_stemmer = LancasterStemmer()
+		lemm = wordnet_lemmatizer.lemmatize(word)
+		lancas = lancaster_stemmer.stem(word)
+
 		for i in arr:
-			if(i in word):
+			if(i == lemm or i == lancas):
 				return False
 		return True
 
@@ -90,17 +99,4 @@ class ai_codemaster(codemaster):
 	    omega = arccos(dot(p0/norm(p0), p1/norm(p1)))
 	    so = sin(omega)
 	    return sin((1.0-t)*omega) / so * p0 + sin(t*omega)/so * p1
-
-
-	def check_singular(self, word):
-		bool_plur, lemma = is_plural(self.word)
-		print(self.word, lemma, bool_plur)
-		return bool_plur
-
-
-	def is_plural(self, word):
-		wnl = WordNetLemmatizer()
-		lemma = wnl.lemmatize(self.word, 'n')
-		plural = True if self.word is not lemma else False
-		return plural, lemma
 

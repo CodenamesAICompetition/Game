@@ -1,6 +1,7 @@
 from players.codemaster import *
 from players.guesser import *
 from nltk.stem import WordNetLemmatizer
+from nltk.stem.lancaster import LancasterStemmer
 from nltk.corpus import wordnet
 from nltk.corpus import words
 from nltk.corpus import wordnet_ic
@@ -62,11 +63,11 @@ class Game:
 		if f.mode == 'r':
 			temp_array = f.read().splitlines()
 			self.words = set([])
+			# if duplicates were detected and the set length is not 25 then restart
 			while len(self.words) != 25:
 				self.words = set([])
 				for x in range(0, 25):
 					self.words.add(random.choice(temp_array))
-				# if duplicates were detected and the set length is not 25 then restart
 			self.words = list(self.words)
 
 		self.maps = ["Red"]*8 + ["Blue"]*7 + ["Civilian"]*9 + ["Assassin"]
@@ -94,16 +95,15 @@ class Game:
 		print(str.center(colorama.Fore.YELLOW + "\n___________________________________________________________", 60))
 		print("\n")
 
- 
+
+	# just for aesthetics, doesn't impact function of code.
 	def display_board_guesser(self):
 		print(colorama.Style.RESET_ALL)
 		print(str.center("___________________________BOARD___________________________", 60))
 		counter = 0
 		for i in range(len(self.words)):
-			# newline for every 5 prints
 			if i % 5 == 0:
 				print("\n")
-			# centers the output
 			print(str.center(self.words[i], 10), " ", end='')
  
 		print(str.center("\n___________________________________________________________", 60))
@@ -145,7 +145,6 @@ class Game:
 	def accept_guess(self,guess_index):
 		# CodeMaster will always win with Red and lose if Blue =/= 7 or Assassin == 1
 		if self.maps[guess_index] == "Red":
-			
 			self.words[guess_index] = "*Red*"
 			if self.words.count("*Red*") >= 8:
 				return "Win"
@@ -202,7 +201,6 @@ class Game:
 	def run(self):
 		string_condition = "Hit_Red"
 		print("========================GAME START========================\n")
-
 		while(string_condition != "Lose" or string_condition != "Win"):
 			self.cls()
 			words_in_play = self.list_words()
@@ -221,9 +219,7 @@ class Game:
 			self.guesser.get_clue(clue, num)
 			
 			string_condition = "Hit_Red"
-		   
 			while(string_condition == "Hit_Red"):
-				#num -= 1
 				self.guesser.get_board(words_in_play)
 				guess_answer = self.guesser.give_answer()
 				# if no comparisons were made/found than retry input from codemaster

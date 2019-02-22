@@ -47,29 +47,23 @@ class ai_guesser(guesser):
 					try:
 						# only if the two compared words have the same part of speech
 						pat = clue_list.path_similarity(board_list)
-						jcn = clue_list.jcn_similarity(
-							board_list, self.brown_ic)
-						lin = clue_list.lin_similarity(
-							board_list, self.brown_ic)
+						jcn = clue_list.jcn_similarity(board_list, self.brown_ic)
+						lin = clue_list.lin_similarity(board_list, self.brown_ic)
 					except:
 						continue
 
 					if jcn:
-						jcn_results.append(
-							("jcn: ", jcn, count, clue_list, board_list, i))
-						lin_results.append(
-							("lin: ", lin, count, clue_list, board_list, i))
+						jcn_results.append(("jcn: ", jcn, count, clue_list, board_list, i))
+						lin_results.append(("lin: ", lin, count, clue_list, board_list, i))
 						if jcn > jcn_clue:
 							jcn_clue = jcn
-
 					if pat:
-						pat_results.append(
-							("pat: ", pat, count, clue_list, board_list, i))
+						pat_results.append(("pat: ", pat, count, clue_list, board_list, i))
 						if pat > pat_clue:
 							pat_clue = pat
 
 		# if results list is empty
-		if not jcn_results:
+		if not pat_results or not jcn_results:
 			return []
 
 		pat_results = list(reversed(sorted(pat_results, key=itemgetter(1))))
@@ -89,12 +83,10 @@ class ai_guesser(guesser):
 			try:
 				if word[0] == '*':
 					continue
-
 				w2v.append((scipy.spatial.distance.cosine(self.word_vectors[clue],
 					self.word_vectors[word.lower()]), word))
 				glove.append((scipy.spatial.distance.cosine(self.glove_vecs[clue],
 					self.glove_vecs[word.lower()]), word))
-
 			except KeyError:
 				continue
 
@@ -113,6 +105,9 @@ class ai_guesser(guesser):
 		# order is w2v, glove, path_sim, jcn_sim, lin_sim. w2v has more initial weights due to its accuracy.
 		weights = [15, 12, 8, 8, 8]
 		sorted_results = self.wordnet_synset(self.clue, self.words)
+		wordnet_status = True
+		if(not sorted_results):
+			wordnet_status = False
 		google_glove = self.compute_GooGlove(self.clue, self.words)
 
 		if google_glove and sorted_results:
@@ -131,21 +126,21 @@ class ai_guesser(guesser):
 					weights[1] += 10
 				weights[1] += 4
 			# path_sim threshhold + added weights
-			if(sorted_results[0][0][1] > 0.24):
+			if(wordnet_status and sorted_results[0][0][1] > 0.24):
 				if(sorted_results[0][0][1] > 0.34):
 					if(sorted_results[0][0][1] > 0.49):
 						weights[2] += 11
 					weights[2] += 7
 				weights[2] += 5
 			# jcn_sim threshhold + added weights
-			if(sorted_results[1][0][1] > 0.10):
+			if(wordnet_status and sorted_results[1][0][1] > 0.10):
 				if(sorted_results[1][0][1] > 0.128):
 					if(sorted_results[1][0][1] > 0.19):
 						weights[3] += 11
 					weights[3] += 7
 				weights[3] += 5
 			# lin_sim threshhold + added weights
-			if(sorted_results[2][0][1] > 0.52):
+			if(wordnet_status and sorted_results[2][0][1] > 0.52):
 				if(sorted_results[2][0][1] > 0.64):
 					if(sorted_results[2][0][1] > 0.79):
 						weights[4] += 11
