@@ -62,25 +62,44 @@ class ai_codemaster(codemaster):
 
 		li = []
 		for word in reversed(cm_wordlist):
-			for i in range(len(red_words)):
-				for j in range(i, len(red_words)):
-					try:
+			for i in red_words:
+				for j in red_words:
+					if i != j:
 						dist = scipy.spatial.distance.cosine(self.word_vectors[word], 
-							self.slerp(self.word_vectors[red_words[i]], self.word_vectors[red_words[j]], 0.5))
+							self.slerp(self.word_vectors[i], self.word_vectors[j], 0.5))
 
 						if dist < num_best and word not in red_words and self.arr_not_in_word(word, red_words):
 							num_best = dist
 							word_best = word
 							li.append((num_best, word_best))
-					except:
-						continue
+					if i == j:
+						dist = scipy.spatial.distance.cosine(self.word_vectors[word], self.word_vectors[i])
+						if dist < num_best and word not in red_words and self.arr_not_in_word(word, red_words):
+							num_best = dist
+							word_best = word
+							li.append((num_best, word_best))
+
+
+			# for i in range(len(red_words)):
+			# 	for j in range(i, len(red_words)):
+			# 		try:
+			# 			dist = scipy.spatial.distance.cosine(self.word_vectors[word], 
+			# 				self.slerp(self.word_vectors[red_words[i]], self.word_vectors[red_words[j]], 0.5))
+
+			# 			if dist < num_best and word not in red_words and self.arr_not_in_word(word, red_words):
+			# 				num_best = dist
+			# 				word_best = word
+			# 				li.append((num_best, word_best))
+			# 		except:
+			# 			continue
 
 		li = list(sorted(li))
+		print(li)
 		# select the 1st element in li, which is the "String clue"
 		list_comp = [i[1] for i in li]
 		print("The clue is: ", list_comp[0])
-		# return in style array style ["clue", number]
-		return [list_comp[0], 2]
+		# return in array styled: ["clue", number]
+		return [list_comp[0], 1]
 		
 
 	def arr_not_in_word(self, word, arr):
