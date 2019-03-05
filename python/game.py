@@ -24,13 +24,12 @@ class Game:
 	codemaster = 0
 	maps = 0
 
-
 	def __init__(self):
-		if(sys.argv[1]!="human" or sys.argv[2]!="human"):
+		if sys.argv[1] != "human" or sys.argv[2] != "human":
 			brown_ic = wordnet_ic.ic('ic-brown.dat')
 			glove_vecs = {}
 			word_vectors = word2vec.KeyedVectors.load_word2vec_format(
-			'players/GoogleNews-vectors-negative300.bin', binary=True, unicode_errors='ignore')
+				'players/GoogleNews-vectors-negative300.bin', binary=True, unicode_errors='ignore')
 			print('loaded word vectors')
 			with open('players/glove/glove.6B.300d.txt') as infile:
 				for line in infile:
@@ -38,7 +37,7 @@ class Game:
 					glove_vecs[line[0]] = np.array([float(n) for n in line[1:]])
 			print('loaded glove vectors')
 		if len(sys.argv) == 1:
-			self.guesser =  human_guesser()
+			self.guesser = human_guesser()
 			self.codemaster = human_codemaster()
 		else:
 			if sys.argv[1] == "human":
@@ -59,6 +58,7 @@ class Game:
 				guesser_module = importlib.import_module(sys.argv[2])
 				self.guesser = guesser_module.ai_guesser(brown_ic, glove_vecs, word_vectors)
 				print('loaded guesser')
+
 		f = open("game_wordlist.txt", "r")
 		if f.mode == 'r':
 			temp_array = f.read().splitlines()
@@ -72,7 +72,6 @@ class Game:
 
 		self.maps = ["Red"]*8 + ["Blue"]*7 + ["Civilian"]*9 + ["Assassin"]
 		random.shuffle(self.maps)
-
 
 	def display_board_codemaster(self):
 		print(str.center(colorama.Fore.YELLOW + "___________________________BOARD___________________________\n", 60))
@@ -95,7 +94,6 @@ class Game:
 		print(str.center(colorama.Fore.YELLOW + "\n___________________________________________________________", 60))
 		print("\n")
 
-
 	# just for aesthetics, doesn't impact function of code.
 	def display_board_guesser(self):
 		print(colorama.Style.RESET_ALL)
@@ -105,10 +103,9 @@ class Game:
 			if i % 5 == 0:
 				print("\n")
 			print(str.center(self.words[i], 10), " ", end='')
- 
+
 		print(str.center("\n___________________________________________________________", 60))
 		print("\n")
-
 
 	def display_map(self):
 		print("\n")
@@ -131,16 +128,13 @@ class Game:
 				counter += 1
 		print(str.center(colorama.Fore.YELLOW + "\n___________________________________________________________", 55))
 		print("\n")
- 
- 
+
 	def list_words(self):
 		return self.words
 
-
 	def list_map(self):
 		return self.maps
- 
- 
+
 	# takes in an int index called guess to compare with the Map
 	def accept_guess(self,guess_index):
 		# CodeMaster will always win with Red and lose if Blue =/= 7 or Assassin == 1
@@ -164,12 +158,10 @@ class Game:
 		else:
 			self.words[guess_index] = "*Civilian*"
 			return "Still Going"
- 
-		 
+
 	def cls(self):
 		print('\n'*4)
- 
- 
+
 	def write_results(self):
 		red_result = 0
 		blue_result = 0
@@ -180,13 +172,10 @@ class Game:
 			for i in range(len(self.words)):
 				if self.words[i] == "*Red*":
 					red_result += 1
- 
 				elif self.words[i] == "*Blue*":
 					blue_result += 1
- 
 				elif self.words[i] == "*Civilian*":
 					civ_result += 1
- 
 				elif self.words[i] == "*Assassin*":
 					assa_result += 1
 
@@ -196,12 +185,11 @@ class Game:
 			if f.mode == 'a':
 				f.write("R:%d  B:%d  C:%d  A:%d\r\n" % (red_result, blue_result, civ_result, assa_result))
 			f.close()
- 
-	   
+
 	def run(self):
 		string_condition = "Hit_Red"
 		print("========================GAME START========================\n")
-		while(string_condition != "Lose" or string_condition != "Win"):
+		while string_condition != "Lose" or string_condition != "Win":
 			self.cls()
 			words_in_play = self.list_words()
 			map_in_play = self.list_map()
@@ -219,11 +207,11 @@ class Game:
 			self.guesser.get_clue(clue, num)
 			
 			string_condition = "Hit_Red"
-			while(string_condition == "Hit_Red"):
+			while string_condition == "Hit_Red":
 				self.guesser.get_board(words_in_play)
 				guess_answer = self.guesser.give_answer()
 				# if no comparisons were made/found than retry input from codemaster
-				if(guess_answer == ("no comparisons")):
+				if guess_answer == "no comparisons":
 					break
 				guess_answer_index = words_in_play.index(guess_answer.upper().strip())
 				string_condition = self.accept_guess(guess_answer_index)
@@ -232,21 +220,21 @@ class Game:
 					self.guesser.clues.pop()
 					self.cls()
 					self.display_board_guesser()
-					if(self.guesser.clues):
-						clue=self.guesser.clues[len(self.guesser.clues)-1]
-						print("The clue is:", clue[0], clue[1], sep =" ")
+					if self.guesser.clues:
+						clue = self.guesser.clues[len(self.guesser.clues)-1]
+						print("The clue is:", clue[0], clue[1], sep=" ")
 					else:
-						string_condition="Still Going"
-				   
+						string_condition = "Still Going"
+
 				elif string_condition == "Still Going":
 					break
- 
+
 				elif string_condition == "Lose":
 					self.display_board_codemaster()
 					print("You Lost")
 					self.write_results()
 					exit()
- 
+
 				elif string_condition == "Win":
 					self.display_board_codemaster()
 					print("You Won")

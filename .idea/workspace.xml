@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37979ff1-e2b4-416d-a021-922ca1638f5e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Game.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/players/wn_guesser.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/players/wn_guesser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/players/codemaster.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/players/codemaster.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/players/def_codemaster.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/players/def_codemaster.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/players/def_guesser.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/players/def_guesser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/players/guesser.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/players/guesser.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,38 +41,52 @@
     <session id="-506095877">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
-      <usages-collector id="statistics.file.extensions.open" />
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="7" />
+        </counts>
+      </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
-      <usages-collector id="statistics.file.types.edit" />
-      <usages-collector id="statistics.file.types.open" />
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="103" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="7" />
+        </counts>
+      </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
-      <usages-collector id="statistics.file.extensions.edit" />
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="103" />
+        </counts>
+      </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/python/game.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
-              <folding>
-                <element signature="e#67#80#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/python/players/codemaster.py" />
+        <option value="$PROJECT_DIR$/python/game.py" />
+        <option value="$PROJECT_DIR$/python/players/def_codemaster.py" />
+        <option value="$PROJECT_DIR$/python/players/def_guesser.py" />
+        <option value="$PROJECT_DIR$/python/players/guesser.py" />
+      </list>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -78,7 +94,8 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
+    <option name="x" value="45" />
     <option name="y" value="23" />
     <option name="width" value="1232" />
     <option name="height" value="777" />
@@ -88,7 +105,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -111,6 +127,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -175,9 +192,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="47" y="23" width="1232" height="777" extended-state="6" />
+    <frame x="45" y="23" width="1232" height="777" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2579832" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2621849" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -193,6 +210,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="right" x="0" y="0" width="258" height="577" id="Documentation" side_tool="true" weight="0.32941177" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -207,12 +225,49 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/python/players/def_codemaster.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="69" column="30" lean-forward="true" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/players/codemaster.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/players/guesser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python/players/def_guesser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/python/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="155">
+          <caret line="221" column="16" lean-forward="true" selection-start-line="221" selection-start-column="16" selection-end-line="221" selection-end-column="16" />
           <folding>
-            <element signature="e#67#80#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>

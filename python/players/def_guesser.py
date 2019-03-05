@@ -14,17 +14,14 @@ import scipy
 
 class ai_guesser(guesser):
 
-
 	def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
 		self.brown_ic = brown_ic
 		self.glove_vecs = glove_vecs
 		self.word_vectors = word_vectors
 
-
 	def get_board(self, words):
 		self.words = words
 		return words
-
 
 	def get_clue(self, clue, num):
 		self.clue = clue
@@ -32,13 +29,12 @@ class ai_guesser(guesser):
 		li = [clue, num]
 		return li
 
-
 	def wordnet_synset(self, clue, board):
 		pat_results = []
 		jcn_results = []
 		lin_results = []
 		count = 0
-		for i in (board):
+		for i in board:
 			for clue_list in wordnet.synsets(clue):
 				pat_clue = jcn_clue = lin_clue = 0
 				for board_list in wordnet.synsets(i):
@@ -68,8 +64,7 @@ class ai_guesser(guesser):
 		results = [pat_results[:3], jcn_results[:3], lin_results[:3]]
 		return results
 
-
-	def compute_GooGlove(self, clue, board):
+	def compute_googlove(self, clue, board):
 		w2v = []
 		glove = []
 		linalg_result = []
@@ -93,7 +88,7 @@ class ai_guesser(guesser):
 		result = w2v[:3] + glove[:3]
 		return result
 		
-	def keep_guessing(self,clue,board):
+	def keep_guessing(self, clue, board):
 		return True
 
 	def give_answer(self):
@@ -102,26 +97,26 @@ class ai_guesser(guesser):
 		weights = [14, 12, 8, 8, 8]
 		sorted_results = self.wordnet_synset(self.clue, self.words)
 		wordnet_status = True
-		if(not sorted_results):
+		if not sorted_results:
 			wordnet_status = False
-		google_glove = self.compute_GooGlove(self.clue, self.words)
+		google_glove = self.compute_googlove(self.clue, self.words)
 
 		if google_glove:
-			# w2v threshhold + added weights
-			if(google_glove[0][0] < 0.8):
-				if(google_glove[0][0] < 0.7):
-					if(google_glove[0][0] < 0.51):
+			# w2v threshold + added weights
+			if google_glove[0][0] < 0.8:
+				if google_glove[0][0] < 0.7:
+					if google_glove[0][0] < 0.51:
 						weights[0] += 20
 					weights[0] += 10
 				weights[0] += 3
-			# glove threshhold + added weights
-			if(google_glove[3][0] < 0.66):
-				if(google_glove[3][0] < 0.51):
-					if(google_glove[3][0] < 0.36):
+			# glove threshold + added weights
+			if google_glove[3][0] < 0.66:
+				if google_glove[3][0] < 0.51:
+					if google_glove[3][0] < 0.36:
 						weights[1] += 20
 					weights[1] += 10
 				weights[1] += 4
-		# path_sim threshhold + added weights
+		# path_sim threshold + added weights
 		if wordnet_status:
 			if(sorted_results[0][0][1] > 0.24):
 				if(sorted_results[0][0][1] > 0.34):
@@ -129,14 +124,14 @@ class ai_guesser(guesser):
 						weights[2] += 11
 					weights[2] += 7
 				weights[2] += 5
-			# jcn_sim threshhold + added weights
+			# jcn_sim threshold + added weights
 			if(sorted_results[1][0][1] > 0.10):
 				if(sorted_results[1][0][1] > 0.128):
 					if(sorted_results[1][0][1] > 0.19):
 						weights[3] += 11
 					weights[3] += 7
 				weights[3] += 5
-			# lin_sim threshhold + added weights
+			# lin_sim threshold + added weights
 			if(sorted_results[2][0][1] > 0.52):
 				if(sorted_results[2][0][1] > 0.64):
 					if(sorted_results[2][0][1] > 0.79):
@@ -147,8 +142,8 @@ class ai_guesser(guesser):
 			for i in [i[0] for i in sorted_results]:
 				print(i)
 
-		maxWeight = max(weights)
-		y = ([i for i, j in enumerate(weights) if j == maxWeight])
+		max_weight = max(weights)
+		y = ([i for i, j in enumerate(weights) if j == max_weight])
 		x = int(y[0])
 		print("Best from: ", x)
 		if x == 0:

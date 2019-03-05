@@ -1,27 +1,22 @@
 from abc import ABC
-import random
 
 
 class guesser(ABC):
     words = 0
     clue = 0
-    clues=[]
+    clues = []
 
 
 class human_guesser(guesser):
 
-
     def __init__(self):
         pass
-
 
     def get_clue(self, clue, num):
         print("The clue is:", clue, num, sep=" ")
 
-
     def get_board(self, words):
         self.words = words
-
 
     def give_answer(self):
         answer_input = input("Guesser makes turn.\nPlease enter a valid Word >> ")
@@ -34,7 +29,6 @@ class human_guesser(guesser):
             type(answer_input)
 
         return answer_input
-
 
     def is_valid(self, result):
         if result.upper() in self.words:
