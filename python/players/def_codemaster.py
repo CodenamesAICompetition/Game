@@ -62,7 +62,6 @@ class ai_codemaster(codemaster):
 					if i != j:
 						dist = scipy.spatial.distance.cosine(
 							self.word_vectors[word], self.slerp(self.word_vectors[i], self.word_vectors[j], 0.5))
-
 						if dist < num_best and word not in red_words and self.arr_not_in_word(word, red_words):
 							num_best = dist
 							word_best = word
@@ -73,7 +72,7 @@ class ai_codemaster(codemaster):
 							num_best = dist
 							word_best = word
 							li.append((num_best, word_best))
-
+							
 		li = list(sorted(li))
 		print(li)
 		# select the 1st element in li, which is the "String clue"

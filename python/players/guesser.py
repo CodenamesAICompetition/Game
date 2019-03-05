@@ -27,8 +27,10 @@ class human_guesser(guesser):
             print(self.words)
             answer_input = input("Please enter a valid Word >> ")
             type(answer_input)
-
         return answer_input
+
+    def keep_guessing(self, clue, num):
+        return True
 
     def is_valid(self, result):
         if result.upper() in self.words:

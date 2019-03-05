@@ -29,41 +29,6 @@ class ai_guesser(guesser):
 		li = [clue, num]
 		return li
 
-	def wordnet_synset(self, clue, board):
-		pat_results = []
-		jcn_results = []
-		lin_results = []
-		count = 0
-		for i in board:
-			for clue_list in wordnet.synsets(clue):
-				pat_clue = jcn_clue = lin_clue = 0
-				for board_list in wordnet.synsets(i):
-					try:
-						# only if the two compared words have the same part of speech
-						pat = clue_list.path_similarity(board_list)
-						jcn = clue_list.jcn_similarity(board_list, self.brown_ic)
-						lin = clue_list.lin_similarity(board_list, self.brown_ic)
-					except:
-						continue
-					if jcn:
-						jcn_results.append(("jcn: ", jcn, count, clue_list, board_list, i))
-						lin_results.append(("lin: ", lin, count, clue_list, board_list, i))
-						if jcn > jcn_clue:
-							jcn_clue = jcn
-					if pat:
-						pat_results.append(("pat: ", pat, count, clue_list, board_list, i))
-						if pat > pat_clue:
-							pat_clue = pat
-		# if results list is empty
-		if not pat_results or not jcn_results:
-			return []
-
-		pat_results = list(reversed(sorted(pat_results, key=itemgetter(1))))
-		lin_results = list(reversed(sorted(lin_results, key=itemgetter(1))))
-		jcn_results = list(reversed(sorted(jcn_results, key=itemgetter(1))))
-		results = [pat_results[:3], jcn_results[:3], lin_results[:3]]
-		return results
-
 	def compute_googlove(self, clue, board):
 		w2v = []
 		glove = []
@@ -92,72 +57,32 @@ class ai_guesser(guesser):
 		return True
 
 	def give_answer(self):
-		# set weights based on testing for optimal voting algorithm
-		# order is w2v, glove, path_sim, jcn_sim, lin_sim. w2v has more initial weights due to its accuracy.
-		weights = [14, 12, 8, 8, 8]
-		sorted_results = self.wordnet_synset(self.clue, self.words)
-		wordnet_status = True
-		if not sorted_results:
-			wordnet_status = False
+		# preset weights based on testing for optimal voting algorithm
+		# weights[0] = w2v initial weight, weights[1] = glove initial weight
+		# w2v holds a higher initial value due to its accuracy.
+		weights = [14, 12]
 		google_glove = self.compute_googlove(self.clue, self.words)
 
-		if google_glove:
-			# w2v threshold + added weights
-			if google_glove[0][0] < 0.8:
-				if google_glove[0][0] < 0.7:
-					if google_glove[0][0] < 0.51:
-						weights[0] += 20
-					weights[0] += 10
-				weights[0] += 3
-			# glove threshold + added weights
-			if google_glove[3][0] < 0.66:
-				if google_glove[3][0] < 0.51:
-					if google_glove[3][0] < 0.36:
-						weights[1] += 20
-					weights[1] += 10
-				weights[1] += 4
-		# path_sim threshold + added weights
-		if wordnet_status:
-			if(sorted_results[0][0][1] > 0.24):
-				if(sorted_results[0][0][1] > 0.34):
-					if(sorted_results[0][0][1] > 0.49):
-						weights[2] += 11
-					weights[2] += 7
-				weights[2] += 5
-			# jcn_sim threshold + added weights
-			if(sorted_results[1][0][1] > 0.10):
-				if(sorted_results[1][0][1] > 0.128):
-					if(sorted_results[1][0][1] > 0.19):
-						weights[3] += 11
-					weights[3] += 7
-				weights[3] += 5
-			# lin_sim threshold + added weights
-			if(sorted_results[2][0][1] > 0.52):
-				if(sorted_results[2][0][1] > 0.64):
-					if(sorted_results[2][0][1] > 0.79):
-						weights[4] += 11
-					weights[4] += 7
-				weights[4] += 5
-
-			for i in [i[0] for i in sorted_results]:
-				print(i)
+		# w2v threshold + added weights
+		if google_glove[0][0] < 0.8:
+			if google_glove[0][0] < 0.7:
+				if google_glove[0][0] < 0.51:
+					weights[0] += 20
+				weights[0] += 10
+			weights[0] += 3
+		# glove threshold + added weights
+		if google_glove[3][0] < 0.66:
+			if google_glove[3][0] < 0.51:
+				if google_glove[3][0] < 0.36:
+					weights[1] += 20
+				weights[1] += 10
+			weights[1] += 4
 
 		max_weight = max(weights)
 		y = ([i for i, j in enumerate(weights) if j == max_weight])
-		x = int(y[0])
-		print("Best from: ", x)
-		if x == 0:
-			# google_glove[0][1] is w2v scipy cosine value
-			string_answer_input = (google_glove[0][1])
-		elif x == 1:
-			string_answer_input = (google_glove[3][1])
-		elif x == 2:
-			string_answer_input = (sorted_results[0][0][5])
-		elif x == 3:
-			string_answer_input = (sorted_results[1][0][5])
-		elif x == 4:
-			string_answer_input = (sorted_results[2][0][5])
-	
-		print("Threshold chose word: ", string_answer_input)
+		x = int(y[0]) + 1
+		# if w2v won the voting alg (x == 0) choose the word w2v, else choose glove's word.
+		string_answer_input = google_glove[0][1] if x == 1 else google_glove[3][1]
+		print("Threshold chose word: ", string_answer_input, " from: ", x)
 		return string_answer_input
 

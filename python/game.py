@@ -25,6 +25,7 @@ class Game:
 	maps = 0
 
 	def __init__(self):
+		# if the game is going to have an ai, load up word vectors
 		if sys.argv[1] != "human" or sys.argv[2] != "human":
 			brown_ic = wordnet_ic.ic('ic-brown.dat')
 			glove_vecs = {}
@@ -36,28 +37,22 @@ class Game:
 					line = line.rstrip().split(' ')
 					glove_vecs[line[0]] = np.array([float(n) for n in line[1:]])
 			print('loaded glove vectors')
-		if len(sys.argv) == 1:
-			self.guesser = human_guesser()
+
+		if sys.argv[1] == "human":
 			self.codemaster = human_codemaster()
+			print('human codemaster')
 		else:
-			if sys.argv[1] == "human":
-				self.codemaster = human_codemaster()
-				print('human codemaster')
-			elif sys.argv[1] == "ai":
-				self.codemaster = ai_codemaster()
-			else:
-				codemaster_module = importlib.import_module(sys.argv[1])
-				self.codemaster = codemaster_module.ai_codemaster(brown_ic, glove_vecs, word_vectors)
-				print('loaded codemaster')
-			if sys.argv[2] == "human":
-				self.guesser = human_guesser()
-				print('human guesser')
-			elif sys.argv[2] == "ai":
-				self.guesser = ai_guesser()
-			else:
-				guesser_module = importlib.import_module(sys.argv[2])
-				self.guesser = guesser_module.ai_guesser(brown_ic, glove_vecs, word_vectors)
-				print('loaded guesser')
+			codemaster_module = importlib.import_module(sys.argv[1])
+			self.codemaster = codemaster_module.ai_codemaster(brown_ic, glove_vecs, word_vectors)
+			print('loaded codemaster')
+
+		if sys.argv[2] == "human":
+			self.guesser = human_guesser()
+			print('human guesser')
+		else:
+			guesser_module = importlib.import_module(sys.argv[2])
+			self.guesser = guesser_module.ai_guesser(brown_ic, glove_vecs, word_vectors)
+			print('loaded guesser')
 
 		f = open("game_wordlist.txt", "r")
 		if f.mode == 'r':
@@ -73,6 +68,7 @@ class Game:
 		self.maps = ["Red"]*8 + ["Blue"]*7 + ["Civilian"]*9 + ["Assassin"]
 		random.shuffle(self.maps)
 
+	# prints out board with color-paired words, only for codemaster, and simply stylistic
 	def display_board_codemaster(self):
 		print(str.center(colorama.Fore.YELLOW + "___________________________BOARD___________________________\n", 60))
 		counter = 0
@@ -94,7 +90,7 @@ class Game:
 		print(str.center(colorama.Fore.YELLOW + "\n___________________________________________________________", 60))
 		print("\n")
 
-	# just for aesthetics, doesn't impact function of code.
+	# prints the list of words in a board like fashion (5x5)
 	def display_board_guesser(self):
 		print(colorama.Style.RESET_ALL)
 		print(str.center("___________________________BOARD___________________________", 60))
@@ -107,6 +103,7 @@ class Game:
 		print(str.center("\n___________________________________________________________", 60))
 		print("\n")
 
+	# just for aesthetics, doesn't impact function of code.
 	def display_map(self):
 		print("\n")
 		print(str.center(colorama.Fore.YELLOW + "____________________________MAP____________________________\n", 55))
@@ -187,9 +184,9 @@ class Game:
 			f.close()
 
 	def run(self):
-		string_condition = "Hit_Red"
-		print("========================GAME START========================\n")
-		while string_condition != "Lose" or string_condition != "Win":
+		game_condition = "Hit_Red"
+		while game_condition != "Lose" or game_condition != "Win":
+			# board setup and display
 			self.cls()
 			words_in_play = self.list_words()
 			map_in_play = self.list_map()
@@ -197,7 +194,10 @@ class Game:
 			self.codemaster.get_board(words_in_play)
 			self.display_board_codemaster()
 			self.display_map()
+			# codemaster gives clue & number here
 			clue, num = self.codemaster.give_clue()
+			keep_guessing = True
+			guess_num = 0
 			num = int(num)
 
 			for i in reversed(range(num)):
@@ -206,36 +206,41 @@ class Game:
 			self.display_board_guesser()
 			self.guesser.get_clue(clue, num)
 			
-			string_condition = "Hit_Red"
-			while string_condition == "Hit_Red":
+			game_condition = "Hit_Red"
+			while guess_num <= num and keep_guessing and game_condition == "Hit_Red":
 				self.guesser.get_board(words_in_play)
 				guess_answer = self.guesser.give_answer()
+
 				# if no comparisons were made/found than retry input from codemaster
 				if guess_answer == "no comparisons":
 					break
 				guess_answer_index = words_in_play.index(guess_answer.upper().strip())
-				string_condition = self.accept_guess(guess_answer_index)
+				game_condition = self.accept_guess(guess_answer_index)
 
-				if string_condition == "Hit_Red":
+				if game_condition == "Hit_Red":
 					self.guesser.clues.pop()
 					self.cls()
 					self.display_board_guesser()
+					guess_num += 1
+					keep_guessing = self.guesser.keep_guessing(clue, words_in_play)
+
 					if self.guesser.clues:
 						clue = self.guesser.clues[len(self.guesser.clues)-1]
 						print("The clue is:", clue[0], clue[1], sep=" ")
 					else:
-						string_condition = "Still Going"
+						game_condition = "Still Going"
 
-				elif string_condition == "Still Going":
+				# if guesser selected a civilian or a blue-paired word
+				elif game_condition == "Still Going":
 					break
 
-				elif string_condition == "Lose":
+				elif game_condition == "Lose":
 					self.display_board_codemaster()
 					print("You Lost")
 					self.write_results()
 					exit()
 
-				elif string_condition == "Win":
+				elif game_condition == "Win":
 					self.display_board_codemaster()
 					print("You Won")
 					self.write_results()
