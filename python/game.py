@@ -32,7 +32,7 @@ class Game:
 			word_vectors = word2vec.KeyedVectors.load_word2vec_format(
 				'players/GoogleNews-vectors-negative300.bin', binary=True, unicode_errors='ignore')
 			print('loaded word vectors')
-			with open('players/glove/glove.6B.300d.txt') as infile:
+			with open('players/glove/glove.6B.300d.txt', encoding="utf-8") as infile:
 				for line in infile:
 					line = line.rstrip().split(' ')
 					glove_vecs[line[0]] = np.array([float(n) for n in line[1:]])
@@ -68,9 +68,9 @@ class Game:
 		self.maps = ["Red"]*8 + ["Blue"]*7 + ["Civilian"]*9 + ["Assassin"]
 		random.shuffle(self.maps)
 
-	# prints out board with color-paired words, only for codemaster, and simply stylistic
+	# prints out board with color-paired words, only for codemaster, color && stylistic
 	def display_board_codemaster(self):
-		print(str.center(colorama.Fore.YELLOW + "___________________________BOARD___________________________\n", 60))
+		print(str.center(colorama.Fore.WHITE + "___________________________BOARD___________________________\n", 60))
 		counter = 0
 		for i in range(len(self.words)):
 			if counter >= 1 and i % 5 == 0:
@@ -79,7 +79,7 @@ class Game:
 				print(str.center(colorama.Fore.RED + self.words[i], 15), " ", end='')
 				counter += 1
 			elif self.maps[i] is 'Blue':
-				print(str.center(colorama.Fore.BLUE + self.words[i], 15), " ", end='')
+				print(str.center(colorama.Fore.WHITE + self.words[i], 15), " ", end='')
 				counter += 1
 			elif self.maps[i] is 'Civilian':
 				print(str.center(colorama.Fore.WHITE + self.words[i], 15), " ", end='')
@@ -87,7 +87,7 @@ class Game:
 			else:
 				print(str.center(colorama.Fore.MAGENTA + self.words[i], 15), " ", end='')
 				counter += 1
-		print(str.center(colorama.Fore.YELLOW + "\n___________________________________________________________", 60))
+		print(str.center(colorama.Fore.WHITE + "\n___________________________________________________________", 60))
 		print("\n")
 
 	# prints the list of words in a board like fashion (5x5)
@@ -103,10 +103,10 @@ class Game:
 		print(str.center("\n___________________________________________________________", 60))
 		print("\n")
 
-	# just for aesthetics, doesn't impact function of code.
+	# aesthetic purposes, doesn't impact function of code.
 	def display_map(self):
 		print("\n")
-		print(str.center(colorama.Fore.YELLOW + "____________________________MAP____________________________\n", 55))
+		print(str.center(colorama.Fore.WHITE + "____________________________MAP____________________________\n", 55))
 		counter = 0
 		for i in range(len(self.maps)):
 			if counter >= 1 and i % 5 == 0:
@@ -115,7 +115,7 @@ class Game:
 				print(str.center(colorama.Fore.RED + self.maps[i], 15), " ", end='')
 				counter += 1
 			elif self.maps[i] is 'Blue':
-				print(str.center(colorama.Fore.BLUE + self.maps[i], 15), " ", end='')
+				print(str.center(colorama.Fore.WHITE + self.maps[i], 15), " ", end='')
 				counter += 1
 			elif self.maps[i] is 'Civilian':
 				print(str.center(colorama.Fore.WHITE + self.maps[i], 15), " ", end='')
@@ -123,7 +123,7 @@ class Game:
 			else:
 				print(str.center(colorama.Fore.MAGENTA + self.maps[i], 15), " ", end='')
 				counter += 1
-		print(str.center(colorama.Fore.YELLOW + "\n___________________________________________________________", 55))
+		print(str.center(colorama.Fore.WHITE + "\n___________________________________________________________", 55))
 		print("\n")
 
 	def list_words(self):
@@ -175,12 +175,13 @@ class Game:
 					civ_result += 1
 				elif self.words[i] == "*Assassin*":
 					assa_result += 1
-
+			total = red_result + blue_result + civ_result + assa_result
 			# append to file
 			f = open("bot_results.txt", "a")
 			# if successfully opened start appending
 			if f.mode == 'a':
-				f.write("R:%d  B:%d  C:%d  A:%d\r\n" % (red_result, blue_result, civ_result, assa_result))
+				f.write("R:%d  B:%d  C:%d  A:%d  Total:%d\r\n" % 
+					(red_result, blue_result, civ_result, assa_result, total))
 			f.close()
 
 	def run(self):
@@ -192,8 +193,8 @@ class Game:
 			map_in_play = self.list_map()
 			self.codemaster.get_map(map_in_play)
 			self.codemaster.get_board(words_in_play)
-			self.display_board_codemaster()
 			self.display_map()
+			self.display_board_codemaster()
 			# codemaster gives clue & number here
 			clue, num = self.codemaster.give_clue()
 			keep_guessing = True
@@ -222,6 +223,7 @@ class Game:
 					self.cls()
 					self.display_board_guesser()
 					guess_num += 1
+					print("Keep Guessing?")
 					keep_guessing = self.guesser.keep_guessing(clue, words_in_play)
 
 					if self.guesser.clues:
