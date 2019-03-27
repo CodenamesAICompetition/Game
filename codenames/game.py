@@ -26,6 +26,10 @@ class Game:
 
 	def __init__(self):
 		# if the game is going to have an ai, load up word vectors
+        if len(sys.argv) == 1:
+            print(f'Usage: {sys.argv[0]} <human|package of codemaster> <human|package of guesser> [seed]')
+            exit()
+            
 		if sys.argv[1] != "human" or sys.argv[2] != "human":
 			brown_ic = wordnet_ic.ic('ic-brown.dat')
 			glove_vecs = {}
@@ -53,6 +57,9 @@ class Game:
 			guesser_module = importlib.import_module(sys.argv[2])
 			self.guesser = guesser_module.ai_guesser(brown_ic, glove_vecs, word_vectors)
 			print('loaded guesser')
+        
+        if len(sys.argv) == 4:
+            random.seed = int(sys.arg[3])
 
 		f = open("game_wordlist.txt", "r")
 		if f.mode == 'r':
@@ -62,8 +69,10 @@ class Game:
 			while len(self.words) != 25:
 				self.words = set([])
 				for x in range(0, 25):
-					self.words.add(random.choice(temp_array))
-			self.words = list(self.words)
+                    random.shuffle(temp_array)
+					self.words.add(temp_array.pop())
+			self.words = list(sorted(self.words))
+            random.shuffle(self.words)
 
 		self.maps = ["Red"]*8 + ["Blue"]*7 + ["Civilian"]*9 + ["Assassin"]
 		random.shuffle(self.maps)
