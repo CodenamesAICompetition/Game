@@ -113,7 +113,9 @@ Play proceeds, passing back and forth, until one of 3 outcomes is achieved:
 Competition rules have not been fully settled yet.
 
 ## Prerequisite: Installation and Downloads
-Installation for nltk on macOS/linux:
+Note: The use of [Anaconda3](https://www.anaconda.com/distribution/) must be used for certain dependencies to work without issues. Also installing NLTK and gensim through conda is simpler and less time consuming.
+
+Installation of NLTK on macOS/linux:
 * Install python3 on your operation system. If python 2 and python 3 coexists in your Operating System than you must specify `python3` for your commands.
 * For macOS users, who don't have `pip3` or `python3` recognized in terminal, simply open terminal and type in `brew install python3` and check to see if `pip3` is a recognized command. If it is move on to the next step, if not type `brew postinstall python3`
 * Type in `sudo pip3 install -U nltk`
@@ -123,7 +125,7 @@ python
 >>> import nltk
 >>> nltk.download('all')
 ```
-Installation for nltk on Windows:
+Installation of NLTK on Windows:
 * Head over to the [nltk website](https://pypi.org/project/nltk/#files)
 * Download the nltk file from the above link
 * Start a terminal and change into the nltk directory
@@ -148,12 +150,6 @@ Installing Gensim:
 
 * For macOS, using easy_install or anaconda(same as above):
 ```sudo easy_install --upgrade gensim```
-
-Installing AllenNLP:
-* open a terminal with pip/pip3 and type:
-```pip install allennlp```
-* Check if allennlp was successfully installed in python.
-* (Note that your first time importing allennlp will install some files locally)
 
 ### These files must be installed as well, place them under your /game/python/players/ folder:
 * https://nlp.stanford.edu/data/glove.6B.zip (~2.25 GB)
