@@ -1,3 +1,6 @@
+*.bin
+glove.6B.300d.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

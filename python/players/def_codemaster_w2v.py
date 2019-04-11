@@ -55,7 +55,7 @@ class ai_codemaster(codemaster):
 				red_words.append(self.words[i].lower())
 		print("RED:\t", red_words)
 
-		all_vectors = (self.word_vectors, self.glove_vecs,)
+		all_vectors = (self.word_vectors,)
 		bests = {}
 
 		bad_word_dists = {}
