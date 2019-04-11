@@ -25,7 +25,6 @@ class ai_guesser(guesser):
 
 	def get_clue(self, clue, num):
 		self.clue = clue
-		print("The clue is:", clue, num, sep=" ")
 		li = [clue, num]
 		return li
 
@@ -44,9 +43,6 @@ class ai_guesser(guesser):
 					self.glove_vecs[word.lower()]), word))
 			except KeyError:
 				continue
-
-		print("w2v ", sorted(w2v)[:1])
-		print("glove ", sorted(glove)[:1])
 
 		w2v = list(sorted(w2v))
 		glove = list(sorted(glove))
@@ -85,6 +81,5 @@ class ai_guesser(guesser):
 		x = int(y[0]) + 1
 		# if w2v won the voting alg (x == 0) choose the word w2v, else choose glove's word.
 		string_answer_input = google_glove[0][1] if x == 1 else google_glove[3][1]
-		print("Threshold chose word: ", string_answer_input, " from: ", x)
 		return string_answer_input
 

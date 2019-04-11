@@ -4,7 +4,7 @@ This is the Codenames AI Competition Framework.  The purpose of this framework i
 
 * Requires the understanding of language
 * Requires communication, in a semantically meaningful way, with players of unknown provenance --  the player on the other side of the table may be a human or it may be another, unaffiliated, bot
-* Requires understanding words with multiple meanings 
+* Requires understanding words with multiple meanings
 
 
 ## Submissions
@@ -12,12 +12,16 @@ Entrants in the competition will be able to submit up to two bots (at most 1 Cod
 
 ### Codemaster
 The Codemaster bot is a python 3 class that derives from the supplied `codemaster.py`.  The bot must make use of the two functions:
+`__init__(self, brown_ic=None, glove_vecs=None, word_vectors=None)`
+
 
 `receive_game_state(words : List[Str], hidden_map : List[Str]) -> None`
 
 and
 
 `supply_clue() -> Tuple[Str,int]`
+
+'__init__' is given 3 datasets by default (to reduce load times for common NLP resources) -- the Brown Wordnet from the NLTK, the pretrained 300 dimensional GLOVE vectors, and the pretrained 300 dimensional Google News word2vec vectors.
 
 `receive_game_state` is passed the list of words on the board, as well as the map of hidden information.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.  The `hidden_map` is a list of `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating whether a spot on the board is on the team of the codemaster (`'*Red*'`), the opposing team (`'*Blue*'`), a civilian (`'*Civilian*'`), or the assassin (`'*Assassin*'`).
 
@@ -26,21 +30,30 @@ and
 
 ### Guesser
 
-The Guesser bot is a python 3 class that derives from the supplied `guesser.py`.  The bot must make use of the two functions:
+The Guesser bot is a python 3 class that derives from the supplied `guesser.py`.  The bot must make use of the four functions:
+
+`__init__(self, brown_ic=None, glove_vecs=None, word_vectors=None)`
 
 `receive_game_state(words: List[str]) -> None`
 
 `receive_clue(clue:Str, guesses:int) -> None`
 
+`keep_guessing -> bool`
+
 and
 
-`List[Str] make_guess()`
 
-`receive_game_state` is passed the list of words on the board.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type. 
+`give_answer() -> Str`
+
+`__init__` is as above with the codemaster.
+
+`receive_game_state` is passed the list of words on the board.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.
 
 `receive_clue` is passed the clue and the number of guesses it covers, as supplied by the `supply_clue` of the codemaster.
 
-`make_guess` returns the guesses of the Guesser, given the state of the board and the previous clue.  The guesses are a list of English words, in order of importance, highest to lowest.
+`keep_guessing` is a function that the game engine checks to see if the bot chooses to keep guessing, as the bot must only make at least one guess, but may choose to guess until it has gone to the number supplied by receive_clue + 1.
+
+`give_answer` returns the current guess of the Guesser, given the state of the board and the previous clue.
 
 
 
@@ -82,7 +95,7 @@ e.g. `['MARBLE', 'STREAM']`
 
 This would result in them guessing 1 word correctly -- MARBLE -- and guessing one that is linked to a civilian -- STREAM.  If instead the guesser had guessed:
 
-`['STREAM', 'MARBLE']` 
+`['STREAM', 'MARBLE']`
 
 Then the result would be in 1 incorrect guess -- STREAM -- and their turn would have ended at that point.  It is important for the guesser to correctly order their guesses, as ordering is important.
 
@@ -100,21 +113,23 @@ Play proceeds, passing back and forth, until one of 3 outcomes is achieved:
 Competition rules have not been fully settled yet.
 
 ## Prerequisite: Installation and Downloads
-Installation for nltk on macOS/linux:
+Note: The use of [Anaconda3](https://www.anaconda.com/distribution/) must be used for certain dependencies to work without issues. Also installing NLTK and gensim through conda is simpler and less time consuming.
+
+Installation of NLTK on macOS/linux:
 * Install python3 on your operation system. If python 2 and python 3 coexists in your Operating System than you must specify `python3` for your commands.
 * For macOS users, who don't have `pip3` or `python3` recognized in terminal, simply open terminal and type in `brew install python3` and check to see if `pip3` is a recognized command. If it is move on to the next step, if not type `brew postinstall python3`
 * Type in `sudo pip3 install -U nltk`
-* Finally type in terminal (this installs wordnet): 
+* Finally type in terminal (this installs wordnet):
 ```
 python
 >>> import nltk
 >>> nltk.download('all')
 ```
-Installation for nltk on Windows:
+Installation of NLTK on Windows:
 * Head over to the [nltk website](https://pypi.org/project/nltk/#files)
 * Download the nltk file from the above link
 * Start a terminal and change into the nltk directory
-* Finally type in: 
+* Finally type in:
 ```
 python setup.py install
 ```
@@ -135,12 +150,6 @@ Installing Gensim:
 
 * For macOS, using easy_install or anaconda(same as above):
 ```sudo easy_install --upgrade gensim```
-
-Installing AllenNLP:
-* open a terminal with pip/pip3 and type:
-```pip install allennlp```
-* Check if allennlp was successfully installed in python. 
-* (Note that your first time importing allennlp will install some files locally)
 
 ### These files must be installed as well, place them under your /game/python/players/ folder:
 * https://nlp.stanford.edu/data/glove.6B.zip (~2.25 GB)

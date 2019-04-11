@@ -1,10 +1,11 @@
-from abc import ABC
 
 
-class guesser(ABC):
+class guesser():
     words = 0
     clue = 0
     clues = []
+    def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
+        pass
 
 
 class human_guesser(guesser):
@@ -21,7 +22,7 @@ class human_guesser(guesser):
     def give_answer(self):
         answer_input = input("Guesser makes turn.\nPlease enter a valid Word >> ")
         type(answer_input)
-        
+
         while not self.is_valid(answer_input):
             print("Input Invalid")
             print(self.words)
