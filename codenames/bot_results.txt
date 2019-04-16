@@ -1,2 +1,10 @@
 R:8  B:0  C:0  A:0  Total:8
 R:8  B:0  C:0  A:0  Total:8
+R:8  B:0  C:0  A:0  Total:8
+R:8  B:0  C:0  A:0  Total:8
+R:8 B0 C:0 A:0 Total:8 CM:players.def_codemaster_w2v Guesser:players.def_guesser_w2v seed:time
+R:8 B0 C:0 A:0 Total:8 CM:players.def_codemaster_w2v Guesser:players.def_guesser_w2v seed:time
+R:8 B0 C:0 A:0 Total:8 CM:players.def_codemaster_w2v Guesser:players.def_guesser_w2v seed:time
+R:8 B:0 C:0 A:0T otal:8 CM:players.def_codemaster_glove075 Guesser:players.def_guesser_glove seed:time
+Total:11 B:1 C:2 A:0 R:8 CM:players.def_codemaster_w2v Guesser:players.def_guesser_glove seed:10
+Total:11 B:1 C:2 A:0 R:8 CM:players.def_codemaster_w2v Guesser:players.def_guesser_glove seed:10

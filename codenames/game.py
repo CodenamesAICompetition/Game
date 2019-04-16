@@ -27,7 +27,8 @@ class Game:
 	
 	def __init__(self):
 		if len(sys.argv) == 1:
-			print('Usage: {} <human|package of codemaster> <human|package of guesser> [seed]'.format(sys.argv[0]))
+			tmp = 'Usage: {} <human|package of codemaster> <human|package of guesser> [seed]'
+			print(tmp.format(sys.argv[0]))
 			exit()
 		# if the game is going to have an ai, load up word vectors
 		if sys.argv[1] != "human" or sys.argv[2] != "human":
@@ -192,8 +193,13 @@ class Game:
 			f = open("bot_results.txt", "a")
 			# if successfully opened start appending
 			if f.mode == 'a':
-				f.write("R:%d  B:%d  C:%d  A:%d  Total:%d\r\n" % 
-					(red_result, blue_result, civ_result, assa_result, total))
+				seed = 'time'
+				if len(sys.argv) == 4:
+					seed = sys.argv[3]
+				f.write(
+					f'Total:{total} B:{blue_result} C:{civ_result} A:{assa_result}'
+					f' R:{red_result} CM:{sys.argv[1]} GUESSER:{sys.argv[2]} SEED:{seed}\n'
+					)
 			f.close()
 
 	def run(self):
@@ -213,8 +219,6 @@ class Game:
 			guess_num = 0
 			num = int(num)
 
-			for i in reversed(range(num)):
-				self.guesser.clues.append((clue,num-i)) 
 			self.cls()
 			self.display_board_codemaster()
 			self.guesser.get_clue(clue, num)
@@ -231,18 +235,12 @@ class Game:
 				game_condition = self.accept_guess(guess_answer_index)
 
 				if game_condition == "Hit_Red":
-					self.guesser.clues.pop()
 					self.cls()
 					self.display_board_codemaster()
 					guess_num += 1
 					print("Keep Guessing?")
 					keep_guessing = self.guesser.keep_guessing(clue, words_in_play)
-
-					if self.guesser.clues:
-						clue = self.guesser.clues[len(self.guesser.clues)-1]
-						print("The clue is:", clue[0], clue[1], sep=" ")
-					else:
-						game_condition = "Still Going"
+					print("The clue is :", clue, num, sep=" ")
 
 				# if guesser selected a civilian or a blue-paired word
 				elif game_condition == "Still Going":

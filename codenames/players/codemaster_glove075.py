@@ -28,9 +28,6 @@ class ai_codemaster(codemaster):
 			for line in infile:
 				self.cm_wordlist.append(line.rstrip())
 
-		self.bad_word_dists = None
-		self.red_word_dists = None
-
 	def get_board(self, words):
 		self.words = words
 		return words
@@ -60,27 +57,20 @@ class ai_codemaster(codemaster):
 
 		all_vectors = (self.glove_vecs,)
 		bests = {}
-		if not self.bad_word_dists:
-			self.bad_word_dists = {}
-			for word in self.cm_wordlist:
-				self.bad_word_dists[word] = {}
-				for val in bad_words:
-					b_dist = cos_dist(self.concatenate(val, all_vectors), self.concatenate(word, all_vectors))
-					self.bad_word_dists[word][val] = b_dist
 
-			self.red_word_dists = {}
-			for word in red_words:
-				self.red_word_dists[word] = {}
-				for val in self.cm_wordlist:
-					b_dist = cos_dist(self.concatenate(val, all_vectors), self.concatenate(word, all_vectors))
-					self.red_word_dists[word][val] = b_dist
-		else:
-			to_remove = set(self.bad_word_dists) - set(bad_words)
-			for word in to_remove:
-				del self.bad_word_dists[word]
-			to_remove = set(self.red_word_dists) - set(red_words)
-			for word in to_remove:
-				del self.red_word_dists[word]
+		bad_word_dists = {}
+		for word in self.cm_wordlist:
+			bad_word_dists[word] = {}
+			for val in bad_words:
+				b_dist = cos_dist(self.concatenate(val, all_vectors), self.concatenate(word, all_vectors))
+				bad_word_dists[word][val] = b_dist
+
+		red_word_dists = {}
+		for word in red_words:
+			red_word_dists[word] = {}
+			for val in self.cm_wordlist:
+				b_dist = cos_dist(self.concatenate(val, all_vectors), self.concatenate(word, all_vectors))
+				red_word_dists[word][val] = b_dist
 
 		for clue_num in range(1,3+1):
 			best_per_dist = np.inf
@@ -92,6 +82,7 @@ class ai_codemaster(codemaster):
 				for word in self.cm_wordlist:
 					if not self.arr_not_in_word(word, red_words + bad_words):
 						continue
+						
 					bad_dist = np.inf
 					worst_bad = ''
 					for bad_word in bad_word_dists[word]:
@@ -118,6 +109,8 @@ class ai_codemaster(codemaster):
 		print("BESTS: ", bests)
 		li = []
 		pi = []
+		chosen_clue = bests[1]
+		chosen_num = 1
 		for clue_num, clue in bests.items():
 			best_red_word, combined_clue, combined_score = clue
 			worst = -np.inf
@@ -130,6 +123,9 @@ class ai_codemaster(codemaster):
 					worst = dist
 				if dist < best:
 					best = dist
+			if worst < 0.75:
+				chosen_clue = clue
+				chosen_num = clue_num
 
 			li.append((worst/best, best_red_word, worst_word, combined_clue,
 				combined_score,combined_score**len(best_red_word)))

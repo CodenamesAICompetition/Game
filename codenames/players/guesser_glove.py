@@ -18,6 +18,7 @@ class ai_guesser(guesser):
 		self.brown_ic = brown_ic
 		self.glove_vecs = glove_vecs
 		self.word_vectors = word_vectors
+		self.num = 0
 
 	def get_board(self, words):
 		self.words = words
@@ -25,6 +26,7 @@ class ai_guesser(guesser):
 
 	def get_clue(self, clue, num):
 		self.clue = clue
+		self.num = num
 		print("The clue is:", clue, num, sep=" ")
 		li = [clue, num]
 		return li
@@ -33,14 +35,13 @@ class ai_guesser(guesser):
 		w2v = []
 		glove = []
 		linalg_result = []
-		all_vectors = (self.word_vectors, self.glove_vecs,)
 
 		for word in board:
 			try:
 				if word[0] == '*':
 					continue
-				w2v.append((scipy.spatial.distance.cosine(self.concatenate(clue, all_vectors),
-					self.concatenate(word, all_vectors), word))
+				w2v.append((scipy.spatial.distance.cosine(self.glove_vecs[clue],
+					self.glove_vecs[word.lower()]), word))
 			except KeyError:
 				continue
 
@@ -48,7 +49,7 @@ class ai_guesser(guesser):
 		return w2v
 		
 	def keep_guessing(self, clue, board):
-		return True
+		return self.num > 0
 
 	def give_answer(self):
 		# preset weights based on testing for optimal voting algorithm
@@ -56,21 +57,7 @@ class ai_guesser(guesser):
 		# w2v holds a higher initial value due to its accuracy.
 		weights = [13, 12]
 		sorted_words = self.compute_distance(self.clue, self.words)
-		
+		print(f'guesses: {sorted_words}')
+		self.num -= 1
 		return sorted_words[0][1]
-
-
-	def combine(self, words, wordvecs):
-		factor = 1.0/float(len(words))
-		new_word = self.concatenate(words[0],wordvecs)*factor
-		for word in words[1:]:
-			new_word += self.concatenate(word,wordvecs)*factor
-		return new_word
-
-	def concatenate(self, word, wordvecs):
-		concatenated = wordvecs[0][word]
-		for vec in wordvecs[1:]:
-			concatenated = np.hstack((concatenated,vec[word] ))
-		return concatenated
-
 
