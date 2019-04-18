@@ -64,7 +64,7 @@ class Game:
 		if len(sys.argv) == 4:
 			seed = int(sys.argv[3])
 			random.seed(int(sys.argv[3]))
-		f = open("Game_Wordlist.txt", "r")
+		f = open("game_wordpool.txt", "r")
 		
 		if f.mode == 'r':
 			temp_array = f.read().splitlines()
@@ -197,7 +197,7 @@ class Game:
 				if len(sys.argv) == 4:
 					seed = sys.argv[3]
 				f.write(
-					f'Total:{total} B:{blue_result} C:{civ_result} A:{assa_result}'
+					f'TOTAL:{total} B:{blue_result} C:{civ_result} A:{assa_result}'
 					f' R:{red_result} CM:{sys.argv[1]} GUESSER:{sys.argv[2]} SEED:{seed}\n'
 					)
 			f.close()

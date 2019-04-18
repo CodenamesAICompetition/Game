@@ -2,12 +2,12 @@ import random
 
 
 class codemaster():
+    
     words = 0
     map = 0
     bot_array = 0
 
     def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
-
         pass
 
     def get_map(self, map_list):

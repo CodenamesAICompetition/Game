@@ -1,5 +1,3 @@
-
-
 class guesser():
     words = 0
     clue = 0

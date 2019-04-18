@@ -19,7 +19,7 @@ class ai_guesser(guesser):
 		self.glove_vecs = glove_vecs
 		self.word_vectors = word_vectors
 		self.num = 0
-		
+
 	def get_board(self, words):
 		self.words = words
 		return words
