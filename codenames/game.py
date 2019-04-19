@@ -16,6 +16,7 @@ import sys
 import colorama
 import gensim.models.keyedvectors as word2vec
 import gensim.downloader as api
+import argparse
 
 
 class Game:
@@ -26,44 +27,57 @@ class Game:
 	seed = 0
 	
 	def __init__(self):
-		if len(sys.argv) == 1:
-			tmp = 'Usage: {} <human|package of codemaster> <human|package of guesser> [seed]'
-			print(tmp.format(sys.argv[0]))
-			exit()
+		parser = argparse.ArgumentParser(
+        description="Run the Codenames AI competition game.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+		parser.add_argument("codemaster", help="Path to codemaster package or 'human'")
+		parser.add_argument("guesser", help="Path to guesser package or 'human'")
+		parser.add_argument("--seed", help="Random seed value for board state -- integer or 'time'",default='time')
+		parser.add_argument("--w2v", help="Path to w2v file or 'none'",default='none')
+		parser.add_argument("--glove", help="Path to glove file or 'none'",default='none')
+		parser.add_argument("--wordnet", help="Name of wordnet file or 'none', most like ic-brown.dat",default='none')
+
+		
+		args = parser.parse_args()
+
 		# if the game is going to have an ai, load up word vectors
 		if sys.argv[1] != "human" or sys.argv[2] != "human":
-			brown_ic = wordnet_ic.ic('ic-brown.dat')
+			brown_ic = None
+			if args.wordnet != 'none':
+				brown_ic = wordnet_ic.ic(args.wordnet)
 			glove_vecs = {}
-			# file located at /players/GoogleNews-vectors.bin
-			word_vectors = word2vec.KeyedVectors.load_word2vec_format(
-				'players/GoogleNews-vectors-negative300.bin', binary=True, unicode_errors='ignore')
-			print('loaded word vectors')
+			if args.glove != 'none':
+				with open(args.glove, encoding="utf-8") as infile:
+					for line in infile:
+						line = line.rstrip().split(' ')
+						glove_vecs[line[0]] = np.array([float(n) for n in line[1:]])
+				print('loaded glove vectors')
+			word_vectors = {}
+			if args.w2v != 'none':
+				word_vectors = word2vec.KeyedVectors.load_word2vec_format(
+					args.w2v, binary=True, unicode_errors='ignore')
+				print('loaded word vectors')
 			# file located at /players/glove/glove.6B~.txt
-			with open('players/glove/glove.6B.300d.txt', encoding="utf-8") as infile:
-				for line in infile:
-					line = line.rstrip().split(' ')
-					glove_vecs[line[0]] = np.array([float(n) for n in line[1:]])
-			print('loaded glove vectors')
 
-		if sys.argv[1] == "human":
+		if args.codemaster == "human":
 			self.codemaster = human_codemaster()
 			print('human codemaster')
 		else:
-			codemaster_module = importlib.import_module(sys.argv[1])
+			codemaster_module = importlib.import_module(args.codemaster)
 			self.codemaster = codemaster_module.ai_codemaster(brown_ic, glove_vecs, word_vectors)
 			print('loaded codemaster')
 
-		if sys.argv[2] == "human":
+		if args.guesser == "human":
 			self.guesser = human_guesser()
 			print('human guesser')
 		else:
-			guesser_module = importlib.import_module(sys.argv[2])
+			guesser_module = importlib.import_module(args.guesser)
 			self.guesser = guesser_module.ai_guesser(brown_ic, glove_vecs, word_vectors)
 			print('loaded guesser')
+		
+		if args.seed != 'time':
+			random.seed(int(args.seed))
 
-		if len(sys.argv) == 4:
-			seed = int(sys.argv[3])
-			random.seed(int(sys.argv[3]))
 		f = open("game_wordpool.txt", "r")
 		
 		if f.mode == 'r':
