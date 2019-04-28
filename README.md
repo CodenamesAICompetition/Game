@@ -30,7 +30,7 @@ An example simulation of a *wordnet codemaster* and a *word2vec guesser* in the 
 `$ python game.py players.codemaster_wn_lin players.guesser_w2v --seed 3442 --w2v players/GoogleNews-vectors-negative300.bin  --wordnet ic-brown.dat`
 
 ### Codemaster
-The Codemaster bot is a python 3 class that derives from the supplied `codemaster.py`.  The bot must make use of the two functions:
+The Codemaster bot is a python 3 class that derives from the supplied `codemaster.py`.  The bot must make use of the three functions:  
 `__init__(self, brown_ic=None, glove_vecs=None, word_vectors=None)`
 
 
@@ -40,7 +40,7 @@ and
 
 `give_clue() -> Tuple[Str,int]`
 
-'__init__' is given 3 initially empty datasets by default (to reduce load times for common NLP resources), argument values that hold directories of word vectors get passed through here. The Brown Corpus from NLTK, 300 dimensional GloVe vectors, and the pretrained 300 dimensional pre-trained Google NewsNewsBin word2vec vectors are commonly used here.
+'__init__' is given 3 initially empty datasets by default (to reduce load times for common NLP resources). However argument values will get passed through here, if needed. Most commonly used are the Brown Corpus from NLTK, 300 dimensional GloVe vectors, and the pretrained 300 dimensional pre-trained Google NewsNewsBin word2vec vectors.
 
 `receive_game_state` is passed the list of words on the board, as well as the map of hidden information.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.  The `hidden_map` is a list of `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating whether a spot on the board is on the team of the codemaster (`'*Red*'`), the opposing team (`'*Blue*'`), a civilian (`'*Civilian*'`), or the assassin (`'*Assassin*'`).
 
@@ -60,7 +60,6 @@ The Guesser bot is a python 3 class that derives from the supplied `guesser.py`.
 `keep_guessing -> bool`
 
 and
-
 
 `give_answer() -> Str`
 
