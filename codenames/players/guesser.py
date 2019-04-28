@@ -2,6 +2,7 @@ class guesser():
     words = 0
     clue = 0
     clues = []
+    
     def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
         pass
 

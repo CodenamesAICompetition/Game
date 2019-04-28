@@ -32,17 +32,9 @@ class ai_codemaster(codemaster):
 			for synset_in_cmwordlist in wordnet.synsets(word):
 				self.syns.append(synset_in_cmwordlist)
 
-	def get_board(self, words):
+	def receive_game_state(self, words, maps):
 		self.words = words
-		return words
-
-	def get_map(self, maps):
 		self.maps = maps
-		return maps
-
-	def get_bot_text(self, bot_array):
-		self.bot_array = bot_array
-		return bot_array
 
 	def give_clue(self):
 		lin_results = []

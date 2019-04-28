@@ -22,7 +22,6 @@ class ai_guesser(guesser):
 
 	def get_board(self, words):
 		self.words = words
-		return words
 
 	def get_clue(self, clue, num):
 		self.clue = clue

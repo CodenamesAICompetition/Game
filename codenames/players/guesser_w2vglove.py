@@ -21,7 +21,6 @@ class ai_guesser(guesser):
 
 	def get_board(self, words):
 		self.words = words
-		return words
 
 	def get_clue(self, clue, num):
 		self.clue = clue
@@ -51,10 +50,6 @@ class ai_guesser(guesser):
 		return True
 
 	def give_answer(self):
-		# preset weights based on testing for optimal voting algorithm
-		# weights[0] = w2v initial weight, weights[1] = glove initial weight
-		# w2v holds a higher initial value due to its accuracy.
-		weights = [13, 12]
 		sorted_words = self.compute_distance(self.clue, self.words)
 		return sorted_words[0][1]
 

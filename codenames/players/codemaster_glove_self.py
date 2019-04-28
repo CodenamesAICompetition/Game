@@ -31,17 +31,9 @@ class ai_codemaster(codemaster):
 		self.bad_word_dists = None
 		self.red_word_dists = None
 
-	def get_board(self, words):
-		self.words = words
-		return words
-
-	def get_map(self, maps):
-		self.maps = maps
-		return maps
-
-	def get_bot_text(self, bot_array):
-		self.bot_array = bot_array
-		return bot_array
+	def receive_game_state(self, words_in_play, map_in_play):
+        self.words = words_in_play
+        self.maps = map_in_play
 
 	def give_clue(self):
 		cos_dist = scipy.spatial.distance.cosine

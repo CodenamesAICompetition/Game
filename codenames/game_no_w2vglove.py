@@ -200,9 +200,8 @@ class Game:
 			# board setup and display
 			self.cls()
 			words_in_play = self.list_words()
-			map_in_play = self.list_map()
-			self.codemaster.get_map(map_in_play)
-			self.codemaster.get_board(words_in_play)
+			current_map = self.list_map()
+			self.codemaster.receive_game_state(words_in_play, current_map)
 			self.display_map()
 			self.display_board_codemaster()
 			# codemaster gives clue & number here
