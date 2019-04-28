@@ -36,7 +36,6 @@ class Game:
 		parser.add_argument("--w2v", help="Path to w2v file or 'none'",default='none')
 		parser.add_argument("--glove", help="Path to glove file or 'none'",default='none')
 		parser.add_argument("--wordnet", help="Name of wordnet file or 'none', most like ic-brown.dat",default='none')
-
 		
 		args = parser.parse_args()
 

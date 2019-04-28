@@ -135,6 +135,7 @@ TOTAL:2 B:0 C:0 A:1 R:1 CM:players.codemaster_w2vglove GUESSER:players.guesser_w
 TOTAL:21 B:6 C:7 A:0 R:8 CM:players.codemaster_w2vglove GUESSER:players.guesser_wn_lch SEED:200
 TOTAL:14 B:2 C:5 A:1 R:6 CM:players.codemaster_w2vglove GUESSER:players.guesser_wn_lch SEED:250
 TOTAL:14 B:3 C:4 A:1 R:6 CM:players.codemaster_w2vglove GUESSER:players.guesser_wn_lch SEED:300
+
 TOTAL:16 B:4 C:4 A:0 R:8 CM:players.codemaster_glove_075 GUESSER:players.guesser_glove300 SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_075 GUESSER:players.guesser_glove300 SEED:time
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_075 GUESSER:players.guesser_glove300 SEED:time
@@ -143,3 +144,5 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_075 GUESSER:players.guesser_
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_075 GUESSER:players.guesser_glove300 SEED:time
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_075 GUESSER:players.guesser_glove300 SEED:time
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_075 GUESSER:players.guesser_glove300 SEED:time
+TOTAL:8 B:3 C:0 A:1 R:4 CM:players.codemaster_wn_lin GUESSER:players.guesser_w2v SEED:time
+TOTAL:19 B:6 C:6 A:1 R:6 CM:players.codemaster_wn_lin GUESSER:players.guesser_w2v SEED:time
