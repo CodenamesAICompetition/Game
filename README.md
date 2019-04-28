@@ -6,9 +6,28 @@ This is the Codenames AI Competition Framework.  The purpose of this framework i
 * Requires communication, in a semantically meaningful way, with players of unknown provenance --  the player on the other side of the table may be a human or it may be another, unaffiliated, bot
 * Requires understanding words with multiple meanings
 
-
 ## Submissions
+
 Entrants in the competition will be able to submit up to two bots (at most 1 Codemaster and 1 Guesser)
+
+### Running the game and Terminal instructions
+To run the following game, the terminal will require a certain amount of arguments. 
+Where the order is:
+* args[0] = game.py
+* args[1] = codemaster package
+* args[2] = guesser package
+
+Optionally if certain word vectors are needed, the directory to which should be specified in the arguments here.
+3 argument parsers have been provided:
+* --w2v path/to/word_vectors
+* --wordnet ic-brown.dat or ic-semcor.dat
+* --glove path/to/glove_vectors
+
+An optional seed argument can be used for the purpose of consistency against the random library.
+* --seed *Integer value*
+
+An example simulation of a *wordnet codemaster* and a *word2vec guesser* in the terminal:  
+`$ python game.py players.codemaster_wn_lin players.guesser_w2v --seed 3442 --w2v players/GoogleNews-vectors-negative300.bin  --wordnet ic-brown.dat`
 
 ### Codemaster
 The Codemaster bot is a python 3 class that derives from the supplied `codemaster.py`.  The bot must make use of the two functions:
@@ -107,7 +126,6 @@ Play proceeds, passing back and forth, until one of 3 outcomes is achieved:
 * All of the Blue tiles have been found -- the team loses
 * The single *Assassin* tile is found -- the team loses
 
-
 ## Competition Rules
 
 Competition rules have not been fully settled yet.
@@ -151,6 +169,6 @@ Installing Gensim:
 * For macOS, using easy_install or anaconda(same as above):
 ```sudo easy_install --upgrade gensim```
 
-### These files must be installed as well, place them under your /game/python/players/ folder:
+### These files should be installed as well, place them under your codenames/players/ directory:
 * https://nlp.stanford.edu/data/glove.6B.zip (~2.25 GB)
 * https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit (~3.5 GB)
