@@ -19,14 +19,14 @@ The Codemaster bot is a python 3 class that derives from the supplied `codemaste
 
 and
 
-`supply_clue() -> Tuple[Str,int]`
+`give_clue() -> Tuple[Str,int]`
 
 '__init__' is given 3 datasets by default (to reduce load times for common NLP resources) -- the Brown Wordnet from the NLTK, the pretrained 300 dimensional GLOVE vectors, and the pretrained 300 dimensional Google News word2vec vectors.
 
 `receive_game_state` is passed the list of words on the board, as well as the map of hidden information.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.  The `hidden_map` is a list of `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating whether a spot on the board is on the team of the codemaster (`'*Red*'`), the opposing team (`'*Blue*'`), a civilian (`'*Civilian*'`), or the assassin (`'*Assassin*'`).
 
 
-`supply_clue` returns a tuple containing the clue, a single English word, and the number of words the Codemaster intends it to cover.  
+`give_clue` returns a tuple containing the clue, a single English word, and the number of words the Codemaster intends it to cover.  
 
 ### Guesser
 
@@ -36,7 +36,7 @@ The Guesser bot is a python 3 class that derives from the supplied `guesser.py`.
 
 `receive_game_state(words: List[str]) -> None`
 
-`receive_clue(clue:Str, guesses:int) -> None`
+`get_clue(clue:Str, guesses:int) -> None`
 
 `keep_guessing -> bool`
 
@@ -49,9 +49,9 @@ and
 
 `receive_game_state` is passed the list of words on the board.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.
 
-`receive_clue` is passed the clue and the number of guesses it covers, as supplied by the `supply_clue` of the codemaster.
+`get_clue` is passed the clue and the number of guesses it covers, as supplied by the `give_clue` of the codemaster.
 
-`keep_guessing` is a function that the game engine checks to see if the bot chooses to keep guessing, as the bot must only make at least one guess, but may choose to guess until it has gone to the number supplied by receive_clue + 1.
+`keep_guessing` is a function that the game engine checks to see if the bot chooses to keep guessing, as the bot must only make at least one guess, but may choose to guess until it has gone to the number supplied by get_clue + 1.
 
 `give_answer` returns the current guess of the Guesser, given the state of the board and the previous clue.
 
