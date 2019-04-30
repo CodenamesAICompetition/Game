@@ -19,9 +19,9 @@ Where the order is:
 
 Optionally if certain word vectors are needed, the directory to which should be specified in the arguments here.
 3 argument parsers have been provided:
-* --w2v path/to/word_vectors
-* --wordnet ic-brown.dat or ic-semcor.dat
-* --glove path/to/glove_vectors
+* `--w2v path/to/word_vectors`
+* `--wordnet ic-brown.dat or ic-semcor.dat`
+* `-glove path/to/glove_vectors`
 
 An optional seed argument can be used for the purpose of consistency against the random library.
 * --seed *Integer value*
