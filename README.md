@@ -42,7 +42,7 @@ and
 
 `give_clue() -> Tuple[Str,int]`
 
-'__init__' is given 3 initially empty datasets by default (to reduce load times for common NLP resources). However argument values will get passed through here, if needed. Most commonly used are the Brown Corpus from NLTK, 300 dimensional GloVe vectors, and the pretrained 300 dimensional pre-trained Google NewsNewsBin word2vec vectors.
+'__init__' is given 3 initially empty datasets by default (to reduce load times for common NLP resources). Note that system argument values will be passed through here. Somoe common examples are the Brown Corpus from NLTK's wordnet, the multi-dimensional GloVe vectors, and the 300 dimensional pre-trained Google NewsNewsBin word2vec vectors.
 
 `receive_game_state` is passed the list of words on the board, as well as the map of hidden information.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.  The `hidden_map` is a list of `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating whether a spot on the board is on the team of the codemaster (`'*Red*'`), the opposing team (`'*Blue*'`), a civilian (`'*Civilian*'`), or the assassin (`'*Assassin*'`).
 
