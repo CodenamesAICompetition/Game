@@ -29,6 +29,8 @@ An optional seed argument can be used for the purpose of consistency against the
 An example simulation of a *wordnet codemaster* and a *word2vec guesser* in the terminal:  
 `$ python game.py players.codemaster_wn_lin players.guesser_w2v --seed 3442 --w2v players/GoogleNews-vectors-negative300.bin  --wordnet ic-brown.dat`
 
+Further installation requirements are found below.
+
 ### Codemaster
 The Codemaster bot is a python 3 class that derives from the supplied `codemaster.py`.  The bot must make use of the three functions:  
 `__init__(self, brown_ic=None, glove_vecs=None, word_vectors=None)`
