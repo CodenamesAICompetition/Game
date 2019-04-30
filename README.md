@@ -135,6 +135,9 @@ Note: The installation of the [Anaconda Distribution](https://www.anaconda.com/d
 Alternatively you can use your system's packaging system. (*apt-get* on Debian, or *MacPorts/Homebrew* on macOS)
 Or just use Python's packaging system, pip3, which is included by default from the Python binary installers.
 
+To check that everything is installed without error type in a terminal:  
+`$ python3 -c "import scipy, numpy, gensim.models.keyedvectors, argparse, importlib, nltk, nltk.corpus, nltk.stem"`
+
 Installation of NLTK on macOS/linux:
 * Install python3 on your operation system. If python 2 and python 3 coexists in your Operating System than you must specify `python3` for your commands.
 * For macOS users, who don't have `pip3` or `python3` recognized in terminal, simply open terminal and type in `brew install python3` and check to see if `pip3` is a recognized command. If it is move on to the next step, if not type `brew postinstall python3`, or alternatively visit the [Python](https://python.org) website.
