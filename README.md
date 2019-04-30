@@ -130,11 +130,14 @@ Play proceeds, passing back and forth, until one of 3 outcomes is achieved:
 Competition rules have not been fully settled yet.
 
 ## Prerequisite: Installation and Downloads
-Note: The use of [Anaconda3](https://www.anaconda.com/distribution/) must be used for certain dependencies to work without issues. Also installing NLTK and gensim through conda is simpler and less time consuming.
+Note: The installation of the [Anaconda Distribution](https://www.anaconda.com/distribution/) should be used for certain dependencies to work without issues. Also installing NLTK and gensim through conda is much simpler and less time consuming than the below alternatives.
+
+Alternatively you can use your system's packaging system. (*apt-get* on Debian, or *MacPorts/Homebrew* on macOS)
+Or just use Python's packaging system, pip3, which is included by default from the Python binary installers.
 
 Installation of NLTK on macOS/linux:
 * Install python3 on your operation system. If python 2 and python 3 coexists in your Operating System than you must specify `python3` for your commands.
-* For macOS users, who don't have `pip3` or `python3` recognized in terminal, simply open terminal and type in `brew install python3` and check to see if `pip3` is a recognized command. If it is move on to the next step, if not type `brew postinstall python3`
+* For macOS users, who don't have `pip3` or `python3` recognized in terminal, simply open terminal and type in `brew install python3` and check to see if `pip3` is a recognized command. If it is move on to the next step, if not type `brew postinstall python3`, or alternatively visit the [Python](https://python.org) website.
 * Type in `sudo pip3 install -U nltk`
 * Finally type in terminal (this installs wordnet):
 ```
@@ -145,8 +148,8 @@ python
 Installation of NLTK on Windows:
 * Head over to the [nltk website](https://pypi.org/project/nltk/#files)
 * Download the nltk file from the above link
-* Start a terminal and change into the nltk directory
-* Finally type in:
+* Start a terminal and change into the nltk downloads directory
+* Type:
 ```
 python setup.py install
 ```
