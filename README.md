@@ -140,12 +140,20 @@ Codemaster bots will be swapped and trialed with multiple guessers and conversel
 Note: The installation of the [Anaconda Distribution](https://www.anaconda.com/distribution/) should be used for certain dependencies to work without issues. Also installing NLTK and gensim through conda is much simpler and less time consuming than the below alternatives.
 
 Alternatively you can use your system's packaging system. (*apt-get* on Debian, or *MacPorts/Homebrew* on macOS)
-Or just use Python's packaging system, pip3, which is included by default from the Python binary installers.
+Or just use Python's packaging system, pip3, which is included by default from the Python binary installer.
 
 To check that everything is installed without error type in a terminal:  
 `$ python3 -c "import scipy, numpy, gensim.models.keyedvectors, argparse, importlib, nltk, nltk.corpus, nltk.stem"`
 
-Installation of NLTK on macOS/linux:
+Installing Gensim:
+
+* For windows, using anaconda:
+```conda install gensim```
+
+* For macOS, using easy_install or anaconda(same as above):
+```sudo easy_install --upgrade gensim``
+
+Installation of NLTK on macOS/linux: (*Skip this step if using anaconda distribution, nltk should already be installed*)
 * Install python3 on your operation system. If python 2 and python 3 coexists in your Operating System than you must specify `python3` for your commands.
 * For macOS users, who don't have `pip3` or `python3` recognized in terminal, simply open terminal and type in `brew install python3` and check to see if `pip3` is a recognized command. If it is move on to the next step, if not type `brew postinstall python3`, or alternatively visit the [Python](https://python.org) website.
 * Type in `sudo pip3 install -U nltk`
@@ -155,7 +163,8 @@ python
 >>> import nltk
 >>> nltk.download('all')
 ```
-Installation of NLTK on Windows:
+
+Installation of NLTK on Windows: (*Skip this step if using anaconda distribution, nltk should already be installed*)
 * Head over to the [nltk website](https://pypi.org/project/nltk/#files)
 * Download the nltk file from the above link
 * Start a terminal and change into the nltk downloads directory
@@ -172,14 +181,7 @@ nltk.download('all')
 ```
 * Then run the program by typing "python set.py"
 * Nltk should now be installed
-
-Installing Gensim:
-
-* For windows, using anaconda:
-```conda install gensim```
-
-* For macOS, using easy_install or anaconda(same as above):
-```sudo easy_install --upgrade gensim```
+`
 
 ### These files can optionally be installed as well, place them under your codenames/players/ directory:
 * [Glove Vectors](https://nlp.stanford.edu/data/glove.6B.zip) (~2.25 GB)
