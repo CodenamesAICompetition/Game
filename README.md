@@ -147,11 +147,11 @@ To check that everything is installed without error type in a terminal:
 
 Installing Gensim:
 
-* For windows, using anaconda:
+* Using Anaconda:
 ```conda install gensim```
 
-* For macOS, using easy_install or anaconda(same as above):
-```sudo easy_install --upgrade gensim``
+* For macOS, using Anaconda(same as above) or easy_install:
+```sudo easy_install --upgrade gensim```
 
 Installation of NLTK on macOS/linux: (*Skip this step if using anaconda distribution, nltk should already be installed*)
 * Install python3 on your operation system. If python 2 and python 3 coexists in your Operating System than you must specify `python3` for your commands.
@@ -181,7 +181,6 @@ nltk.download('all')
 ```
 * Then run the program by typing "python set.py"
 * Nltk should now be installed
-`
 
 ### These files can optionally be installed as well, place them under your codenames/players/ directory:
 * [Glove Vectors](https://nlp.stanford.edu/data/glove.6B.zip) (~2.25 GB)
