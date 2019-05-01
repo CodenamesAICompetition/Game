@@ -148,3 +148,8 @@ TOTAL:8 B:3 C:0 A:1 R:4 CM:players.codemaster_wn_lin GUESSER:players.guesser_w2v
 TOTAL:19 B:6 C:6 A:1 R:6 CM:players.codemaster_wn_lin GUESSER:players.guesser_w2v SEED:time
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v GUESSER:players.guesser_w2v SEED:time
 TOTAL:15 B:3 C:4 A:0 R:8 CM:players.codemaster_w2v GUESSER:players.guesser_glove300 SEED:time
+TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v GUESSER:players.guesser_glove300 SEED:time
+TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v GUESSER:players.guesser_glove300 SEED:time
+TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v GUESSER:players.guesser_w2v SEED:time
+TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v GUESSER:players.guesser_w2v SEED:time
+TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_075 GUESSER:players.guesser_glove SEED:time

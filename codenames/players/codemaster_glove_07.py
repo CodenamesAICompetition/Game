@@ -127,7 +127,7 @@ class ai_codemaster(codemaster):
 					worst = dist
 				if dist < best:
 					best = dist
-			if worst < 0.75 and worst != -np.inf:
+			if worst < 0.7 and worst != -np.inf:
 				print(worst,chosen_clue,chosen_num)
 				chosen_clue = clue
 				chosen_num = clue_num

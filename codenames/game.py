@@ -23,7 +23,6 @@ class Game:
 	guesser = 0
 	words = 0
 	codemaster = 0
-	maps = 0
 	seed = 0
 	
 	def __init__(self):
@@ -185,7 +184,7 @@ class Game:
 	def cls(self):
 		print('\n'*4)
 
-	def write_results(self):
+	def write_results(self, num_of_turns):
 		red_result = 0
 		blue_result = 0
 		civ_result = 0
@@ -210,13 +209,14 @@ class Game:
 				if len(sys.argv) == 4:
 					seed = sys.argv[3]
 				f.write(
-					f'TOTAL:{total} B:{blue_result} C:{civ_result} A:{assa_result}'
+					f'TOTAL:{num_of_turns} B:{blue_result} C:{civ_result} A:{assa_result}'
 					f' R:{red_result} CM:{sys.argv[1]} GUESSER:{sys.argv[2]} SEED:{seed}\n'
 					)
 			f.close()
 
 	def run(self):
 		game_condition = "Hit_Red"
+		game_counter = 0
 		while game_condition != "Lose" or game_condition != "Win":
 			# board setup and display
 			self.cls()
@@ -227,6 +227,7 @@ class Game:
 			self.display_board_codemaster()
 			# codemaster gives clue & number here
 			clue, num = self.codemaster.give_clue()
+			game_counter += 1
 			keep_guessing = True
 			guess_num = 0
 			num = int(num)
@@ -261,13 +262,14 @@ class Game:
 				elif game_condition == "Lose":
 					self.display_board_codemaster()
 					print("You Lost")
-					self.write_results()
+					game_counter = 25
+					self.write_results(game_counter)
 					exit()
 
 				elif game_condition == "Win":
 					self.display_board_codemaster()
 					print("You Won")
-					self.write_results()
+					self.write_results(game_counter)
 					exit()
 
 
