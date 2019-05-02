@@ -127,7 +127,7 @@ class ai_codemaster(codemaster):
 					worst = dist
 				if dist < best:
 					best = dist
-			if worst < 0.7 and worst != -np.inf:
+			if worst < 0.3 and worst != -np.inf:
 				print(worst,chosen_clue,chosen_num)
 				chosen_clue = clue
 				chosen_num = clue_num
@@ -138,7 +138,7 @@ class ai_codemaster(codemaster):
 		if chosen_clue[2] == np.inf:
 			chosen_clue = ('',li[0][3],0)
 			chosen_num = 1
-		#print("LI: ", li)
+			
 		#print("The clue is: ", li[0][3])
 		print('chosen_clue is:', chosen_clue)
 		# return in array styled: ["clue", number]

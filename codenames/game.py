@@ -21,9 +21,7 @@ import argparse
 
 class Game:
 	guesser = 0
-	words = 0
 	codemaster = 0
-	seed = 0
 	
 	def __init__(self):
 		parser = argparse.ArgumentParser(
@@ -55,7 +53,6 @@ class Game:
 				word_vectors = word2vec.KeyedVectors.load_word2vec_format(
 					args.w2v, binary=True, unicode_errors='ignore')
 				print('loaded word vectors')
-			# file located at /players/glove/glove.6B~.txt
 
 		if args.codemaster == "human":
 			self.codemaster = human_codemaster()
@@ -72,8 +69,10 @@ class Game:
 			guesser_module = importlib.import_module(args.guesser)
 			self.guesser = guesser_module.ai_guesser(brown_ic, glove_vecs, word_vectors)
 			print('loaded guesser')
-		
+
+		self.seed = 'time'
 		if args.seed != 'time':
+			self.seed = args.seed
 			random.seed(int(args.seed))
 
 		f = open("game_wordpool.txt", "r")
@@ -189,7 +188,7 @@ class Game:
 		blue_result = 0
 		civ_result = 0
 		assa_result = 0
-		# if the guesser wasn't human
+
 		if not sys.argv[2] == "human":
 			for i in range(len(self.words)):
 				if self.words[i] == "*Red*":
@@ -201,16 +200,13 @@ class Game:
 				elif self.words[i] == "*Assassin*":
 					assa_result += 1
 			total = red_result + blue_result + civ_result + assa_result
-			# append to file
+
 			f = open("bot_results.txt", "a")
 			# if successfully opened start appending
 			if f.mode == 'a':
-				seed = 'time'
-				if len(sys.argv) == 4:
-					seed = sys.argv[3]
 				f.write(
 					f'TOTAL:{num_of_turns} B:{blue_result} C:{civ_result} A:{assa_result}'
-					f' R:{red_result} CM:{sys.argv[1]} GUESSER:{sys.argv[2]} SEED:{seed}\n'
+					f' R:{red_result} CM:{sys.argv[1]} GUESSER:{sys.argv[2]} SEED:{self.seed}\n'
 					)
 			f.close()
 
@@ -264,12 +260,14 @@ class Game:
 					print("You Lost")
 					game_counter = 25
 					self.write_results(game_counter)
+					print(game_counter)
 					exit()
 
 				elif game_condition == "Win":
 					self.display_board_codemaster()
 					print("You Won")
 					self.write_results(game_counter)
+					print(game_counter)
 					exit()
 
 

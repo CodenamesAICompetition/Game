@@ -31,9 +31,9 @@ class ai_codemaster(codemaster):
 		self.bad_word_dists = None
 		self.red_word_dists = None
 
-	def receive_game_state(self, words_in_play, map_in_play):
-        self.words = words_in_play
-        self.maps = map_in_play
+	def receive_game_state(self, words, maps):
+		self.words = words
+		self.maps = maps
 
 	def give_clue(self):
 		cos_dist = scipy.spatial.distance.cosine
@@ -55,9 +55,9 @@ class ai_codemaster(codemaster):
 
 		if not self.bad_word_dists:
 			self.bad_word_dists = {}
-			for word in self.cm_wordlist:
+			for word in bad_words:
 				self.bad_word_dists[word] = {}
-				for val in bad_words:
+				for val in self.cm_wordlist:
 					b_dist = cos_dist(self.concatenate(val, all_vectors), self.concatenate(word, all_vectors))
 					self.bad_word_dists[word][val] = b_dist
 
@@ -67,6 +67,7 @@ class ai_codemaster(codemaster):
 				for val in self.cm_wordlist:
 					b_dist = cos_dist(self.concatenate(val, all_vectors), self.concatenate(word, all_vectors))
 					self.red_word_dists[word][val] = b_dist
+
 		else:
 			to_remove = set(self.bad_word_dists) - set(bad_words)
 			for word in to_remove:
@@ -85,11 +86,12 @@ class ai_codemaster(codemaster):
 				for word in self.cm_wordlist:
 					if not self.arr_not_in_word(word, red_words + bad_words):
 						continue
+						
 					bad_dist = np.inf
 					worst_bad = ''
-					for bad_word in self.bad_word_dists[word]:
-						if self.bad_word_dists[word][bad_word] < bad_dist:
-							bad_dist = self.bad_word_dists[word][bad_word]
+					for bad_word in self.bad_word_dists:
+						if self.bad_word_dists[bad_word][word] < bad_dist:
+							bad_dist = self.bad_word_dists[bad_word][word]
 							worst_bad = bad_word
 					worst_red = 0 
 					for red in red_word:
@@ -111,6 +113,8 @@ class ai_codemaster(codemaster):
 		print("BESTS: ", bests)
 		li = []
 		pi = []
+		chosen_clue = bests[1]
+		chosen_num = 1
 		for clue_num, clue in bests.items():
 			best_red_word, combined_clue, combined_score = clue
 			worst = -np.inf
@@ -123,14 +127,22 @@ class ai_codemaster(codemaster):
 					worst = dist
 				if dist < best:
 					best = dist
+			if worst < 0.5 and worst != -np.inf:
+				print(worst,chosen_clue,chosen_num)
+				chosen_clue = clue
+				chosen_num = clue_num
 
 			li.append((worst/best, best_red_word, worst_word, combined_clue,
 				combined_score,combined_score**len(best_red_word)))
-
-		print("LI: ", li)
-		print("The clue is: ", li[0][3])
+			
+		if chosen_clue[2] == np.inf:
+			chosen_clue = ('',li[0][3],0)
+			chosen_num = 1
+		#print("LI: ", li)
+		#print("The clue is: ", li[0][3])
+		print('chosen_clue is:', chosen_clue)
 		# return in array styled: ["clue", number]
-		return [li[0][3], 1]
+		return (chosen_clue[1], chosen_num)#[li[0][3], 1]
 
 	def arr_not_in_word(self, word, arr):
 		if word in arr:
