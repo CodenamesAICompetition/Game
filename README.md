@@ -129,12 +129,14 @@ Play proceeds, passing back and forth, until one of 3 outcomes is achieved:
 
 ## Competition Rules
 
-Competition results will be scored by the number of turns required to guess all 8 red words. Scores will be calculated in an inverse proportional fashion, meaning the lower the better. 
+Competition results will be scored by the number of turns required to guess all 8 red words. Scores will be calculated in an inverse proportional fashion, so the lower the better. 
 
-The average number of turns the codemaster/guesser takes will be the score given to the bot.
-Guessing an assassin-linked word or the 7 blue words before all 8 red words will result in a loss and a score of 25 turns or points.
+* The average number of turns the codemaster/guesser takes will be the score given to each paired bot.
+* Guessing an assassin-linked word or the 7 blue words before all 8 red words will result in an instant loss and a score of 25 turns or points.
 
 Codemaster bots will be swapped and trialed with multiple guessers and conversely guesser bots will be swapped with codemasters to ensure and maximize variability and fairness.
+
+In other words you'll be paired up with other player's bots, and scored/tested to see how well your AI can perform within a more general context of Natural Language Understanding.
 
 ## Prerequisite: Installation and Downloads
 Note: The installation of the [Anaconda Distribution](https://www.anaconda.com/distribution/) should be used for certain dependencies to work without issues. Also installing NLTK and gensim through conda is much simpler and less time consuming than the below alternatives.
