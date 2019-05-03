@@ -229,7 +229,6 @@ class Game:
 			num = int(num)
 
 			self.cls()
-			self.display_board_codemaster()
 			self.guesser.get_clue(clue, num)
 			
 			game_condition = "Hit_Red"
@@ -260,14 +259,14 @@ class Game:
 					print("You Lost")
 					game_counter = 25
 					self.write_results(game_counter)
-					print(game_counter)
+					print("Game Counter:", game_counter)
 					exit()
 
 				elif game_condition == "Win":
 					self.display_board_codemaster()
 					print("You Won")
 					self.write_results(game_counter)
-					print(game_counter)
+					print("Game Counter:", game_counter)
 					exit()
 
 
