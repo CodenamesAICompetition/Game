@@ -145,3 +145,9 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_wn_lin GUESSER:players.guesser_wn_
 TOTAL:25 B:6 C:3 A:1 R:7 CM:players.codemaster_wn_lin GUESSER:players.guesser_wn_lin SEED:200
 TOTAL:25 B:5 C:5 A:1 R:7 CM:players.codemaster_wn_lin GUESSER:players.guesser_wn_lin SEED:250
 TOTAL:10 B:0 C:2 A:0 R:8 CM:players.codemaster_wn_lin GUESSER:players.guesser_wn_lin SEED:300
+TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:100
+
+
+---------------------------------------------NEW------------------------------------------------------
+
+cm: glove300_07 guesser: glove300_07

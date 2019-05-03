@@ -219,7 +219,7 @@ class Game:
 			words_in_play = self.list_words()
 			current_map = self.list_map()
 			self.codemaster.receive_game_state(words_in_play, current_map)
-			self.display_map()
+			# self.display_map()
 			self.display_board_codemaster()
 			# codemaster gives clue & number here
 			clue, num = self.codemaster.give_clue()
