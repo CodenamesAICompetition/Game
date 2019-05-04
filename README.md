@@ -166,6 +166,8 @@ python
 >>> nltk.download('all')
 ```
 
+*Note for Windows user: Use the conda bash prompt for general purpose testing/running (as opposed to git bash)*
+
 Installation of NLTK on Windows:
 * Head over to the [nltk website](https://pypi.org/project/nltk/#files)
 * Download the nltk file from the above link
