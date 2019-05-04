@@ -152,6 +152,9 @@ Installing Gensim:
 * Using Anaconda:
 ```conda install gensim```
 
+* For Windows User using Conda Prompt(as well as the command on top):
+```pip install -U gensim```
+
 * For macOS, using Anaconda(same as above) or easy_install:
 ```sudo easy_install --upgrade gensim```
 
