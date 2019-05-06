@@ -46,7 +46,7 @@ class ai_guesser(guesser):
 
 		w2v = list(sorted(w2v))
 		return w2v
-		
+
 	def keep_guessing(self, clue, board):
 		return self.num > 0
 
@@ -55,4 +55,3 @@ class ai_guesser(guesser):
 		print(f'guesses: {sorted_words}')
 		self.num -= 1
 		return sorted_words[0][1]
-

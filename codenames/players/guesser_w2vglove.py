@@ -18,12 +18,14 @@ class ai_guesser(guesser):
 		self.brown_ic = brown_ic
 		self.glove_vecs = glove_vecs
 		self.word_vectors = word_vectors
+		self.num = 0
 
 	def get_board(self, words):
 		self.words = words
 
 	def get_clue(self, clue, num):
 		self.clue = clue
+		self.num = num
 		print("The clue is:", clue, num, sep=" ")
 		li = [clue, num]
 		return li
@@ -45,12 +47,13 @@ class ai_guesser(guesser):
 
 		w2v = list(sorted(w2v))
 		return w2v
-		
+
 	def keep_guessing(self, clue, board):
-		return True
+		return self.num > 0
 
 	def give_answer(self):
 		sorted_words = self.compute_distance(self.clue, self.words)
+		self.num -= 1
 		return sorted_words[0][1]
 
 	def combine(self, words, wordvecs):
@@ -65,5 +68,3 @@ class ai_guesser(guesser):
 		for vec in wordvecs[1:]:
 			concatenated = np.hstack((concatenated,vec[word] ))
 		return concatenated
-
-
