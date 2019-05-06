@@ -39,7 +39,7 @@ class ai_codemaster(codemaster):
 		cos_dist = scipy.spatial.distance.cosine
 		red_words = []
 		bad_words = []
-		
+
 		# Creates Red-Labeled Word arrays, and everything else arrays
 		for i in range(25):
 			if self.words[i][0] == '*':
@@ -86,14 +86,14 @@ class ai_codemaster(codemaster):
 				for word in self.cm_wordlist:
 					if not self.arr_not_in_word(word, red_words + bad_words):
 						continue
-						
+
 					bad_dist = np.inf
 					worst_bad = ''
 					for bad_word in self.bad_word_dists:
 						if self.bad_word_dists[bad_word][word] < bad_dist:
 							bad_dist = self.bad_word_dists[bad_word][word]
 							worst_bad = bad_word
-					worst_red = 0 
+					worst_red = 0
 					for red in red_word:
 						dist = self.red_word_dists[red][word]
 						if dist > worst_red:
@@ -104,13 +104,13 @@ class ai_codemaster(codemaster):
 						best_word = word
 						# print(worst_red,red_word,word)
 
-						if best_dist < best_per_dist:  
+						if best_dist < best_per_dist:
 							best_per_dist = best_dist
 							best_per = best_word
 							best_red_word = red_word
 			bests[clue_num] = (best_red_word, best_per, best_per_dist)
-		
-		print("BESTS: ", bests)
+
+		# print("BESTS: ", bests)
 		li = []
 		pi = []
 		chosen_clue = bests[1]
@@ -134,7 +134,7 @@ class ai_codemaster(codemaster):
 
 			li.append((worst/best, best_red_word, worst_word, combined_clue,
 				combined_score,combined_score**len(best_red_word)))
-			
+
 		if chosen_clue[2] == np.inf:
 			chosen_clue = ('',li[0][3],0)
 			chosen_num = 1
@@ -170,4 +170,3 @@ class ai_codemaster(codemaster):
 		for vec in wordvecs[1:]:
 			concatenated = np.hstack((concatenated,vec[word] ))
 		return concatenated
-

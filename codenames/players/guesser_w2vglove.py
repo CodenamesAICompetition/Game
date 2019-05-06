@@ -41,7 +41,7 @@ class ai_guesser(guesser):
 				if word[0] == '*':
 					continue
 				w2v.append((scipy.spatial.distance.cosine(self.concatenate(clue, all_vectors),
-					self.concatenate(word, all_vectors), word))
+					self.concatenate(word.lower(), all_vectors)), word))
 			except KeyError:
 				continue
 
