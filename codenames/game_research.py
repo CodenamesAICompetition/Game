@@ -21,7 +21,6 @@ class Alt_game:
 	codemaster = 0
 	
 	def __init__(self):
-
 		f = open("game_wordpool.txt", "r")
 		if f.mode == 'r':
 			temp_array = f.read().splitlines()
@@ -145,7 +144,7 @@ class Alt_game:
 		print('loaded guesser')
 
 		self.seed = seed
-		random.seed(int(self.seed))
+		random.seed(int(seed))
 
 	def write_results(self, num_of_turns):
 		red_result = 0
@@ -168,7 +167,7 @@ class Alt_game:
 		if f.mode == 'a':
 			f.write(
 				f'TOTAL:{num_of_turns} B:{blue_result} C:{civ_result} A:{assa_result} '
-				f'R:{red_result} CM:{self.cm_pckge} GUESSER:{self.guesser_pckge} SEED:{self.seed} G_CM: {self.glove_cm} G_Guesser: {self.glove_guesser}\n'
+				f'R:{red_result} CM:{self.cm_pckge} GUESSER:{self.guesser_pckge} SEED:{self.seed} Glove_CM: {self.glove_cm} Glove_Guesser: {self.glove_guesser}\n'
 				)
 		f.close()
 
@@ -222,19 +221,19 @@ class Alt_game:
 					game_counter = 25
 					self.write_results(game_counter)
 					print("Game Counter:", game_counter)
-					exit()
 
 				elif game_condition == "Win":
 					self.display_board_codemaster()
 					print("You Won")
 					self.write_results(game_counter)
 					print("Game Counter:", game_counter)
-					exit()
+
+			if game_condition == "Lose" or game_condition == "Win":
+				break
 
 
 
 if __name__ == "__main__":
-
 	brown_ic = wordnet_ic.ic('ic-brown.dat')
 	semcor_ic = wordnet_ic.ic('ic-semcor.dat')
 	glove_vecs_50 = {}
@@ -270,17 +269,14 @@ if __name__ == "__main__":
 	# 		glove_vecs_300[line[0]] = np.array([float(n) for n in line[1:]])
 	# print('loaded glove300 vectors')
 
-	cm = 'players.codemaster_w2v_03'
+	cm = 'players.codemaster_w2v_07'
 	guesser = 'players.guesser_w2v'
 
-
-	for i in range(1):
-		seed = 100
+	for i in range(5):
 		game = Alt_game()
 		# def set_players(cm, guesser, w2v, glove_cm, glove_guesser, wordnet, seed):
-		game.set_players(cm, guesser, word_vectors, None, None, brown_ic, seed)
+		game.set_players(cm, guesser, word_vectors, None, None, brown_ic, i)
 		game.run()
-		seed += 50
 
 	
 

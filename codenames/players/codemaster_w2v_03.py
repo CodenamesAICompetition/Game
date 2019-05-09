@@ -17,7 +17,7 @@ import scipy
 
 class ai_codemaster(codemaster):
 
-	def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
+	def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None, cm_wordlist=None):
 		self.brown_ic = brown_ic
 		self.glove_vecs = glove_vecs
 		self.word_vectors = word_vectors
