@@ -1,6 +1,3 @@
-import random
-
-
 class codemaster():
 
     words = 0
