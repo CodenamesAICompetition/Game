@@ -22,7 +22,7 @@ import argparse
 class Alt_game:
 	guesser = 0
 	codemaster = 0
-	
+
 	def __init__(self):
 		print("Hi, nothing to see here!")
 
@@ -62,10 +62,10 @@ class Alt_game:
 			else:
 				print(str.center(colorama.Fore.MAGENTA + self.words[i], 15), " ", end='')
 				counter += 1
-		print(str.center(colorama.Fore.RESET + 
+		print(str.center(colorama.Fore.RESET +
 			"\n___________________________________________________________", 60))
 		print("\n")
-		
+
 	# prints the list of words in a board like fashion (5x5)
 	def display_board(self):
 		print(colorama.Style.RESET_ALL)
@@ -82,7 +82,7 @@ class Alt_game:
 	# aesthetic purposes, doesn't impact function of code.
 	def display_map(self):
 		print("\n")
-		print(str.center(colorama.Fore.RESET + 
+		print(str.center(colorama.Fore.RESET +
 			"____________________________MAP____________________________\n", 55))
 		counter = 0
 		for i in range(len(self.maps)):
@@ -100,7 +100,7 @@ class Alt_game:
 			else:
 				print(str.center(colorama.Fore.MAGENTA + self.maps[i], 15), " ", end='')
 				counter += 1
-		print(str.center(colorama.Fore.RESET + 
+		print(str.center(colorama.Fore.RESET +
 			"\n___________________________________________________________", 55))
 		print("\n")
 
@@ -137,15 +137,20 @@ class Alt_game:
 	def set_players(self, cm, guesser, w2v, glove_cm, glove_guesser, wordnet, cm_wordlist, seed):
 		self.cm_pckge = cm
 		self.guesser_pckge = guesser
-		self.glove_cm = glove_cm
-		self.glove_guesser = glove_guesser
+		if glove_cm == None:
+			glove_cm = ("None", {})
+		if glove_guesser == None:
+			glove_guesser = ("None", {})
+
+		self.glove_cm = glove_cm[0]
+		self.glove_guesser = glove_guesser[0]
 
 		codemaster_module = importlib.import_module(cm)
-		self.codemaster = codemaster_module.ai_codemaster(wordnet, glove_cm, w2v, cm_wordlist)
-		print('loaded codemaster')	
+		self.codemaster = codemaster_module.ai_codemaster(wordnet, glove_cm[1], w2v, cm_wordlist)
+		print('loaded codemaster')
 
 		guesser_module = importlib.import_module(guesser)
-		self.guesser = guesser_module.ai_guesser(wordnet, glove_guesser, w2v)
+		self.guesser = guesser_module.ai_guesser(wordnet, glove_guesser[1], w2v)
 		print('loaded guesser')
 
 		self.seed = seed
@@ -202,7 +207,7 @@ class Alt_game:
 
 			self.cls()
 			self.guesser.get_clue(clue, num)
-			
+
 			game_condition = "Hit_Red"
 			while guess_num <= num and keep_guessing and game_condition == "Hit_Red":
 				self.guesser.get_board(words_in_play)
@@ -264,39 +269,52 @@ if __name__ == "__main__":
 			glove_vecs_50[line[0]] = np.array([float(n) for n in line[1:]])
 	print('loaded glove50 vectors')
 
-	# with open("players/glove/glove.6B.100d.txt", encoding="utf-8") as infile:
-	# 	for line in infile:
-	# 		line = line.rstrip().split(' ')
-	# 		glove_vecs_100[line[0]] = np.array([float(n) for n in line[1:]])
-	# print('loaded glove100 vectors')
+	with open("players/glove/glove.6B.100d.txt", encoding="utf-8") as infile:
+		for line in infile:
+			line = line.rstrip().split(' ')
+			glove_vecs_100[line[0]] = np.array([float(n) for n in line[1:]])
+	print('loaded glove100 vectors')
 
-	# with open("players/glove/glove.6B.200d.txt", encoding="utf-8") as infile:
-	# 	for line in infile:
-	# 		line = line.rstrip().split(' ')
-	# 		glove_vecs_200[line[0]] = np.array([float(n) for n in line[1:]])
-	# print('loaded glove200 vectors')
+	with open("players/glove/glove.6B.200d.txt", encoding="utf-8") as infile:
+		for line in infile:
+			line = line.rstrip().split(' ')
+			glove_vecs_200[line[0]] = np.array([float(n) for n in line[1:]])
+	print('loaded glove200 vectors')
 
-	# with open("players/glove/glove.6B.300d.txt", encoding="utf-8") as infile:
-	# 	for line in infile:
-	# 		line = line.rstrip().split(' ')
-	# 		glove_vecs_300[line[0]] = np.array([float(n) for n in line[1:]])
-	# print('loaded glove300 vectors')
+	with open("players/glove/glove.6B.300d.txt", encoding="utf-8") as infile:
+		for line in infile:
+			line = line.rstrip().split(' ')
+			glove_vecs_300[line[0]] = np.array([float(n) for n in line[1:]])
+	print('loaded glove300 vectors')
 
-	cm = 'players.codemaster_w2v_07'
-	guesser = 'players.guesser_glove'
+	glove_v50 = ("glove_v50", glove_vecs_50)
+	glove_v100 = ("glove_v100", glove_vecs_100)
+	glove_v200 = ("glove_v200", glove_vecs_200)
+	glove_v300 = ("glove_v300", glove_vecs_300)
 
-	for i in range(1):
-		game = Alt_game()
-		# def set_players(cm, guesser, w2v, glove_cm, glove_guesser, wordnet, cm_wordlist, seed):
-		game.set_players(cm, guesser, word_vectors, None, glove_vecs_50, brown_ic, cm_wordlist, 100)
-		game.run()
+	c = [('players.codemaster_w2v_03', 0), ('players.codemaster_w2v_05', 0), ('players.codemaster_w2v_07', 0),
+	('players.codemaster_glove_03', 300), ('players.codemaster_glove_03', 200), ('players.codemaster_glove_03', 100), ('players.codemaster_glove_03', 50),
+	('players.codemaster_glove_05', 300), ('players.codemaster_glove_05', 200), ('players.codemaster_glove_05', 100), ('players.codemaster_glove_05', 50),
+	('players.codemaster_glove_07', 300), ('players.codemaster_glove_07', 200), ('players.codemaster_glove_07', 100), ('players.codemaster_glove_07', 50),
+	('players.codemaster_w2vglove_03', 300), ('players.codemaster_w2vglove_03', 200), ('players.codemaster_w2vglove_03', 100), ('players.codemaster_w2vglove_03', 50),
+	('players.codemaster_w2vglove_05', 300), ('players.codemaster_w2vglove_05', 200), ('players.codemaster_w2vglove_05', 100), ('players.codemaster_w2vglove_05', 50),
+	('players.codemaster_w2vglove_07', 300), ('players.codemaster_w2vglove_07', 200), ('players.codemaster_w2vglove_07', 100), ('players.codemaster_w2vglove_07', 50)]
 
-	
+	guesser = 'players.guesser_w2vglove'
+	g_cm = None
 
+	for codemaster in c:
+		if codemaster[1] == 300:
+			g_cm = glove_v300
+		elif codemaster[1] == 200:
+			g_cm = glove_v300
+		elif codemaster[1] == 100:
+			g_cm = glove_v300
+		elif codemaster[1] == 50:
+			g_cm = glove_v300
 
-
-
-
-
-
-
+		for seed in range(70):
+			game = Alt_game()
+			# def set_players(cm,          guesser,     w2v,   glove_cm, glove_guesser, wordnet, cm_wordlist, seed):
+			game.set_players(codemaster[0], guesser, word_vectors, g_cm, glove_v50, brown_ic, cm_wordlist, seed)
+			game.run()
