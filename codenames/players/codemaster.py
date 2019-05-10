@@ -17,7 +17,7 @@ class codemaster():
 
 class human_codemaster(codemaster):
 
-    def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
+    def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None, cm_wordlist=None):
         pass
 
     def receive_game_state(self, words_in_play, map_in_play):

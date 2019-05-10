@@ -12,8 +12,11 @@ import importlib
 import random
 import array
 import os
+import sys
 import colorama
 import gensim.models.keyedvectors as word2vec
+import gensim.downloader as api
+import argparse
 
 
 class Alt_game:
@@ -21,6 +24,9 @@ class Alt_game:
 	codemaster = 0
 	
 	def __init__(self):
+		print("Hi, nothing to see here!")
+
+	def game_pool(self):
 		f = open("game_wordpool.txt", "r")
 		if f.mode == 'r':
 			temp_array = f.read().splitlines()
@@ -128,15 +134,14 @@ class Alt_game:
 	def cls(self):
 		print('\n'*4)
 
-	def set_players(self, cm, guesser, w2v, glove_cm, glove_guesser, wordnet, seed):
-
+	def set_players(self, cm, guesser, w2v, glove_cm, glove_guesser, wordnet, cm_wordlist, seed):
 		self.cm_pckge = cm
 		self.guesser_pckge = guesser
 		self.glove_cm = glove_cm
 		self.glove_guesser = glove_guesser
 
 		codemaster_module = importlib.import_module(cm)
-		self.codemaster = codemaster_module.ai_codemaster(wordnet, glove_cm, w2v)
+		self.codemaster = codemaster_module.ai_codemaster(wordnet, glove_cm, w2v, cm_wordlist)
 		print('loaded codemaster')	
 
 		guesser_module = importlib.import_module(guesser)
@@ -144,13 +149,19 @@ class Alt_game:
 		print('loaded guesser')
 
 		self.seed = seed
-		random.seed(int(seed))
+		random.seed(seed)
 
 	def write_results(self, num_of_turns):
 		red_result = 0
 		blue_result = 0
 		civ_result = 0
 		assa_result = 0
+
+		str_cm_pckge = str(self.cm_pckge)
+		str_guesser_pckge = str(self.guesser_pckge)
+		str_seed = str(self.seed)
+		str_glove_cm = str(self.glove_cm)
+		str_glove_guesser = str(self.glove_guesser)
 
 		for i in range(len(self.words)):
 			if self.words[i] == "*Red*":
@@ -162,16 +173,16 @@ class Alt_game:
 			elif self.words[i] == "*Assassin*":
 				assa_result += 1
 
-		f = open("bot_results.txt", "a")
-		# if successfully opened start appending
-		if f.mode == 'a':
+		with open('bot_results.txt', 'a') as f:
 			f.write(
 				f'TOTAL:{num_of_turns} B:{blue_result} C:{civ_result} A:{assa_result} '
-				f'R:{red_result} CM:{self.cm_pckge} GUESSER:{self.guesser_pckge} SEED:{self.seed} Glove_CM: {self.glove_cm} Glove_Guesser: {self.glove_guesser}\n'
-				)
-		f.close()
+				f'R:{red_result} CM:{str_cm_pckge} GUESSER:{str_guesser_pckge} '
+				f'SEED:{str_seed} Glove_CM:{str_glove_cm} Glove_Guesser:{str_glove_guesser}\n'
+			)
 
 	def run(self):
+		print("NEW GAME\n\n")
+		self.game_pool()
 		game_condition = "Hit_Red"
 		game_counter = 0
 		while game_condition != "Lose" or game_condition != "Win":
@@ -232,7 +243,6 @@ class Alt_game:
 				break
 
 
-
 if __name__ == "__main__":
 	brown_ic = wordnet_ic.ic('ic-brown.dat')
 	semcor_ic = wordnet_ic.ic('ic-semcor.dat')
@@ -240,16 +250,19 @@ if __name__ == "__main__":
 	glove_vecs_100 = {}
 	glove_vecs_200 = {}
 	glove_vecs_300 = {}
-	word_vectors = {}
-
 	word_vectors = word2vec.KeyedVectors.load_word2vec_format(
 		"players/GoogleNews-vectors-negative300.bin", binary=True, unicode_errors='ignore')
 
-	# with open("players/glove/glove.6B.50d.txt", encoding="utf-8") as infile:
-	# 	for line in infile:
-	# 		line = line.rstrip().split(' ')
-	# 		glove_vecs_50[line[0]] = np.array([float(n) for n in line[1:]])
-	# print('loaded glove50 vectors')
+	cm_wordlist = []
+	with open('players/cm_wordlist.txt') as infile:
+		for line in infile:
+			cm_wordlist.append(line.rstrip())
+
+	with open("players/glove/glove.6B.50d.txt", encoding="utf-8") as infile:
+		for line in infile:
+			line = line.rstrip().split(' ')
+			glove_vecs_50[line[0]] = np.array([float(n) for n in line[1:]])
+	print('loaded glove50 vectors')
 
 	# with open("players/glove/glove.6B.100d.txt", encoding="utf-8") as infile:
 	# 	for line in infile:
@@ -270,12 +283,12 @@ if __name__ == "__main__":
 	# print('loaded glove300 vectors')
 
 	cm = 'players.codemaster_w2v_07'
-	guesser = 'players.guesser_w2v'
+	guesser = 'players.guesser_glove'
 
-	for i in range(5):
+	for i in range(1):
 		game = Alt_game()
-		# def set_players(cm, guesser, w2v, glove_cm, glove_guesser, wordnet, seed):
-		game.set_players(cm, guesser, word_vectors, None, None, brown_ic, i)
+		# def set_players(cm, guesser, w2v, glove_cm, glove_guesser, wordnet, cm_wordlist, seed):
+		game.set_players(cm, guesser, word_vectors, None, glove_vecs_50, brown_ic, cm_wordlist, 100)
 		game.run()
 
 	

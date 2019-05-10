@@ -23,10 +23,7 @@ class ai_codemaster(codemaster):
 		self.word_vectors = word_vectors
 		self.wordnet_lemmatizer = WordNetLemmatizer()
 		self.lancaster_stemmer = LancasterStemmer()
-		self.cm_wordlist = []
-		with open('players/cm_wordlist.txt') as infile:
-			for line in infile:
-				self.cm_wordlist.append(line.rstrip())
+		self.cm_wordlist = cm_wordlist
 
 		self.bad_word_dists = None
 		self.red_word_dists = None

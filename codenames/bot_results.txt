@@ -1,13 +1,9 @@
 ---------------------------------------------NEW------------------------------------------------------
-TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_03 GUESSER:players.guesser_w2v SEED:0 Glove_CM: None Glove_Guesser: None
-TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_03 GUESSER:players.guesser_w2v SEED:0 Glove_CM: None Glove_Guesser: None
-TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_03 GUESSER:players.guesser_w2v SEED:0 Glove_CM: None Glove_Guesser: None
-
-
-
 TOTAL:6 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_w2v SEED:0 Glove_CM: None Glove_Guesser: None
 TOTAL:6 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_w2v SEED:0 Glove_CM: None Glove_Guesser: None
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_w2v SEED:1 Glove_CM: None Glove_Guesser: None
 TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_w2v SEED:2 Glove_CM: None Glove_Guesser: None
 TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_w2v SEED:3 Glove_CM: None Glove_Guesser: None
 TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_w2v SEED:4 Glove_CM: None Glove_Guesser: None
+
+
