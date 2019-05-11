@@ -313,9 +313,10 @@ if __name__ == "__main__":
 		elif codemaster[1] == 50:
 			g_cm = glove_v50
 
-
+		counter = 100
 		for seed in range(30):
 			game = Alt_game()
 			# def set_players(cm,          guesser,     w2v,   glove_cm, glove_guesser, wordnet, cm_wordlist, seed):
-			game.set_players(codemaster[0], guesser, word_vectors, g_cm, None, brown_ic, cm_wordlist, seed)
+			game.set_players(codemaster[0], guesser, word_vectors, g_cm, None, brown_ic, cm_wordlist, counter)
 			game.run()
+			counter+= 50
