@@ -300,21 +300,22 @@ if __name__ == "__main__":
 	('players.codemaster_w2vglove_05', 300), ('players.codemaster_w2vglove_05', 200), ('players.codemaster_w2vglove_05', 100), ('players.codemaster_w2vglove_05', 50),
 	('players.codemaster_w2vglove_07', 300), ('players.codemaster_w2vglove_07', 200), ('players.codemaster_w2vglove_07', 100), ('players.codemaster_w2vglove_07', 50)]
 
-	guesser = 'players.guesser_w2vglove'
+	guesser = 'players.guesser_wn_lch'
 	g_cm = None
 
 	for codemaster in c:
 		if codemaster[1] == 300:
 			g_cm = glove_v300
 		elif codemaster[1] == 200:
-			g_cm = glove_v300
+			g_cm = glove_v200
 		elif codemaster[1] == 100:
-			g_cm = glove_v300
+			g_cm = glove_v100
 		elif codemaster[1] == 50:
-			g_cm = glove_v300
+			g_cm = glove_v50
 
-		for seed in range(70):
+
+		for seed in range(30):
 			game = Alt_game()
 			# def set_players(cm,          guesser,     w2v,   glove_cm, glove_guesser, wordnet, cm_wordlist, seed):
-			game.set_players(codemaster[0], guesser, word_vectors, g_cm, glove_v50, brown_ic, cm_wordlist, seed)
+			game.set_players(codemaster[0], guesser, word_vectors, g_cm, None, brown_ic, cm_wordlist, seed)
 			game.run()
