@@ -300,7 +300,7 @@ if __name__ == "__main__":
 	('players.codemaster_w2vglove_05', 300), ('players.codemaster_w2vglove_05', 200), ('players.codemaster_w2vglove_05', 100), ('players.codemaster_w2vglove_05', 50),
 	('players.codemaster_w2vglove_07', 300), ('players.codemaster_w2vglove_07', 200), ('players.codemaster_w2vglove_07', 100), ('players.codemaster_w2vglove_07', 50)]
 
-	guesser = 'players.guesser_wn_lch'
+	guesser = 'players.guesser_wn_jcn'
 	g_cm = None
 
 	for codemaster in c:
