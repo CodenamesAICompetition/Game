@@ -1,30 +1,3 @@
-
-------------------------------------INTERESTING------------------------------------------------
-
-w2vglove300 cm, w2v guesser
-TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_w2vglove300 GUESSER:players.guesser_w2v SEED:200
-TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove300 GUESSER:players.guesser_w2v SEED:250
-TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_w2vglove300 GUESSER:players.guesser_w2v SEED:350
-TOTAL:12 B:2 C:2 A:0 R:8 CM:players.codemaster_w2vglove300 GUESSER:players.guesser_w2v SEED:400
-
-glove300 cm, glove50 guesser
-TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_glove300_075 GUESSER:players.guesser_glove300 SEED:200
-TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_glove300_075 GUESSER:players.guesser_glove300 SEED:300
-TOTAL:7 B:1 C:0 A:1 R:5 CM:players.codemaster_glove300_075 GUESSER:players.guesser_glove300 SEED:450
-TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_glove300_075 GUESSER:players.guesser_glove300 SEED:550
-
-glove50 cm, glove300 guesser
-TOTAL:16 B:4 C:4 A:0 R:8 CM:players.codemaster_glove300_075 GUESSER:players.guesser_glove300 SEED:150
-TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_glove300_075 GUESSER:players.guesser_glove300 SEED:200
-TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_glove300_075 GUESSER:players.guesser_glove300 SEED:400
-TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_glove300_075 GUESSER:players.guesser_glove300 SEED:500
-
-w2vglove300 cm, glove300 guesser
-TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_w2vglove300 GUESSER:players.guesser_glove300 SEED:400
-
-
----------------------------------------------NEW------------------------------------------------------
-
 TOTAL:25 B:3 C:4 A:1 R:4 CM:players.codemaster_w2v_03 GUESSER:players.guesser_wn_path SEED:100
 TOTAL:25 B:3 C:4 A:1 R:3 CM:players.codemaster_w2v_03 GUESSER:players.guesser_wn_path SEED:150
 TOTAL:25 B:6 C:3 A:1 R:4 CM:players.codemaster_w2v_03 GUESSER:players.guesser_wn_path SEED:200
@@ -835,3 +808,4 @@ TOTAL:25 B:2 C:3 A:1 R:0 CM:players.codemaster_w2vglove_07 GUESSER:players.guess
 TOTAL:25 B:6 C:5 A:1 R:3 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_wn_path SEED:1450
 TOTAL:25 B:1 C:1 A:1 R:2 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_wn_path SEED:1500
 TOTAL:6 B:1 C:3 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_wn_path SEED:1550
+fefw

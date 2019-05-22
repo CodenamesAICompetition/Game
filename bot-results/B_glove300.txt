@@ -28,7 +28,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_03 GUESSER:players.guesser_glo
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_03 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_03 GUESSER:players.guesser_glove SEED:1500
 TOTAL:25 B:5 C:8 A:1 R:6 CM:players.codemaster_w2v_03 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_05 GUESSER:players.guesser_glove SEED:100
 TOTAL:10 B:2 C:0 A:0 R:8 CM:players.codemaster_w2v_05 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_05 GUESSER:players.guesser_glove SEED:200
@@ -59,7 +58,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_05 GUESSER:players.guesser_glo
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_05 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_05 GUESSER:players.guesser_glove SEED:1500
 TOTAL:25 B:5 C:8 A:1 R:6 CM:players.codemaster_w2v_05 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:25 B:0 C:1 A:1 R:2 CM:players.codemaster_w2v_07 GUESSER:players.guesser_glove SEED:100
 TOTAL:10 B:2 C:2 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_glove SEED:150
 TOTAL:6 B:0 C:0 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_glove SEED:200
@@ -90,7 +88,6 @@ TOTAL:6 B:1 C:0 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_glo
 TOTAL:6 B:1 C:1 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:10 B:1 C:5 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:10 B:2 C:3 A:0 R:8 CM:players.codemaster_w2v_07 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:100
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:200
@@ -121,7 +118,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_g
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1500
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:100
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:200
@@ -152,7 +148,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_g
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1500
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:100
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:150
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:200
@@ -183,7 +178,6 @@ TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_g
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:6 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:25 B:0 C:1 A:1 R:7 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:100
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:200
@@ -214,7 +208,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_g
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1500
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:25 B:0 C:1 A:1 R:7 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:100
 TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:200
@@ -245,7 +238,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_g
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1500
 TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:100
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:150
 TOTAL:5 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:200
@@ -276,7 +268,6 @@ TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_g
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:5 B:1 C:1 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:25 B:0 C:0 A:1 R:7 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:100
 TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:200
@@ -307,7 +298,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_g
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1500
 TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:25 B:0 C:0 A:1 R:7 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:100
 TOTAL:7 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:150
 TOTAL:6 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:200
@@ -338,7 +328,6 @@ TOTAL:6 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_g
 TOTAL:6 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1450
 TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1500
 TOTAL:8 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:6 B:3 C:1 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:100
 TOTAL:5 B:0 C:2 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:150
 TOTAL:5 B:1 C:2 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:200
@@ -369,7 +358,6 @@ TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_g
 TOTAL:4 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:6 B:3 C:2 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:100
 TOTAL:15 B:4 C:4 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:150
 TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:200
@@ -400,7 +388,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_g
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1450
 TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1500
 TOTAL:9 B:0 C:2 A:0 R:8 CM:players.codemaster_glove_03 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:25 B:0 C:0 A:1 R:1 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:100
 TOTAL:14 B:4 C:6 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:150
 TOTAL:6 B:2 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:200
@@ -431,7 +418,6 @@ TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_g
 TOTAL:11 B:5 C:4 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1450
 TOTAL:9 B:2 C:4 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1500
 TOTAL:4 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_05 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:25 B:0 C:0 A:1 R:1 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:100
 TOTAL:12 B:5 C:5 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:150
 TOTAL:6 B:3 C:1 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:200
@@ -462,7 +448,6 @@ TOTAL:9 B:4 C:2 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_g
 TOTAL:8 B:4 C:3 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:25 B:1 C:3 A:1 R:7 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:4 B:0 C:1 A:0 R:8 CM:players.codemaster_glove_07 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:100
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:200
@@ -493,7 +478,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesse
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1500
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:100
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:200
@@ -524,7 +508,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesse
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1500
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:100
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:150
 TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:200
@@ -555,7 +538,6 @@ TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesse
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:6 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:100
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:200
@@ -586,7 +568,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesse
 TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1500
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:100
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:200
@@ -617,7 +598,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesse
 TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1450
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1500
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:100
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:150
 TOTAL:5 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:200
@@ -648,7 +628,6 @@ TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesse
 TOTAL:5 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:5 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:4 B:1 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1550
-
 TOTAL:10 B:1 C:1 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:100
 TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:200
@@ -679,8 +658,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesse
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1450
 TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1500
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1550
-
-
 TOTAL:9 B:1 C:1 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:100
 TOTAL:7 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:150
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:200
@@ -711,8 +688,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesse
 TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1450
 TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1500
 TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1550
-
-
 TOTAL:4 B:1 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:100
 TOTAL:4 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:150
 TOTAL:6 B:0 C:3 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:200
@@ -743,8 +718,6 @@ TOTAL:5 B:1 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesse
 TOTAL:4 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:6 B:0 C:2 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:5 B:1 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1550
-
-
 TOTAL:10 B:1 C:1 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:100
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:150
 TOTAL:9 B:1 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:200
@@ -775,8 +748,6 @@ TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesse
 TOTAL:8 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1450
 TOTAL:25 B:0 C:1 A:1 R:7 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1500
 TOTAL:9 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_03 GUESSER:players.guesser_glove SEED:1550
-
-
 TOTAL:8 B:1 C:1 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:100
 TOTAL:4 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:150
 TOTAL:9 B:3 C:1 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:200
@@ -807,8 +778,6 @@ TOTAL:7 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesse
 TOTAL:6 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1450
 TOTAL:25 B:0 C:1 A:1 R:7 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1500
 TOTAL:6 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_05 GUESSER:players.guesser_glove SEED:1550
-
-
 TOTAL:25 B:4 C:1 A:1 R:4 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:100
 TOTAL:4 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:150
 TOTAL:6 B:2 C:2 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:200
@@ -839,3 +808,4 @@ TOTAL:25 B:0 C:0 A:1 R:7 CM:players.codemaster_w2vglove_07 GUESSER:players.guess
 TOTAL:4 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:25 B:0 C:1 A:1 R:6 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:6 B:0 C:4 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1550
+chickfila

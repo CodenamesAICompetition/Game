@@ -1,4 +1,3 @@
----------------------------------------------NEW------------------------------------------------------
 TOTAL:25 B:3 C:5 A:1 R:7 CM:players.codemaster_w2v_03 GUESSER:players.guesser_wn_res SEED:100 Glove_CM:None Glove_Guesser:None
 TOTAL:25 B:2 C:2 A:1 R:4 CM:players.codemaster_w2v_03 GUESSER:players.guesser_wn_res SEED:150 Glove_CM:None Glove_Guesser:None
 TOTAL:18 B:6 C:4 A:0 R:8 CM:players.codemaster_w2v_03 GUESSER:players.guesser_wn_res SEED:200 Glove_CM:None Glove_Guesser:None
@@ -809,3 +808,4 @@ TOTAL:25 B:2 C:1 A:1 R:0 CM:players.codemaster_w2vglove_07 GUESSER:players.guess
 TOTAL:25 B:6 C:6 A:1 R:7 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_wn_res SEED:1450 Glove_CM:glove_v50 Glove_Guesser:None
 TOTAL:25 B:3 C:4 A:1 R:3 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_wn_res SEED:1500 Glove_CM:glove_v50 Glove_Guesser:None
 TOTAL:25 B:2 C:3 A:1 R:5 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_wn_res SEED:1550 Glove_CM:glove_v50 Glove_Guesser:None
+fwfwfw

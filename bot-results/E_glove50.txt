@@ -808,3 +808,4 @@ TOTAL:3 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesse
 TOTAL:25 B:1 C:1 A:1 R:6 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1450
 TOTAL:4 B:0 C:1 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1500
 TOTAL:3 B:0 C:0 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_glove SEED:1550
+chickfila

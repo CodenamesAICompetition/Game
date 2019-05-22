@@ -1,56 +1,15 @@
-# from nltk.corpus import wordnet as wn
-# from nltk.corpus import words
-# from nltk.corpus import wordnet_ic
-# from nltk.corpus import genesis
-
-# dog = wn.synsets('dog')
-# wolf = wn.synsets('wolf')
-
-# brown_ic = wordnet_ic.ic('ic-brown.dat')
-# semcor_ic = wordnet_ic.ic('ic-semcor.dat')
-# genesis_ic = wn.ic(genesis, False, 0.0)
-
-
-# def path(a, b),
-# 	print("Def, ", a.path_similarity(b))
-# 	print("Brown, ", a.path_similarity(b, brown_ic))
-# 	print("Semcor, ", a.path_similarity(b, semcor_ic))
-# 	print("Genesis, ", a.path_similarity(b, genesis_ic))
-
-# def wup(a, b),
-# 	print("Def, ", a.wup_similarity(b))
-# 	print("Brown, ", a.wup_similarity(b, brown_ic))
-# 	print("Semcor, ", a.wup_similarity(b, semcor_ic))
-# 	print("Genesis, ", a.wup_similarity(b, genesis_ic))
-
-# def lch(a, b),
-# 	print("Def, ", a.lch_similarity(b))
-# 	print("Brown, ", a.lch_similarity(b, brown_ic))
-# 	print("Semcor, ", a.lch_similarity(b, semcor_ic))
-# 	print("Genesis, ", a.lch_similarity(b, genesis_ic))
-
-# game_condition = "Hit_Red"
-# while game_condition != "Lose" or game_condition != "Win",
-# 	# board setup and display
-# 	print("First while loop")
-# 	game_condition = "Hit_Red"
-#
-# 	while game_condition == "Hit_Red",
-# 		print("Second While Loop")
-# 		game_condition = "Win"
-#
-# 	if(game_condition == "Win" or game_condition == "Lose"),
-# 		break
-
-
-c = [('players.codemaster_w2v_03', 0), ('players.codemaster_w2v_05', 0), ('players.codemaster_w2v_07', 0),
-('players.codemaster_glove_03', 300), ('players.codemaster_glove_03', 200), ('players.codemaster_glove_03', 100), ('players.codemaster_glove_03', 50),
-('players.codemaster_glove_05', 300), ('players.codemaster_glove_05', 200), ('players.codemaster_glove_05', 100), ('players.codemaster_glove_05', 50),
-('players.codemaster_glove_07', 300), ('players.codemaster_glove_07', 200), ('players.codemaster_glove_07', 100), ('players.codemaster_glove_07', 50),
-('players.codemaster_w2vglove_03', 300), ('players.codemaster_w2vglove_03', 200), ('players.codemaster_w2vglove_03', 100), ('players.codemaster_w2vglove_03', 50),
-('players.codemaster_w2vglove_05', 300), ('players.codemaster_w2vglove_05', 200), ('players.codemaster_w2vglove_05', 100), ('players.codemaster_w2vglove_05', 50),
-('players.codemaster_w2vglove_07', 300), ('players.codemaster_w2vglove_07', 200), ('players.codemaster_w2vglove_07', 100), ('players.codemaster_w2vglove_07', 50)]
-
-for cm in c:
-    if cm[1] == 300:
-        print(cm)
+table = [[100, 100, 100, 76.67, 66.67, 56.67, 90, 86.67, 53.33, 90, 93.33, 70, 86.67, 86.67, 76.67, 93.33, 93.33, 93.33, 93.33, 93.33, 93.33, 96.67, 96.67, 76.67, 90, 86.67],
+        [86.67, 86.67, 76.67, 100, 100, 100, 96.67, 96.67, 96.67, 96.67, 96.67, 90, 100, 83.33, 83.33, 100, 100, 100, 100, 100, 100, 100, 100, 93.33, 96.67, 96.67, 73.33],
+    [80, 80, 76.67, 100, 100, 100, 100, 100, 100, 93.33, 93.33, 96.67, 90, 80, 56.67, 100, 100, 100, 100, 100, 100, 96.67, 96.67, 83.33, 93.33, 93.33, 70],
+    [73.33, 73.33, 63.33, 100, 100, 100, 90, 90, 80, 100, 100, 100, 93.33, 80, 73.33, 100, 100, 96.67, 96.67, 96.67, 100, 100, 100, 90, 96.67, 96.67, 86.67],
+    [73.33, 73.33, 56.67, 90, 90, 90, 86.67, 86.67, 86.67, 93.33, 93.33, 80, 100, 100, 100, 90, 90, 83.33, 93.33, 93.33, 83.33, 96.67, 96.67, 90, 96.67, 96.67, 93.33],
+    [90, 90, 86.67, 100, 100, 100, 96.67, 96.67, 96.67, 93.33, 90, 90, 93.33, 73.33, 73.33, 100, 100, 100, 100, 100, 100, 100, 100, 100, 93.33, 93.33, 80],
+    [86.67, 86.67, 83.33, 100, 100, 100, 100, 100, 100, 93.33, 86.67, 86.67, 90, 80, 66.67, 100, 100, 100, 100, 100, 100, 100, 100, 90, 96.67, 96.67, 66.67],
+    [86.67, 86.67, 76.67, 96.67, 96.67, 96.67, 90, 90, 83.33, 96.67, 96.67, 100, 93.33, 83.33, 86.67, 100, 100, 100, 96.67, 96.67, 100, 100, 100, 100, 96.67, 96.67],
+    [80, 80, 73.33, 96.67, 93.33, 93.33, 96.67, 96.67, 93.33, 93.33, 86.67, 93.33, 73.33, 80, 90, 100, 100, 100, 100, 100, 100, 100, 100, 90, 86.67, 83.33],
+    [23.33, 23.33, 13.33, 20, 23.33, 13.33, 23.33, 26.67, 20, 20, 16.67, 20, 13.33, 16.67, 16.67, 20, 20, 20, 20, 20, 10, 23.33, 30, 20, 33.33, 10, 20],
+    [36.67, 36.67, 26.67, 20, 20, 23.33, 16.67, 20, 20, 20, 26.67, 26.67, 16.67, 20, 13.33, 23.33, 23.33, 23.33, 16.67, 16.67, 20, 20, 16.67, 10, 26.67, 26.67, 13.33],
+    [26.67, 26.67, 20, 20, 23.33, 33.33, 16.67, 23.33, 26.67, 10, 23.33, 20, 10, 16.67, 13.33, 16.67, 20, 33.33, 23.33, 16.67, 23.33, 23.33, 20, 10, 16.67, 16.67, 10],
+    [36.67, 36.67, 20, 16.67, 16.67, 33.33, 16.67, 20, 23.33, 16.67, 16.67, 13.33, 16.67, 20, 23.33, 23.33, 26.67, 36.67, 36.67, 23.33, 33.33, 33.33, 30, 20, 26.67, 20, 16.66],
+    [30, 30, 20, 23.33, 33.33, 23.33, 13.33, 23.33, 33.33, 30, 26.67, 13.33, 20, 20, 10, 20, 23.33, 23.33, 36.67, 20, 23.33, 26.67, 10, 20, 10, 16.67, 23.33],
+    [16.67, 16.67, 23.33, 10, 20, 16.67, 13.33, 13.33, 26.67, 10, 16.67, 13.33, 13.33, 6.67, 3.33, 13.33, 13.33, 16.67, 16.67, 16.67, 16.67, 16.67, 13.33, 13.33, 20, 10, 10]]

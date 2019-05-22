@@ -808,3 +808,4 @@ TOTAL:25 B:1 C:1 A:1 R:1 CM:players.codemaster_w2vglove_07 GUESSER:players.guess
 TOTAL:14 B:6 C:5 A:0 R:8 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_wn_jcn SEED:1450 Glove_CM:glove_v50 Glove_Guesser:None
 TOTAL:25 B:2 C:3 A:1 R:2 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_wn_jcn SEED:1500 Glove_CM:glove_v50 Glove_Guesser:None
 TOTAL:25 B:2 C:5 A:1 R:5 CM:players.codemaster_w2vglove_07 GUESSER:players.guesser_wn_jcn SEED:1550 Glove_CM:glove_v50 Glove_Guesser:None
+fwefw
