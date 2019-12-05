@@ -29,10 +29,12 @@ class Game:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 		parser.add_argument("codemaster", help="Path to codemaster package or 'human'")
 		parser.add_argument("guesser", help="Path to guesser package or 'human'")
-		parser.add_argument("--seed", help="Random seed value for board state -- integer or 'time'",default='time')
+		parser.add_argument("--seed", 
+			help="Random seed value for board state -- integer or 'time'",default='time')
 		parser.add_argument("--w2v", help="Path to w2v file or 'none'",default='none')
 		parser.add_argument("--glove", help="Path to glove file or 'none'",default='none')
-		parser.add_argument("--wordnet", help="Name of wordnet file or 'none', most like ic-brown.dat",default='none')
+		parser.add_argument("--wordnet", 
+			help="Name of wordnet file or 'none', most like ic-brown.dat",default='none')
 		
 		args = parser.parse_args()
 
