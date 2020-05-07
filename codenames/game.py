@@ -213,7 +213,7 @@ class Game:
 	def run(self):
 		game_condition = "Hit_Red"
 		game_counter = 0
-		while game_condition != "Lose" or game_condition != "Win":
+		while game_condition != "Lose" and game_condition != "Win":
 			# board setup and display
 			self.cls()
 			words_in_play = self.list_words()
