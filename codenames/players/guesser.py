@@ -1,19 +1,16 @@
-class guesser():
-    words = 0
-    clue = 0
-    clues = []
-    
+class Guesser:
+
     def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
         pass
 
 
-class human_guesser(guesser):
+class HumanGuesser(Guesser):
 
     def __init__(self):
         pass
 
     def get_clue(self, clue, num):
-        print("The clue is:", clue, num, sep=" ")
+        print("The clue is:", clue, num)
 
     def get_board(self, words):
         self.words = words

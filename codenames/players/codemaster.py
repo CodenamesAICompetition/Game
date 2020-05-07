@@ -1,11 +1,4 @@
-import random
-
-
-class codemaster():
-
-    words = 0
-    maps = 0
-    bot_array = 0
+class Codemaster:
 
     def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
         pass
@@ -18,7 +11,7 @@ class codemaster():
         pass
 
 
-class human_codemaster(codemaster):
+class HumanCodemaster(Codemaster):
 
     def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
         pass

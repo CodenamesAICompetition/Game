@@ -1,21 +1,13 @@
+from operator import itemgetter
+
+from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
 from nltk.stem.lancaster import LancasterStemmer
-from nltk.corpus import wordnet
-from nltk.corpus import words
-from nltk.corpus import wordnet_ic
-from numpy.linalg import norm
-from players.codemaster import codemaster
-from operator import itemgetter
-from numpy import *
-import gensim.models.keyedvectors as word2vec
-import gensim.downloader as api
-import itertools
-import numpy as np
-import random
-import scipy
+
+from players.codemaster import Codemaster
 
 
-class ai_codemaster(codemaster):
+class AICodemaster(Codemaster):
 
 	def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
 		self.brown_ic = brown_ic

@@ -1,18 +1,12 @@
-from nltk.corpus import wordnet
-from nltk.corpus import words
-from nltk.corpus import wordnet_ic
-from operator import itemgetter
-from players.guesser import guesser
-from collections import Counter
-import gensim.models.keyedvectors as word2vec
-import gensim.downloader as api
-import itertools
-import numpy as np
 import random
-import scipy
+from operator import itemgetter
+
+from nltk.corpus import wordnet
+
+from codenames.players.guesser import Guesser
 
 
-class ai_guesser(guesser):
+class AIGuesser(Guesser):
 
 	def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
 		self.brown_ic = brown_ic
@@ -26,7 +20,7 @@ class ai_guesser(guesser):
 	def get_clue(self, clue, num):
 		self.clue = clue
 		self.num = num
-		print("The clue is:", clue, num, sep=" ")
+		print("The clue is:", clue, num)
 		li = [clue, num]
 		return li
 
