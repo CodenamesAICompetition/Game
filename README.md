@@ -10,46 +10,64 @@ This is the Codenames AI Competition Framework.  The purpose of this framework i
 
 Entrants in the competition will be able to submit up to two bots (at most 1 Codemaster and 1 Guesser)
 
-### Running the game and Terminal instructions
+### Running the game from terminal instructions
 To run the following game, the terminal will require a certain amount of arguments. 
 Where the order is:
-* args[0] = game.py
+* args[0] = run_game.py
 * args[1] = codemaster package
 * args[2] = guesser package
 
 Optionally if certain word vectors are needed, the directory to which should be specified in the arguments here.
-3 argument parsers have been provided:
-* --w2v *path/to/word_vectors*
-* --glove *path/to/glove_vectors*
+5 argument parsers have been provided:
+* --w2v *path/to/word_vectors *
+  * (to be loaded by gensim)
+* --glove *path/to/glove_vectors *
+  *  (in stanford nlp format)
 * --wordnet ic-brown.dat or ic-semcor.dat
+  * (nltk corpus filename)
+
+* --glove_cm *path/to/glove_vectors*
+  * (legacy argument for glove_glove.py)
+* --glove_guesser *path/to/glove_vectors*
+  * (legacy argument for glove_glove.py)
 
 An optional seed argument can be used for the purpose of consistency against the random library.
-* --seed *Integer value*
+* --seed *Integer value* or "time"
+  * ("time" uses Time.time() as the seed)
 
-An example simulation of a *wordnet codemaster* and a *word2vec guesser* in the terminal:  
-`$ python game.py players.codemaster_wn_lin players.guesser_w2v --seed 3442 --w2v players/GoogleNews-vectors-negative300.bin  --wordnet ic-brown.dat`
+Other optional arguments include:
+* --no_log
+  * raise flag for suppressing logging
+* --no_print
+  * raise flag for suppressing printing to std out
+* --game_name *String*
+  * game_name in logfile
+
+An example simulation of a *wordnet codemaster* and a *word2vec guesser* in the terminal from codenames/:  
+`$ python run_game.py players.codemaster_wn_lin players.guesser_w2v --seed 3442 --w2v players/GoogleNews-vectors-negative300.bin  --wordnet ic-brown.dat`
 
 Further installation requirements are found below.
 
-### Codemaster
+### Codemaster Class
 The Codemaster bot is a python 3 class that derives from the supplied `codemaster.py`.  The bot must make use of the three functions:  
 `__init__(self)`
 
 
 `set_game_state(words_on_board : List[Str], key_grid : List[Str]) -> None`
 
-and
 
 `get_clue() -> Tuple[Str,int]`
 
-'__init__' is given 3 initially empty datasets by default (to reduce load times for common NLP resources). Note that system argument values will be passed through here. Some common examples are the Brown Corpus from NLTK's wordnet, the multi-dimensional GloVe vectors, and the 300 dimensional pre-trained Google NewsNewsBin word2vec vectors.
+#### *details*
 
-`set_game_state` is passed the list of words on the board, as well as the map of hidden information.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.  The `hidden_map` is a list of `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating whether a spot on the board is on the team of the codemaster (`'*Red*'`), the opposing team (`'*Blue*'`), a civilian (`'*Civilian*'`), or the assassin (`'*Assassin*'`).
+'__init__' **kwargs are passed through (can be used to pass pre-loaded word vectors to reduce load times for common NLP resources).  Some common examples are the Brown Corpus from NLTK's wordnet, the multi-dimensional GloVe vectors, and the 300 dimensional pre-trained Google NewsNewsBin word2vec vectors.
+
+`set_game_state` is passed the list of words on the board, as well as the key grid provided to spymasters (codemasters).  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.  The `key_grid` is a list of `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating whether a spot on the board is on the team of the codemaster (`'*Red*'`), the opposing team (`'*Blue*'`), a civilian (`'*Civilian*'`), or the assassin (`'*Assassin*'`).
 
 
 `get_clue` returns a tuple containing the clue, a single English word, and the number of words the Codemaster intends it to cover.
 
-### Guesser
+### Guesser Class
 
 The Guesser bot is a python 3 class that derives from the supplied `guesser.py`.  The bot must make use of the four functions:
 
@@ -61,15 +79,15 @@ The Guesser bot is a python 3 class that derives from the supplied `guesser.py`.
 
 `keep_guessing -> bool`
 
-and
-
 `get_answer() -> Str`
+
+#### *details*
 
 `__init__` is as above with the codemaster.
 
 `set_board` is passed the list of words on the board.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.
 
-`set_clue` is passed the clue and the number of guesses it covers, as supplied by the `get_clue` of the codemaster.
+`set_clue` is passed the clue and the number of guesses it covers, as supplied by the `get_clue` of the codemaster through the Game class.
 
 `keep_guessing` is a function that the game engine checks to see if the bot chooses to keep guessing, as the bot must only make at least one guess, but may choose to guess until it has gone to the number supplied by get_clue + 1.
 
@@ -141,6 +159,22 @@ In other words you'll be paired up with other player's bots, and scored/tested t
 ## Prerequisite: Installation and Downloads
 Note: The installation of the [Anaconda Distribution](https://www.anaconda.com/distribution/) should be used for certain dependencies to work without issues. Also installing NLTK and gensim through conda is much simpler and less time consuming than the below alternatives.
 
+Example installation order:
+```
+(base) conda create --name codenames python=3.6
+(base) conda activate codenames
+(codenames) conda install gensim
+(codenames) pip install -U gensim
+(codenames) pip install -U nltk
+(codenames) python
+>>> import nltk
+>>> nltk.download('all')
+>>> exit()
+(codenames) pip install -U colorama
+(codenames) git clone https://github.com/CodenamesAICompetition/Game.git
+(codenames) cd codenames
+```
+
 Alternatively you can use your system's packaging system. (*apt-get* on Debian, or *MacPorts/Homebrew* on macOS)
 Or just use Python's packaging system, pip3, which is included by default from the Python binary installer.
 
@@ -172,23 +206,17 @@ python
 *Note for Windows user: Use the conda bash prompt for general purpose testing/running (as opposed to git bash)*
 
 Installation of NLTK on Windows:
-* Head over to the [nltk website](https://pypi.org/project/nltk/#files)
-* Download the nltk file from the above link
-* Start a terminal and change into the nltk downloads directory
-* Type:
+```pip install -U nltk```
 ```
-python setup.py install
+python
+>>> import nltk
+>>> nltk.download('all')
 ```
 
-* After the above steps create a python file called "set.py"
-* Add these 2 lines of code:
-```
-import nltk
-nltk.download('all')
-```
-* Then run the program by typing "python set.py"
-* Nltk should now be installed
+Install colorama for colored console output:
+```pip install -U colorama```
 
-### These files can optionally be installed as well, place them under your codenames/players/ directory:
+
+### These files can optionally be installed as well, provide path through command arguments:
 * [Glove Vectors](https://nlp.stanford.edu/data/glove.6B.zip) (~2.25 GB)
 * [Google News Vectors](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit) (~3.5 GB)

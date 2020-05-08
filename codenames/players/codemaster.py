@@ -20,7 +20,7 @@ class Codemaster(ABC):
 
 class HumanCodemaster(Codemaster):
 
-    def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
+    def __init__(self):
         super().__init__()
         pass
 
