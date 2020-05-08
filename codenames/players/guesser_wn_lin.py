@@ -49,7 +49,7 @@ class AIGuesser(Guesser):
                     try:
                         # only if the two compared words have the same part of speech
                         lin = clue_list.lin_similarity(board_list, self.brown_ic)
-                    except KeyError:
+                    except :
                         continue
                     if lin:
                         lin_results.append(("lin: ", lin, count, clue_list, board_list, i))

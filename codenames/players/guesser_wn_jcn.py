@@ -49,7 +49,7 @@ class AIGuesser(Guesser):
                     try:
                         # only if the two compared words have the same part of speech
                         jcn = clue_list.jcn_similarity(board_list, self.brown_ic)
-                    except KeyError:
+                    except :
                         continue
                     if jcn:
                         jcn_results.append(("jcn: ", jcn, count, clue_list, board_list, i))

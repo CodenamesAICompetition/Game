@@ -51,7 +51,7 @@ class AIGuesser(Guesser):
                     try:
                         # only if the two compared words have the same part of speech
                         path = clue_list.path_similarity(board_list)
-                    except KeyError:
+                    except :
                         continue
                     if path:
                         path_results.append(("path: ", path, count, clue_list, board_list, i))

@@ -50,7 +50,7 @@ class AICodemaster(Codemaster):
                     try:
                         # only if the two compared words have the same part of speech
                         lin_score = synset_in_cmwordlist.lin_similarity(red_synset, self.brown_ic)
-                    except KeyError:
+                    except :
                         continue
                     if lin_score:
                         if not self.arr_not_in_word(synset_in_cmwordlist.lemma_names()[0], red_words + bad_words):
