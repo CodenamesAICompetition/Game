@@ -5,6 +5,7 @@ glove.6B.100d.txt
 glove.6B.200d.txt
 test.py
 *.ipynb
+results/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -104,6 +105,9 @@ venv.bak/
 
 # Rope project settings
 .ropeproject
+
+# PYCHARM project settings
+.idea
 
 # mkdocs documentation
 /site
