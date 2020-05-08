@@ -3,6 +3,7 @@ import time
 import json
 import enum
 import os
+import shutil
 
 import colorama
 import gensim.models.keyedvectors as word2vec
@@ -23,7 +24,7 @@ class GameCondition(enum.Enum):
 class Game:
     """Class that setups up game details and calls Guesser/Codemaster pair to play the game"""
 
-    def __init__(self, codemaster, guesser, seed="time", do_print=False, do_log=False, game_name="default",
+    def __init__(self, codemaster, guesser, seed="time", do_print=True, do_log=True, game_name="default",
                  cm_kwargs={}, g_kwargs={}):
 
         self.game_start_time = time.time()
@@ -223,6 +224,12 @@ class Game:
             f.write(json.dumps(results))
             f.write('\n')
 
+    @staticmethod
+    def clear_results():
+        """Delete results folder"""
+        if os.path.exists("results") and os.path.isdir("results"):
+            shutil.rmtree("results")
+
     def run(self):
         """Function that runs the codenames game between codemaster and guesser"""
         game_condition = GameCondition.HIT_RED
@@ -277,7 +284,6 @@ class Game:
                     if self.do_print:
                         print("You Lost")
                         print("Game Counter:", game_counter)
-                    exit()
 
                 elif game_condition == GameCondition.WIN:
                     self.game_end_time = time.time()
@@ -287,4 +293,3 @@ class Game:
                     if self.do_print:
                         print("You Won")
                         print("Game Counter:", game_counter)
-                    exit()

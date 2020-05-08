@@ -7,7 +7,7 @@ from game import Game
 from players.guesser import *
 from players.codemaster import *
 
-class GameRun():
+class GameRun:
     def __init__(self):
         parser = argparse.ArgumentParser(
             description="Run the Codenames AI competition game.",

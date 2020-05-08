@@ -49,6 +49,12 @@ An example simulation of a *wordnet codemaster* and a *word2vec guesser* in the 
 An example of running glove codemaster and glove guesser with different glove vectors (removed glove_glove.py)
 `$ python run_game.py players.codemaster_glove_07.AICodemaster players.guesser_glove.AIGuesser --seed 3442 --glove_cm players/glove.6B.50d.txt --glove_guesser players/glove.6B.100d.txt`
 
+An example of calling generalized vector codemaster and guesser from python script rather than command line
+```
+    cm_kwargs = {"vectors": [w2v, glove_50d, glove_100d], "distance_threshold": 0.3, "same_clue_patience": 1, "max_red_words_per_clue": 3}
+    g_kwargs = {"vectors": [w2v, glove_50d, glove_100d]}
+    Game(VectorCodemaster, VectorGuesser, seed=0, do_print=False,  game_name="vectorw2vglvglv03-vectorw2vglvglv", cm_kwargs=cm_kwargs, g_kwargs=g_kwargs).run()
+```
 Further installation requirements are found below.
 
 ### Codemaster Class
