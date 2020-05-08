@@ -33,47 +33,47 @@ Further installation requirements are found below.
 
 ### Codemaster
 The Codemaster bot is a python 3 class that derives from the supplied `codemaster.py`.  The bot must make use of the three functions:  
-`__init__(self, brown_ic=None, glove_vecs=None, word_vectors=None)`
+`__init__(self)`
 
 
-`receive_game_state(words : List[Str], map : List[Str]) -> None`
+`set_game_state(words_on_board : List[Str], key_grid : List[Str]) -> None`
 
 and
 
-`give_clue() -> Tuple[Str,int]`
+`get_clue() -> Tuple[Str,int]`
 
-'__init__' is given 3 initially empty datasets by default (to reduce load times for common NLP resources). Note that system argument values will be passed through here. Somoe common examples are the Brown Corpus from NLTK's wordnet, the multi-dimensional GloVe vectors, and the 300 dimensional pre-trained Google NewsNewsBin word2vec vectors.
+'__init__' is given 3 initially empty datasets by default (to reduce load times for common NLP resources). Note that system argument values will be passed through here. Some common examples are the Brown Corpus from NLTK's wordnet, the multi-dimensional GloVe vectors, and the 300 dimensional pre-trained Google NewsNewsBin word2vec vectors.
 
-`receive_game_state` is passed the list of words on the board, as well as the map of hidden information.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.  The `hidden_map` is a list of `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating whether a spot on the board is on the team of the codemaster (`'*Red*'`), the opposing team (`'*Blue*'`), a civilian (`'*Civilian*'`), or the assassin (`'*Assassin*'`).
+`set_game_state` is passed the list of words on the board, as well as the map of hidden information.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.  The `hidden_map` is a list of `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating whether a spot on the board is on the team of the codemaster (`'*Red*'`), the opposing team (`'*Blue*'`), a civilian (`'*Civilian*'`), or the assassin (`'*Assassin*'`).
 
 
-`give_clue` returns a tuple containing the clue, a single English word, and the number of words the Codemaster intends it to cover.  
+`get_clue` returns a tuple containing the clue, a single English word, and the number of words the Codemaster intends it to cover.
 
 ### Guesser
 
 The Guesser bot is a python 3 class that derives from the supplied `guesser.py`.  The bot must make use of the four functions:
 
-`__init__(self, brown_ic=None, glove_vecs=None, word_vectors=None)`
+`__init__(self)`
 
-`get_board(words: List[str]) -> None`
+`set_board(words: List[str]) -> None`
 
-`get_clue(clue:Str, guesses:int) -> None`
+`set_clue(clue:Str, num_guesses:int) -> None`
 
 `keep_guessing -> bool`
 
 and
 
-`give_answer() -> Str`
+`get_answer() -> Str`
 
 `__init__` is as above with the codemaster.
 
-`get_board` is passed the list of words on the board.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.
+`set_board` is passed the list of words on the board.  The `words` are either: an all upper case word found in the English language or one of 4 special tokens: `'*Red*', '*Blue*', '*Civilian*', '*Assassin*'` indicating that the word that was originally at that location has been guessed and been found to be of that type.
 
-`get_clue` is passed the clue and the number of guesses it covers, as supplied by the `give_clue` of the codemaster.
+`set_clue` is passed the clue and the number of guesses it covers, as supplied by the `get_clue` of the codemaster.
 
 `keep_guessing` is a function that the game engine checks to see if the bot chooses to keep guessing, as the bot must only make at least one guess, but may choose to guess until it has gone to the number supplied by get_clue + 1.
 
-`give_answer` returns the current guess of the Guesser, given the state of the board and the previous clue.
+`get_answer` returns the current guess of the Guesser, given the state of the board and the previous clue.
 
 
 

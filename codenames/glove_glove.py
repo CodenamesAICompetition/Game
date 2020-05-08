@@ -220,23 +220,23 @@ class Game:
             self.cls()
             words_in_play = self.list_words()
             current_map = self.list_map()
-            self.codemaster.receive_game_state(words_in_play, current_map)
+            self.codemaster.set_game_state(words_in_play, current_map)
             # self.display_map()
             self.display_board_codemaster()
             # codemaster gives clue & number here
-            clue, num = self.codemaster.give_clue()
+            clue, num = self.codemaster.get_clue()
             game_counter += 1
             keep_guessing = True
             guess_num = 0
             num = int(num)
 
             self.cls()
-            self.guesser.get_clue(clue, num)
+            self.guesser.set_clue(clue, num)
 
             game_condition = "Hit_Red"
             while guess_num <= num and keep_guessing and game_condition == "Hit_Red":
-                self.guesser.get_board(words_in_play)
-                guess_answer = self.guesser.give_answer()
+                self.guesser.set_board(words_in_play)
+                guess_answer = self.guesser.get_answer()
 
                 # if no comparisons were made/found than retry input from codemaster
                 if guess_answer == "no comparisons":
@@ -249,7 +249,7 @@ class Game:
                     self.display_board_codemaster()
                     guess_num += 1
                     print("Keep Guessing?")
-                    keep_guessing = self.guesser.keep_guessing(clue, words_in_play)
+                    keep_guessing = self.guesser.keep_guessing()
                     print("The clue is :", clue, num)
 
                 # if guesser selected a civilian or a blue-paired word

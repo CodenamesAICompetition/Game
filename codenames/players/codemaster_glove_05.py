@@ -10,6 +10,7 @@ from players.codemaster import Codemaster
 class AICodemaster(Codemaster):
 
     def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
+        super().__init__()
         self.brown_ic = brown_ic
         self.glove_vecs = glove_vecs
         self.word_vectors = word_vectors
@@ -23,11 +24,11 @@ class AICodemaster(Codemaster):
         self.bad_word_dists = None
         self.red_word_dists = None
 
-    def receive_game_state(self, words, maps):
+    def set_game_state(self, words, maps):
         self.words = words
         self.maps = maps
 
-    def give_clue(self):
+    def get_clue(self):
         cos_dist = scipy.spatial.distance.cosine
         red_words = []
         bad_words = []

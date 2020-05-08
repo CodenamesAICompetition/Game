@@ -10,6 +10,7 @@ from players.codemaster import Codemaster
 class AICodemaster(Codemaster):
 
 	def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
+		super().__init__()
 		self.brown_ic = brown_ic
 		self.glove_vecs = glove_vecs
 		self.word_vectors = word_vectors
@@ -24,11 +25,11 @@ class AICodemaster(Codemaster):
 			for synset_in_cmwordlist in wordnet.synsets(word):
 				self.syns.append(synset_in_cmwordlist)
 
-	def receive_game_state(self, words, maps):
+	def set_game_state(self, words, maps):
 		self.words = words
 		self.maps = maps
 
-	def give_clue(self):
+	def get_clue(self):
 		lin_results = []
 		count = 0
 		red_words = []
@@ -49,7 +50,7 @@ class AICodemaster(Codemaster):
 					try:
 						# only if the two compared words have the same part of speech
 						lin_score = synset_in_cmwordlist.lin_similarity(red_synset, self.brown_ic)
-					except:
+					except KeyError:
 						continue
 					if lin_score:
 						if not self.arr_not_in_word(synset_in_cmwordlist.lemma_names()[0], red_words+bad_words):
