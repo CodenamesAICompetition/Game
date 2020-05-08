@@ -12,8 +12,8 @@ class GameRun():
         parser = argparse.ArgumentParser(
             description="Run the Codenames AI competition game.",
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-        parser.add_argument("codemaster", help="Path to codemaster package or 'human'")
-        parser.add_argument("guesser", help="Path to guesser package or 'human'")
+        parser.add_argument("codemaster", help="import string of form A.B.C.MyClass or 'human'")
+        parser.add_argument("guesser", help="import string of form A.B.C.MyClass or 'human'")
         parser.add_argument("--seed", help="Random seed value for board state -- integer or 'time'", default='time')
 
         parser.add_argument("--w2v", help="Path to w2v file or None", default=None)
@@ -37,20 +37,18 @@ class GameRun():
 
         # load codemaster class
         if args.codemaster == "human":
-            self.codemaster = HumanCodemaster()
+            self.codemaster = HumanCodemaster
             if self.do_print: print('human codemaster')
         else:
-            codemaster_module = importlib.import_module(args.codemaster)
-            self.codemaster = codemaster_module.AICodemaster
+            self.codemaster = self.import_string_to_class(args.codemaster)
             if self.do_print: print('loaded codemaster class')
 
         # load guesser class
         if args.guesser == "human":
-            self.guesser = HumanGuesser()
+            self.guesser = HumanGuesser
             if self.do_print: print('human guesser')
         else:
-            guesser_module = importlib.import_module(args.guesser)
-            self.guesser = guesser_module.AIGuesser
+            self.guesser = self.import_string_to_class(args.guesser)
             if self.do_print: print('loaded guesser class')
 
         # if the game is going to have an ai, load up word vectors
@@ -88,6 +86,17 @@ class GameRun():
             self.seed = time.time()
         else:
             self.seed = int(args.seed)
+
+    def import_string_to_class(self, import_string):
+        """Parse an import string and return the class"""
+        parts = import_string.split('.')
+        module_name = '.'.join(parts[:len(parts) - 1])
+        class_name = parts[-1]
+
+        module = importlib.import_module(module_name)
+        my_class = getattr(module, class_name)
+
+        return my_class
 
 
 if __name__ == "__main__":

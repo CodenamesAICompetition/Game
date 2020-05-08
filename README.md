@@ -14,8 +14,8 @@ Entrants in the competition will be able to submit up to two bots (at most 1 Cod
 To run the following game, the terminal will require a certain amount of arguments. 
 Where the order is:
 * args[0] = run_game.py
-* args[1] = codemaster package
-* args[2] = guesser package
+* args[1] = package.MyCodemasterClass
+* args[2] = package.MyGuesserClass
 
 Optionally if certain word vectors are needed, the directory to which should be specified in the arguments here.
 5 argument parsers have been provided:
@@ -44,10 +44,10 @@ Other optional arguments include:
   * game_name in logfile
 
 An example simulation of a *wordnet codemaster* and a *word2vec guesser* in the terminal from codenames/:  
-`$ python run_game.py players.codemaster_wn_lin players.guesser_w2v --seed 3442 --w2v players/GoogleNews-vectors-negative300.bin  --wordnet ic-brown.dat`
+`$ python run_game.py players.codemaster_wn_lin.AICodemaster players.guesser_w2v.AIGuesser --seed 3442 --w2v players/GoogleNews-vectors-negative300.bin  --wordnet ic-brown.dat`
 
 An example of running glove codemaster and glove guesser with different glove vectors (removed glove_glove.py)
-`$ python run_game.py players.codemaster_glove_07 players.guesser_glove --seed 3442 --glove_cm players/glove.6B.50d.txt --glove_guesser players/glove.6B.100d.txt`
+`$ python run_game.py players.codemaster_glove_07.AICodemaster players.guesser_glove.AIGuesser --seed 3442 --glove_cm players/glove.6B.50d.txt --glove_guesser players/glove.6B.100d.txt`
 
 Further installation requirements are found below.
 
