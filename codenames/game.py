@@ -4,12 +4,12 @@ import json
 import enum
 import os
 import shutil
+import sys
 
 import colorama
 import gensim.models.keyedvectors as word2vec
 import numpy as np
 from nltk.corpus import wordnet_ic
-
 
 class GameCondition(enum.Enum):
     """Enumeration that represents the different states of the game"""
@@ -22,20 +22,49 @@ class GameCondition(enum.Enum):
 
 
 class Game:
-    """Class that setups up game details and calls Guesser/Codemaster pair to play the game"""
+    """Class that setups up game details and calls Guesser/Codemaster pair to play the game
+    """
 
-    def __init__(self, codemaster, guesser, seed="time", do_print=True, do_log=True, game_name="default",
+    def __init__(self, codemaster, guesser,
+                 seed="time", do_print=True, do_log=True, game_name="default",
                  cm_kwargs={}, g_kwargs={}):
+        """ Setup Game details
+
+        Args:
+            codemaster (:class:`Codemaster`):
+                Codemaster (spymaster in Codenames' rules) class that provides a clue.
+            guesser (:class:`Guesser`):
+                Guesser (field operative in Codenames' rules) class that guesses based on clue.
+            seed (int or str, optional): 
+                Value used to init random, "time" for time.time(). 
+                Defaults to "time".
+            do_print (bool, optional): 
+                Whether to keep on sys.stdout or turn off. 
+                Defaults to True.
+            do_log (bool, optional): 
+                Whether to append to log file or not. 
+                Defaults to True.
+            game_name (str, optional): 
+                game name used in log file. Defaults to "default".
+            cm_kwargs (dict, optional): 
+                kwargs passed to Codemaster.
+            g_kwargs (dict, optional): 
+                kwargs passed to Guesser.
+        """
 
         self.game_start_time = time.time()
         colorama.init()
+
+        self.do_print = do_print
+        if not self.do_print:
+            self._save_stdout = sys.stdout
+            sys.stdout = open(os.devnull, 'w')
 
         self.codemaster = codemaster(**cm_kwargs)
         self.guesser = guesser(**g_kwargs)
 
         self.cm_kwargs = cm_kwargs
         self.g_kwargs = g_kwargs
-        self.do_print = do_print
         self.do_log = do_log
         self.game_name = game_name
 
@@ -47,8 +76,7 @@ class Game:
             self.seed = seed
             random.seed(int(seed))
 
-        if self.do_print:
-            print("seed:", self.seed)
+        print("seed:", self.seed)
 
         # load board words
         with open("game_wordpool.txt", "r") as f:
@@ -60,6 +88,12 @@ class Game:
         # set grid key for codemaster (spymaster)
         self.key_grid = ["Red"] * 8 + ["Blue"] * 7 + ["Civilian"] * 9 + ["Assassin"]
         random.shuffle(self.key_grid)
+
+    def __del__(self):
+        """reset stdout if using the do_print==False option"""
+        if not self.do_print:
+            sys.stdout.close()
+            sys.stdout = self._save_stdout
 
     @staticmethod
     def load_glove_vecs(glove_file_path):
@@ -85,7 +119,7 @@ class Game:
         """
         return word2vec.KeyedVectors.load_word2vec_format(w2v_file_path, binary=True, unicode_errors='ignore')
 
-    def display_board_codemaster(self):
+    def _display_board_codemaster(self):
         """prints out board with color-paired words, only for codemaster, color && stylistic"""
         print(str.center("___________________________BOARD___________________________\n", 60))
         counter = 0
@@ -108,7 +142,7 @@ class Game:
                          "\n___________________________________________________________", 60))
         print("\n")
 
-    def display_board(self):
+    def _display_board(self):
         """prints the list of words in a board like fashion (5x5)"""
         print(colorama.Style.RESET_ALL)
         print(str.center("___________________________BOARD___________________________", 60))
@@ -120,7 +154,7 @@ class Game:
         print(str.center("\n___________________________________________________________", 60))
         print("\n")
 
-    def display_key_grid(self):
+    def _display_key_grid(self):
         """ Print the key grid to stdout  """
         print("\n")
         print(str.center(colorama.Fore.RESET +
@@ -153,7 +187,7 @@ class Game:
         """Return the codemaster's key"""
         return self.key_grid
 
-    def accept_guess(self, guess_index):
+    def _accept_guess(self, guess_index):
         """Function that takes in an int index called guess to compare with the key grid
         CodeMaster will always win with Red and lose if Blue =/= 7 or Assassin == 1
         """
@@ -236,12 +270,12 @@ class Game:
         game_counter = 0
         while game_condition != GameCondition.LOSS and game_condition != GameCondition.WIN:
             # board setup and display
-            if self.do_print: print('\n' * 2)
+            print('\n' * 2)
             words_in_play = self.get_words_on_board()
             current_key_grid = self.get_key_grid()
             self.codemaster.set_game_state(words_in_play, current_key_grid)
-            # if self.do_print: self.display_key_grid()
-            if self.do_print: self.display_board_codemaster()
+            self._display_key_grid()
+            self._display_board_codemaster()
 
             # codemaster gives clue & number here
             clue, clue_num = self.codemaster.get_clue()
@@ -250,7 +284,7 @@ class Game:
             guess_num = 0
             clue_num = int(clue_num)
 
-            if self.do_print: print('\n' * 2)
+            print('\n' * 2)
             self.guesser.set_clue(clue, clue_num)
 
             game_condition = GameCondition.HIT_RED
@@ -262,13 +296,13 @@ class Game:
                 if guess_answer is None or guess_answer == "no comparisons":
                     break
                 guess_answer_index = words_in_play.index(guess_answer.upper().strip())
-                game_condition = self.accept_guess(guess_answer_index)
+                game_condition = self._accept_guess(guess_answer_index)
 
                 if game_condition == GameCondition.HIT_RED:
-                    if self.do_print: print('\n' * 2)
-                    if self.do_print: self.display_board_codemaster()
+                    print('\n' * 2)
+                    self._display_board_codemaster()
                     guess_num += 1
-                    if self.do_print: print("Keep Guessing? the clue is ", clue, clue_num)
+                    print("Keep Guessing? the clue is ", clue, clue_num)
                     keep_guessing = self.guesser.keep_guessing()
 
                 # if guesser selected a civilian or a blue-paired word
@@ -278,18 +312,16 @@ class Game:
                 elif game_condition == GameCondition.LOSS:
                     self.game_end_time = time.time()
                     game_counter = 25
-                    if self.do_print: self.display_board_codemaster()
+                    self._display_board_codemaster()
                     if self.do_log:
                         self.write_results(game_counter)
-                    if self.do_print:
-                        print("You Lost")
-                        print("Game Counter:", game_counter)
+                    print("You Lost")
+                    print("Game Counter:", game_counter)
 
                 elif game_condition == GameCondition.WIN:
                     self.game_end_time = time.time()
-                    if self.do_print: self.display_board_codemaster()
+                    self._display_board_codemaster()
                     if self.do_log:
                         self.write_results(game_counter)
-                    if self.do_print:
-                        print("You Won")
-                        print("Game Counter:", game_counter)
+                    print("You Won")
+                    print("Game Counter:", game_counter)
