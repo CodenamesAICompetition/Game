@@ -6,22 +6,28 @@ This is the Codenames AI Competition Framework.  The purpose of this framework i
 * Requires communication, in a semantically meaningful way, with players of unknown provenance --  the player on the other side of the table may be a human or it may be another, unaffiliated, bot
 * Requires understanding words with multiple meanings
 
+**Further installation requirements are found below.**
+
 ## Submissions
 
 Entrants in the competition will be able to submit up to two bots (at most 1 Codemaster and 1 Guesser)
 
-### Running the game from terminal instructions
-To run the following game, the terminal will require a certain amount of arguments. 
+## Running the game from terminal instructions
+
+To run the game, the terminal will require a certain amount of arguments.
 Where the order is:
 * args[0] = run_game.py
 * args[1] = package.MyCodemasterClass
 * args[2] = package.MyGuesserClass
 
+**run_game.py simply handles system arguments then called game.Game().
+See below for more details about calling game.Game() directly.**
+
 Optionally if certain word vectors are needed, the directory to which should be specified in the arguments here.
 5 argument parsers have been provided:
-* --w2v *path/to/word_vectors *
+* --w2v *path/to/word_vectors*
   * (to be loaded by gensim)
-* --glove *path/to/glove_vectors *
+* --glove *path/to/glove_vectors*
   *  (in stanford nlp format)
 * --wordnet ic-brown.dat or ic-semcor.dat
   * (nltk corpus filename)
@@ -49,24 +55,61 @@ An example simulation of a *wordnet codemaster* and a *word2vec guesser* in the 
 An example of running glove codemaster and glove guesser with different glove vectors (removed glove_glove.py)
 `$ python run_game.py players.codemaster_glove_07.AICodemaster players.guesser_glove.AIGuesser --seed 3442 --glove_cm players/glove.6B.50d.txt --glove_guesser players/glove.6B.100d.txt`
 
-An example of calling generalized vector codemaster and guesser from python script rather than command line
+## Running the game from calling Game(...).run()
+
+The class Game() that can be imported from game.Game is the main framework class.
+
+An example of calling generalized vector codemaster and guesser from python code rather than command line
 ```
     cm_kwargs = {"vectors": [w2v, glove_50d, glove_100d], "distance_threshold": 0.3, "same_clue_patience": 1, "max_red_words_per_clue": 3}
     g_kwargs = {"vectors": [w2v, glove_50d, glove_100d]}
     Game(VectorCodemaster, VectorGuesser, seed=0, do_print=False,  game_name="vectorw2vglvglv03-vectorw2vglvglv", cm_kwargs=cm_kwargs, g_kwargs=g_kwargs).run()
 ```
-Further installation requirements are found below.
 
-### Codemaster Class
-The Codemaster bot is a python 3 class that derives from the supplied `codemaster.py`.  The bot must make use of the three functions:  
-`__init__(self)`
+See simple_example.py for an example of sharing word vectors,
+passing kwargs to guesser/codemaster through Game,
+and calling Game.run() directly.
 
+## Game Class
 
-`set_game_state(words_on_board : List[Str], key_grid : List[Str]) -> None`
+The main framework class that calls your AI bots.
 
+As mentioned above, a Game can be created/played directly by importing game.Game,
+initializing with the args below, and calling the run() method.
 
-`get_clue() -> Tuple[Str,int]`
+```
+Class that setups up game details and 
+calls Guesser/Codemaster pair to play the game
 
+Args:
+    codemaster (:class:`Codemaster`):
+        Codemaster (spymaster in Codenames' rules) class that provides a clue.
+    guesser (:class:`Guesser`):
+        Guesser (field operative in Codenames' rules) class that guesses based on clue.
+    seed (int or str, optional): 
+        Value used to init random, "time" for time.time(). 
+        Defaults to "time".
+    do_print (bool, optional): 
+        Whether to keep on sys.stdout or turn off. 
+        Defaults to True.
+    do_log (bool, optional): 
+        Whether to append to log file or not. 
+        Defaults to True.
+    game_name (str, optional): 
+        game name used in log file. Defaults to "default".
+    cm_kwargs (dict, optional): 
+        kwargs passed to Codemaster.
+    g_kwargs (dict, optional): 
+        kwargs passed to Guesser.
+```
+
+## Codemaster Class
+Any Codemaster bot is a python 3 class that derives from the supplied abstract base class Codemaster in `codemaster.py`.  The bot must implement three functions:
+```
+__init__(self)
+set_game_state(words_on_board : List[str], key_grid : List[str]) -> None
+get_clue() -> Tuple[str,int]
+```
 #### *details*
 
 '__init__' **kwargs are passed through (can be used to pass pre-loaded word vectors to reduce load times for common NLP resources).  Some common examples are the Brown Corpus from NLTK's wordnet, the multi-dimensional GloVe vectors, and the 300 dimensional pre-trained Google NewsNewsBin word2vec vectors.
@@ -76,19 +119,17 @@ The Codemaster bot is a python 3 class that derives from the supplied `codemaste
 
 `get_clue` returns a tuple containing the clue, a single English word, and the number of words the Codemaster intends it to cover.
 
-### Guesser Class
+## Guesser Class
 
-The Guesser bot is a python 3 class that derives from the supplied `guesser.py`.  The bot must make use of the four functions:
+Any Guesser bot is a python 3 class that derives from the supplied abstract base class Guesser in `guesser.py`.  The bot must implement four functions:
 
-`__init__(self)`
-
-`set_board(words: List[str]) -> None`
-
-`set_clue(clue:Str, num_guesses:int) -> None`
-
-`keep_guessing -> bool`
-
-`get_answer() -> Str`
+```
+__init__(self)
+set_board(words: List[str]) -> None
+set_clue(clue: str, num_guesses: int) -> None
+keep_guessing -> bool
+get_answer() -> Str
+```
 
 #### *details*
 
