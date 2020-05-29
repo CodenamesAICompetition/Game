@@ -7,7 +7,7 @@ import itertools
 from players.codemaster import Codemaster
 
 
-class AICdemaster(Codemaster):
+class AICodemaster(Codemaster):
 
     def __init__(self, brown_ic=None, glove_vecs=None, word_vectors=None):
         super().__init__()
