@@ -294,6 +294,75 @@ class Game:
         if os.path.exists("results") and os.path.isdir("results"):
             shutil.rmtree("results")
 
+    def play_turn(self, words_in_play, color_game_condition, game_counter):
+        # codemaster gives clue & number here
+
+        if color_game_condition == GameCondition.HIT_RED:
+            teamcolor = "Red"
+            codemaster = self.redcodemaster
+            guesser = self.redguesser
+        elif color_game_condition == GameCondition.HIT_BLUE:
+            teamcolor = "Blue"
+            codemaster = self.bluecodemaster
+            guesser = self.blueguesser
+
+        clue, clue_num = codemaster.get_clue()
+        game_counter += 1
+        keep_guessing = True
+        guess_num = 0
+        clue_num = int(clue_num)
+
+        print('\n' * 2)
+        guesser.set_clue(clue, clue_num)
+
+        game_condition = color_game_condition
+
+        while guess_num <= clue_num and keep_guessing and game_condition == color_game_condition:
+            guesser.set_board(words_in_play)
+            guess_answer = guesser.get_answer()
+
+            # if no comparisons were made/found than retry input from codemaster
+            if guess_answer is None or guess_answer == "no comparisons":
+                break
+            guess_answer_index = words_in_play.index(guess_answer.upper().strip())
+            game_condition = self._accept_guess_red(guess_answer_index)
+
+            if game_condition == color_game_condition:
+                print('\n' * 2)
+                self._display_board_codemaster()
+                guess_num += 1
+                print("Keep Guessing? the clue is ", clue, clue_num)
+                keep_guessing = guesser.keep_guessing()
+
+            # if guesser selected a civilian or a blue-paired word
+            elif game_condition == GameCondition.CONTINUE:
+                break
+
+            elif game_condition == GameCondition.LOSS:
+                """
+                self.game_end_time = time.time()
+                game_counter = 25
+                self._display_board_codemaster()
+                if self.do_log:
+                    self.write_results(game_counter)
+                print(teamcolor + " Lost")
+                print(teamcolor + " Counter:", game_counter)
+                quit(1)
+                """
+                return
+
+            elif game_condition == GameCondition.WIN:
+                self.game_end_time = time.time()
+                self._display_board_codemaster()
+                if self.do_log:
+                    self.write_results(game_counter)
+                print(teamcolor + " Won")
+                print(teamcolor + " Counter:", game_counter)
+                quit(0)
+
+        return game_counter
+
+
     def run(self):
         """Function that runs the codenames game between codemaster and guesser"""
         game_condition = GameCondition.HIT_RED
@@ -310,105 +379,9 @@ class Game:
             self._display_key_grid()
             self._display_board_codemaster()
 
-            # codemaster gives clue & number here
-            clue, clue_num = self.redcodemaster.get_clue()
-            red_game_counter += 1
-            keep_guessing = True
-            guess_num = 0
-            clue_num = int(clue_num)
-
-            print('\n' * 2)
-            self.redguesser.set_clue(clue, clue_num)
-
-            game_condition = GameCondition.HIT_RED
-            while guess_num <= clue_num and keep_guessing and game_condition == GameCondition.HIT_RED:
-                self.redguesser.set_board(words_in_play)
-                guess_answer = self.redguesser.get_answer()
-
-                # if no comparisons were made/found than retry input from codemaster
-                if guess_answer is None or guess_answer == "no comparisons":
-                    break
-                guess_answer_index = words_in_play.index(guess_answer.upper().strip())
-                game_condition = self._accept_guess_red(guess_answer_index)
-
-                if game_condition == GameCondition.HIT_RED:
-                    print('\n' * 2)
-                    self._display_board_codemaster()
-                    guess_num += 1
-                    print("Keep Guessing? the clue is ", clue, clue_num)
-                    keep_guessing = self.redguesser.keep_guessing()
-
-                # if guesser selected a civilian or a blue-paired word
-                elif game_condition == GameCondition.CONTINUE:
-                    break
-
-                elif game_condition == GameCondition.LOSS:
-                    self.game_end_time = time.time()
-                    red_game_counter = 25
-                    self._display_board_codemaster()
-                    if self.do_log:
-                        self.write_results(red_game_counter)
-                    print("Red Lost")
-                    print("Red Counter:", red_game_counter)
-                    return
-
-                elif game_condition == GameCondition.WIN:
-                    self.game_end_time = time.time()
-                    self._display_board_codemaster()
-                    if self.do_log:
-                        self.write_results(red_game_counter)
-                    print("Red Won")
-                    print("Red Counter:", red_game_counter)
-                    return
-
-
-            # codemaster gives clue & number here
-            clue, clue_num = self.bluecodemaster.get_clue()
-            blue_game_counter += 1
-            keep_guessing = True
-            guess_num = 0
-            clue_num = int(clue_num)
-
-            print('\n' * 2)
-            self.blueguesser.set_clue(clue, clue_num)
-
-            game_condition = GameCondition.HIT_BLUE
-            while guess_num <= clue_num and keep_guessing and game_condition == GameCondition.HIT_BLUE:
-                self.blueguesser.set_board(words_in_play)
-                guess_answer = self.blueguesser.get_answer()
-
-                # if no comparisons were made/found than retry input from codemaster
-                if guess_answer is None or guess_answer == "no comparisons":
-                    break
-                guess_answer_index = words_in_play.index(guess_answer.upper().strip())
-                game_condition = self._accept_guess_blue(guess_answer_index)
-
-                if game_condition == GameCondition.HIT_BLUE:
-                    print('\n' * 2)
-                    self._display_board_codemaster()
-                    guess_num += 1
-                    print("Keep Guessing? the clue is ", clue, clue_num)
-                    keep_guessing = self.redguesser.keep_guessing()
-
-                # if guesser selected a civilian or a red-paired word
-                elif game_condition == GameCondition.CONTINUE:
-                    break
-
-                elif game_condition == GameCondition.LOSS:
-                    self.game_end_time = time.time()
-                    blue_game_counter = 25
-                    self._display_board_codemaster()
-                    if self.do_log:
-                        self.write_results(blue_game_counter)
-                    print("Blue Lost")
-                    print("Blue Counter:", blue_game_counter)
-                    return
-
-                elif game_condition == GameCondition.WIN:
-                    self.game_end_time = time.time()
-                    self._display_board_codemaster()
-                    if self.do_log:
-                        self.write_results(blue_game_counter)
-                    print("Blue Won")
-                    print("Blue Counter:", blue_game_counter)
-                    return
+            red_count = self.play_turn(words_in_play, GameCondition.HIT_RED, red_game_counter)
+            if red_count is not None:
+                red_game_counter = red_count
+            blue_count = self.play_turn(words_in_play, GameCondition.HIT_BLUE, blue_game_counter)
+            if blue_count is not None:
+                blue_game_counter = blue_count
