@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Codemaster(ABC):
     """codemaster abstract class that mimics the spymaster in the codenames game"""
 
