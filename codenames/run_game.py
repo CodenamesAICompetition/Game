@@ -48,32 +48,32 @@ class GameRun:
         # load codemaster classes
         if args.redcodemaster == "human":
             self.redcodemaster = HumanCodemaster
-            print('human codemaster')
+            print('human red codemaster')
         else:
             self.redcodemaster = self.import_string_to_class(args.redcodemaster)
-            print('loaded codemaster class')
+            print('loaded red codemaster class')
 
         if args.bluecodemaster == "human":
             self.bluecodemaster = HumanCodemaster
-            print('human codemaster')
+            print('human blue codemaster')
         else:
             self.bluecodemaster = self.import_string_to_class(args.bluecodemaster)
-            print('loaded codemaster class')
+            print('loaded blue codemaster class')
 
         # load guesser class
         if args.redguesser == "human":
             self.redguesser = HumanGuesser
-            print('human guesser')
+            print('human red guesser')
         else:
             self.redguesser = self.import_string_to_class(args.redguesser)
-            print('loaded guesser class')
+            print('loaded red guesser class')
 
         if args.blueguesser == "human":
             self.blueguesser = HumanGuesser
-            print('human guesser')
+            print('human blue guesser')
         else:
             self.blueguesser = self.import_string_to_class(args.blueguesser)
-            print('loaded guesser class')
+            print('loaded blue guesser class')
 
         # if the game is going to have an ai, load up word vectors
         if sys.argv[1] != "human" or sys.argv[2] != "human":
