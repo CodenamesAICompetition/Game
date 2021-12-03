@@ -15,8 +15,12 @@ class GameRun:
         parser = argparse.ArgumentParser(
             description="Run the Codenames AI competition game.",
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-        parser.add_argument("codemaster", help="import string of form A.B.C.MyClass or 'human'")
-        parser.add_argument("guesser", help="import string of form A.B.C.MyClass or 'human'")
+        parser.add_argument("redcodemaster", help="import string of form A.B.C.MyClass or 'human'")
+        parser.add_argument("redguesser", help="import string of form A.B.C.MyClass or 'human'")
+
+        parser.add_argument("bluecodemaster", help="import string of form A.B.C.MyClass or 'human'")
+        parser.add_argument("blueguesser", help="import string of form A.B.C.MyClass or 'human'")
+
         parser.add_argument("--seed", help="Random seed value for board state -- integer or 'time'", default='time')
 
         parser.add_argument("--w2v", help="Path to w2v file or None", default=None)
@@ -41,20 +45,34 @@ class GameRun:
         self.g_kwargs = {}
         self.cm_kwargs = {}
 
-        # load codemaster class
-        if args.codemaster == "human":
-            self.codemaster = HumanCodemaster
+        # load codemaster classes
+        if args.redcodemaster == "human":
+            self.redcodemaster = HumanCodemaster
             print('human codemaster')
         else:
-            self.codemaster = self.import_string_to_class(args.codemaster)
+            self.redcodemaster = self.import_string_to_class(args.redcodemaster)
+            print('loaded codemaster class')
+
+        if args.bluecodemaster == "human":
+            self.bluecodemaster = HumanCodemaster
+            print('human codemaster')
+        else:
+            self.bluecodemaster = self.import_string_to_class(args.bluecodemaster)
             print('loaded codemaster class')
 
         # load guesser class
-        if args.guesser == "human":
-            self.guesser = HumanGuesser
+        if args.redguesser == "human":
+            self.redguesser = HumanGuesser
             print('human guesser')
         else:
-            self.guesser = self.import_string_to_class(args.guesser)
+            self.redguesser = self.import_string_to_class(args.redguesser)
+            print('loaded guesser class')
+
+        if args.blueguesser == "human":
+            self.blueguesser = HumanGuesser
+            print('human guesser')
+        else:
+            self.blueguesser = self.import_string_to_class(args.blueguesser)
             print('loaded guesser class')
 
         # if the game is going to have an ai, load up word vectors
@@ -114,8 +132,10 @@ class GameRun:
 if __name__ == "__main__":
     game_setup = GameRun()
 
-    game = Game(game_setup.codemaster,
-                game_setup.guesser,
+    game = Game(game_setup.redcodemaster,
+                game_setup.redguesser,
+                game_setup.bluecodemaster,
+                game_setup.blueguesser,
                 seed=game_setup.seed,
                 do_print=game_setup.do_print,
                 do_log=game_setup.do_log,

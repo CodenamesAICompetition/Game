@@ -32,28 +32,28 @@ class AICodemaster(Codemaster):
     def get_clue(self):
         lin_results = []
         count = 0
-        red_words = []
+        blue_words = []
         bad_words = []
         for i in range(25):
             if self.words[i][0] == '*':
                 continue
-            elif self.maps[i] == "Assassin" or self.maps[i] == "Blue" or self.maps[i] == "Civilian":
+            elif self.maps[i] == "Assassin" or self.maps[i] == "Red" or self.maps[i] == "Civilian":
                 bad_words.append(self.words[i].lower())
             else:
-                red_words.append(self.words[i].lower())
-        print("RED:\t", red_words)
+                blue_words.append(self.words[i].lower())
+        print("BLUE:\t", blue_words)
 
-        for red_word in red_words:
+        for blue_word in blue_words:
             for synset_in_cmwordlist in self.syns:
                 lin_clue = 0
-                for red_synset in wordnet.synsets(red_word):
+                for blue_synset in wordnet.synsets(blue_word):
                     try:
-                        # only if the two compared words have the same part of speech
-                        lin_score = synset_in_cmwordlist.lin_similarity(red_synset, self.brown_ic)
+                        # only if the two compablue words have the same part of speech
+                        lin_score = synset_in_cmwordlist.lin_similarity(blue_synset, self.brown_ic)
                     except:
                         continue
                     if lin_score:
-                        if not self.arr_not_in_word(synset_in_cmwordlist.lemma_names()[0], red_words + bad_words):
+                        if not self.arr_not_in_word(synset_in_cmwordlist.lemma_names()[0], blue_words + bad_words):
                             continue
                         lin_results.append((lin_score, synset_in_cmwordlist))
                         if lin_score > lin_clue:

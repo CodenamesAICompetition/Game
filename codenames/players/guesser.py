@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Guesser(ABC):
     """guesser abstract class that mimics a field operative in the codenames game"""
 
