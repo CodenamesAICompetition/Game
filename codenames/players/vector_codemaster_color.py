@@ -18,9 +18,9 @@ class VectorCodemaster(Codemaster):
         glove_vecs = kwargs.get("glove_vecs", None)
         word_vectors = kwargs.get("word_vectors", None)
         self.color = kwargs.get("color")
-        if self.color == "red":
+        if self.color == "Red":
             self.bad_color = "Blue"
-        elif self.color == "blue":
+        elif self.color == "Blue":
             self.bad_color = "Red"
 
         self.all_vectors = []

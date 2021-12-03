@@ -30,8 +30,11 @@ class MiniMaxCodemaster(Codemaster):
         self.word_distances = None
         self.words_on_board = None
         self.key_grid = None
-        self.good_color = "Red"
-        self.bad_color = "Blue"
+        self.good_color = kwargs['color']
+        if self.good_color == "Red":
+            self.bad_color = "Blue"
+        elif self.good_color == "Blue":
+            self.bad_color = "Red"
         self.max_clue_num = 1
 
         # Potential codemaster clues

@@ -60,11 +60,11 @@ class Game:
             self._save_stdout = sys.stdout
             sys.stdout = open(os.devnull, 'w')
 
-        cm_kwargs['color'] = "red"
+        cm_kwargs['color'] = "Red"
         self.redcodemaster = redcodemaster(**cm_kwargs)
         self.redguesser = redguesser(**g_kwargs)
 
-        cm_kwargs['color'] = "blue"
+        cm_kwargs['color'] = "Blue"
         self.bluecodemaster = bluecodemaster(**cm_kwargs)
         self.blueguesser = blueguesser(**g_kwargs)
 
