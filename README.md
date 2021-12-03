@@ -49,6 +49,14 @@ Other optional arguments include:
 * --game_name *String*
   * game_name in logfile
 
+NEW: Running the game with both players\
+The Codenames game can now be run with both Red and Blue players being manipulated by the user. To do so, add 2 args:\
+* args[3] = package.MyCodemasterBlueClass
+* args[4] = package.MyGuesserBlueClass
+
+Example:
+`python run_game.py players.codemaster_wn_lin.AICodemaster players.guesser_w2v.AIGuesser players.MyCodemasterBlueClass players.MyGuesserBlueClass --seed 3442 --w2v players/GoogleNews-vectors-negative300.bin  --wordnet ic-brown.dat`
+
 An example simulation of a *wordnet codemaster* and a *word2vec guesser* in the terminal from codenames/:  
 `$ python run_game.py players.codemaster_wn_lin.AICodemaster players.guesser_w2v.AIGuesser --seed 3442 --w2v players/GoogleNews-vectors-negative300.bin  --wordnet ic-brown.dat`
 
