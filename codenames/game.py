@@ -25,7 +25,7 @@ class Game:
     """Class that setups up game details and calls Guesser/Codemaster pair to play the game
     """
 
-    def __init__(self, redcodemaster, redguesser, bluecodemaster, blueguesser,
+    def __init__(self, redcodemaster, redguesser, bluecodemaster, blueguesser, pause,
                  seed="time", do_print=True, do_log=True, game_name="default",
                  cm_kwargs={}, g_kwargs={}):
         """ Setup Game details
@@ -67,6 +67,8 @@ class Game:
         cm_kwargs['color'] = "Blue"
         self.bluecodemaster = bluecodemaster(**cm_kwargs)
         self.blueguesser = blueguesser(**g_kwargs)
+
+        self.pause = pause
 
         self.cm_kwargs = cm_kwargs
         self.g_kwargs = g_kwargs
@@ -381,9 +383,18 @@ class Game:
             self._display_key_grid()
             self._display_board_codemaster()
 
+            if self.pause:
+                print("Enter any key to continue")
+                something = input()
+
             red_count = self.play_turn(words_in_play, GameCondition.HIT_RED, red_game_counter)
             if red_count is not None:
                 red_game_counter = red_count
+
+            if self.pause:
+                print("Enter any key to continue")
+                something = input()
+
             blue_count = self.play_turn(words_in_play, GameCondition.HIT_BLUE, blue_game_counter)
             if blue_count is not None:
                 blue_game_counter = blue_count

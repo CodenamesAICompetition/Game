@@ -29,11 +29,15 @@ class GameRun:
         parser.add_argument("--glove_cm", help="Path to glove file or None", default=None)
         parser.add_argument("--glove_guesser", help="Path to glove file or None", default=None)
 
-        parser.add_argument("--no_log", help="Supress logging", action='store_true', default=False)
-        parser.add_argument("--no_print", help="Supress printing", action='store_true', default=False)
+        parser.add_argument("--no_log", help="Suppress logging", action='store_true', default=False)
+        parser.add_argument("--no_print", help="Suppress printing", action='store_true', default=False)
         parser.add_argument("--game_name", help="Name of game in log", default="default")
 
+        parser.add_argument("--pause", help="Pause the game after every turn", default=False)
+
         args = parser.parse_args()
+
+        self.pause = args.pause
 
         self.do_log = not args.no_log
         self.do_print = not args.no_print
@@ -136,6 +140,7 @@ if __name__ == "__main__":
                 game_setup.redguesser,
                 game_setup.bluecodemaster,
                 game_setup.blueguesser,
+                game_setup.pause,
                 seed=game_setup.seed,
                 do_print=game_setup.do_print,
                 do_log=game_setup.do_log,
