@@ -42,7 +42,7 @@ class MiniMaxCodemaster(Codemaster):
 
     def set_game_state(self, words_on_board: List[str], key_grid: List[str]) -> None:
         """A set function for wordOnBoard and keyGrid (called 'map' in framework) """
-        self.words_on_board = words_on_board
+        self.words_on_board = words_on_board.copy()
         self.key_grid = key_grid
 
         # intialize word distances on first call
@@ -55,7 +55,7 @@ class MiniMaxCodemaster(Codemaster):
         for word in self.words_on_board:
             print("Calculating distance for " + word)
             self.word_distances[word] = {}
-            word_stacked = self._hstack_word_vectors(word)
+            word_stacked = self._hstack_word_vectors(word.lower())
             for potentialClue in self.cm_word_set:
                 try:
                     dist = scipy.spatial.distance.cosine(word_stacked, self._hstack_word_vectors(potentialClue))
@@ -67,17 +67,20 @@ class MiniMaxCodemaster(Codemaster):
         """Function that returns a clue word and number of estimated related words on the board"""
         clue, num = self._min_max(max, 1, self.words_on_board, self.key_grid)
         print("The " + self.good_color + " clue is " + clue)
+        print("Old board + Expected new board")
+        print(self.words_on_board)
+        new_board = self._simulate_guesses(self.good_color, clue, num, self.words_on_board, self.key_grid)
+        print(new_board)
         return (clue, num)
 
     def _min_max(self, function, depth, words_on_board, key_grid) -> Tuple[str, int]:
         # TODO prune word set for illegal clues
         clueOutcomes = {}
         for potentialClue in self.cm_word_set:
-            #print(potentialClue)
             for clueNum in range(1, self.max_clue_num + 1):
-                new_words_on_board, new_key_grid = self._simulate_guesses(self.good_color, potentialClue, clueNum, words_on_board, key_grid)
+                new_words_on_board = self._simulate_guesses(self.good_color, potentialClue, clueNum, words_on_board, key_grid)
                 # TODO minimize
-                value = self._heuristicFunction(self.good_color, new_words_on_board, new_key_grid)
+                value = self._heuristicFunction(self.good_color, new_words_on_board, key_grid)
                 clueOutcomes[(potentialClue, clueNum)] = value
 
         return function(clueOutcomes, key=clueOutcomes.get)
@@ -90,7 +93,7 @@ class MiniMaxCodemaster(Codemaster):
 
         # find and sort best words
         for word_index in range(len(words_on_board)):
-            word = words_on_board[word_index]
+            word = new_words_on_board[word_index]
             if word[0] == '*':
                 continue
             word_distance = self.word_distances[word][clue]
@@ -104,7 +107,7 @@ class MiniMaxCodemaster(Codemaster):
             if key_grid[word_index] != guesser_color:
                 break
 
-        return (new_words_on_board, key_grid)
+        return new_words_on_board
 
     def _heuristicFunction(self, last_player_color, words_on_board, key_grid):
         good_remaining = 0
@@ -115,15 +118,15 @@ class MiniMaxCodemaster(Codemaster):
         for i in range(len(self.key_grid)):
             # words on board that have already been identified will have been replaced with *<operatorName>*
             # so the first character is '*'
-            if self.words_on_board[i][0] == '*':
+            if words_on_board[i][0] == '*':
                 continue
-            elif self.key_grid[i] == self.good_color:
+            elif key_grid[i] == self.good_color:
                 good_remaining += 1
-            elif self.key_grid[i] == self.bad_color:
+            elif key_grid[i] == self.bad_color:
                 bad_remaining += 1
-            elif self.key_grid[i] == "Civilian":
+            elif key_grid[i] == "Civilian":
                 neutral_remaining += 1
-            elif self.key_grid[i] == "Assassin":
+            elif key_grid[i] == "Assassin":
                 assasin_remaining += 1
             else:
                 # TODO should never get here, throw error
