@@ -225,13 +225,13 @@ class Game:
         """
         if self.key_grid[guess_index] == "Blue":
             self.words_on_board[guess_index] = "*Blue*"
-            if self.words_on_board.count("*Blue*") >= 8:
+            if self.words_on_board.count("*Blue*") >= 7:
                 return GameCondition.WIN
             return GameCondition.HIT_BLUE
 
         elif self.key_grid[guess_index] == "Red":
             self.words_on_board[guess_index] = "*Red*"
-            if self.words_on_board.count("*Red*") >= 7:
+            if self.words_on_board.count("*Red*") >= 8:
                 return GameCondition.LOSS
             else:
                 return GameCondition.CONTINUE
@@ -329,7 +329,10 @@ class Game:
             if guess_answer is None or guess_answer == "no comparisons":
                 break
             guess_answer_index = words_in_play.index(guess_answer.upper().strip())
-            game_condition = self._accept_guess_red(guess_answer_index)
+            if color_game_condition == GameCondition.HIT_RED:
+                game_condition = self._accept_guess_red(guess_answer_index)
+            elif color_game_condition == GameCondition.HIT_BLUE:
+                game_condition = self._accept_guess_blue(guess_answer_index)
 
             if game_condition == color_game_condition:
                 print('\n' * 2)
